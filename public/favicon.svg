@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <!-- Hexagon background -->
+  <path d="M100 10L170 50V150L100 190L30 150V50L100 10Z" fill="#0D7377"/>
+  
+  <!-- Cityscape silhouette -->
+  <g fill="#32936F">
+    <!-- Left building -->
+    <rect x="50" y="110" width="20" height="50" rx="2"/>
+    <circle cx="60" cy="95" r="8"/>
+    
+    <!-- Center tall building -->
+    <rect x="85" y="80" width="30" height="80" rx="2"/>
+    <rect x="95" y="70" width="10" height="10" rx="1"/>
+    
+    <!-- Right building -->
+    <rect x="130" y="100" width="20" height="60" rx="2"/>
+    <circle cx="140" cy="85" r="8"/>
+  </g>
+  
+  <!-- Network nodes/connections -->
+  <g stroke="#E0F2F1" stroke-width="2" fill="none">
+    <!-- Connection lines -->
+    <line x1="60" y1="95" x2="100" y2="70"/>
+    <line x1="140" y1="85" x2="100" y2="70"/>
+    <line x1="60" y1="95" x2="140" y2="85"/>
+  </g>
+  
+  <!-- Node dots -->
+  <g fill="#E0F2F1">
+    <circle cx="60" cy="95" r="3"/>
+    <circle cx="100" cy="70" r="3"/>
+    <circle cx="140" cy="85" r="3"/>
+  </g>
+  
+  <!-- Ground/base -->
+  <rect x="40" y="160" width="120" height="4" rx="2" fill="#32936F"/>
+</svg>
