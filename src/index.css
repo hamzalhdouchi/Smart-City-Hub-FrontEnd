@@ -1,68 +1,756 @@
+/* === Fonts === */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
+
+@import "tailwindcss";
+
+/* === Smart City Eco-Tech Theme === */
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  /* Primary - Tech Teal */
+  --primary-main: #0D7377;
+  --primary-light: #14FFEC;
+  --primary-dark: #053B3E;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  /* Secondary - Urban Green */
+  --secondary-main: #32936F;
+  --secondary-light: #5FD19B;
+  --secondary-dark: #1E5A42;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  /* Accent */
+  --accent-electric: #00D9FF;
+  --accent-energy: #7DDF64;
+  --accent-warning: #FFB347;
+
+  /* Neutral */
+  --neutral-concrete: #B0BEC5;
+  --neutral-steel: #546E7A;
+  --neutral-asphalt: #263238;
+  --neutral-glass: #ECEFF1;
+
+  /* Status */
+  --success: #4CAF50;
+  --pending: #FF9800;
+  --error: #F44336;
+  --info: #2196F3;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
 
 body {
+  font-family: 'Inter', 'Noto Sans JP', sans-serif;
+  background-color: var(--neutral-glass);
+  color: var(--neutral-asphalt);
   margin: 0;
+  padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+/* === Smart City Animations === */
+
+/* Data Pulse - Hexagon with pulsing center */
+@keyframes data-pulse {
+
+  0%,
+  100% {
+    transform: rotate(0deg) scale(1);
+    box-shadow: 0 0 0 0 rgba(13, 115, 119, 0.7);
+  }
+
+  50% {
+    transform: rotate(180deg) scale(1.05);
+    box-shadow: 0 0 0 15px rgba(13, 115, 119, 0);
+  }
+}
+
+/* Network Connection Animation */
+@keyframes network-connect {
+  0% {
+    stroke-dashoffset: 100;
+    opacity: 0.3;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0.3;
+  }
+}
+
+/* City Lights Twinkle */
+@keyframes window-twinkle {
+
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Smart Sensor Pulse - Expanding circles */
+@keyframes sensor-pulse {
+  0% {
+    transform: scale(0.8);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+/* Signal Waves */
+@keyframes signal-wave {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+/* Fade Float */
+@keyframes fade-float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.7;
+  }
+
+  50% {
+    transform: translateY(-8px);
+    opacity: 1;
+  }
+}
+
+/* Spin for loaders */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Animation Classes */
+.animate-data-pulse {
+  animation: data-pulse 3s ease-in-out infinite;
+}
+
+.animate-network {
+  animation: network-connect 2s ease-in-out infinite;
+}
+
+.animate-twinkle {
+  animation: window-twinkle 2s ease-in-out infinite;
+}
+
+.animate-sensor-pulse {
+  animation: sensor-pulse 1.5s ease-out infinite;
+}
+
+.animate-signal {
+  animation: signal-wave 1.5s ease-out infinite;
+}
+
+.animate-fade-float {
+  animation: fade-float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-spin {
+  animation: spin 2s linear infinite;
+}
+
+/* Premium Map Animations */
+@keyframes scan-y {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+
+  100% {
+    transform: translateY(300px);
+    opacity: 0;
+  }
+}
+
+@keyframes ping-slow {
+  0% {
+    transform: scale(0.5);
+    opacity: 0.8;
+  }
+
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+@keyframes ping-slower {
+  0% {
+    transform: scale(0.3);
+    opacity: 0.4;
+  }
+
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.animate-scan-y {
+  animation: scan-y 3s linear infinite;
+}
+
+.animate-ping-slow {
+  animation: ping-slow 3s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.animate-ping-slower {
+  animation: ping-slower 4s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+/* === Background Patterns === */
+
+/* City Skyline Pattern */
+.pattern-city {
+  background-image:
+    repeating-linear-gradient(90deg,
+      transparent,
+      transparent 50px,
+      rgba(13, 115, 119, 0.03) 50px,
+      rgba(13, 115, 119, 0.03) 52px);
+}
+
+/* Circuit Board Pattern */
+.pattern-circuit {
+  background-image:
+    radial-gradient(circle, rgba(20, 255, 236, 0.08) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Combined Tech Pattern */
+.pattern-tech {
+  background-image:
+    linear-gradient(rgba(13, 115, 119, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(13, 115, 119, 0.02) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* === Input Focus States === */
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--primary-main);
+  box-shadow: 0 0 0 3px rgba(13, 115, 119, 0.2);
+}
+
+/* === Custom Scrollbar === */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--neutral-glass);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-main);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary-main);
+}
+
+/* === Incident Detail Page Styles === */
+.detail-card {
+  background: #FFFFFF;
+  border-radius: 12px;
+  padding: 16px;
+  margin: 0 12px 12px 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Timeline animations */
+@keyframes pulse-dot {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+.animate-pulse-dot {
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+/* Custom Scrollbar for Sidebar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #cbd5e1;
+  border-radius: 20px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #94a3b8;
+}
+
+/* === Apple Glassmorphism Header (Liquid Glass) === */
+.home-header-glass {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  /* Gradient background (subtle, behind glass) */
+  background: linear-gradient(135deg,
+      rgba(13, 115, 119, 0.15) 0%,
+      /* Teal 15% opacity */
+      rgba(20, 255, 236, 0.1) 100%
+      /* Cyan 10% opacity */
+    );
+
+  /* Glassmorphism effect */
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+
+  /* Border */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+
+  /* Shadow for depth */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+/* Greeting Section */
+.greeting-text-premium {
+  background: linear-gradient(135deg, #263238 0%, #546E7A 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* Utility Classes */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+/* Global scrollbar removal for specific elements */
+* {
+  -webkit-overflow-scrolling: touch;
+}
+
+*::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+
+/* === Liquid Glass Incident Cards === */
+.incident-card-glass {
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.incident-card-glass:active {
+  transform: scale(0.97);
+}
+
+.incident-card-hover-glow:hover {
+  background: rgba(255, 255, 255, 0.6);
+  border-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 12px 40px rgba(13, 115, 119, 0.08),
+    0 0 0 3px rgba(13, 115, 119, 0.05);
+  transform: translateY(-4px);
+}
+
+.glass-image-container {
+  mask-image: radial-gradient(white, black);
+  /* Fix for overflow: hidden with border-radius & blur */
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 60%, rgba(0, 0, 0, 0.2) 100%);
+  pointer-events: none;
+}
+
+/* === My Incidents Theme (Purple/Indigo) === */
+:root {
+  --my-incidents-primary: #5E35B1;
+  /* Purple */
+  --my-incidents-secondary: #7E57C2;
+  /* Light Purple */
+  --my-incidents-gradient: linear-gradient(135deg, #5E35B1 0%, #7E57C2 100%);
+
+  /* Status Colors */
+  --status-active: #FF9800;
+  /* Orange */
+  --status-resolved: #4CAF50;
+  /* Green */
+  --status-rejected: #F44336;
+  /* Red */
+  --status-closed: #607D8B;
+  /* Gray */
+  --status-pending: #FFC107;
+  /* Yellow */
+}
+
+.my-incidents-header-gradient {
+  background: var(--my-incidents-gradient);
+  color: white;
+}
+
+.stats-card-glass {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.filter-tab-active {
+  background: var(--my-incidents-gradient);
+  color: white;
+  box-shadow: 0 4px 12px rgba(94, 53, 177, 0.3);
+}
+
+.filter-tab-inactive {
+  background: #F5F5F5;
+  color: #424242;
+}
+
+.my-incident-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+}
+
+.my-incident-card:active {
+  transform: scale(0.98);
+}
+
+.fab-purple {
+  background: var(--my-incidents-gradient);
+  box-shadow: 0 8px 24px rgba(94, 53, 177, 0.4);
+}
+
+/* === Liquid Glass Mobile Navbar === */
+.mobile-navbar-glass {
+  background: rgba(255, 255, 255, 0.7);
+  /* More transparent base */
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-top: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.05);
+  /* Softer shadow */
+}
+
+/* Active Tab Glow Pill */
+.nav-item-active-glow {
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  background: radial-gradient(circle, rgba(13, 115, 119, 0.15) 0%, rgba(20, 255, 236, 0.05) 70%, transparent 100%);
+  border-radius: 50%;
+  z-index: 0;
+  transition: all 0.3s ease-out;
+}
+
+/* FAB Glow - Floating Action Button */
+.fab-glass-glow {
+  box-shadow: 0 8px 20px rgba(13, 115, 119, 0.3),
+    0 0 0 4px rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.8);
+}
+
+.greeting-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #263238;
+  /* Dark gray */
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
+}
+
+.greeting-location {
+  font-size: 14px;
+  color: #546E7A;
+  /* Steel gray */
+  margin-top: 4px;
+}
+
+/* Action Buttons (Notification, Search) */
+.action-button-glass {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
   display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  transition: all 0.3s ease;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+.action-button-glass:hover {
+  background: rgba(255, 255, 255, 0.6);
+  transform: scale(1.05);
+}
+
+.action-button-glass:active {
+  transform: scale(0.95);
+}
+
+/* Filter Chips Section */
+.filter-chips-container {
+  padding: 16px 24px;
+  background: rgba(255, 255, 255, 0.2);
+  /* Lighter glass */
+  backdrop-filter: blur(12px);
+  margin: 0 16px 16px 16px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Individual Filter Chip (Glass Pills) */
+.filter-chip-glass {
+  padding: 10px 20px;
+  border-radius: 24px;
+  /* Full pill */
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  color: #263238;
+  /* Default text color */
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+/* Active chip */
+.filter-chip-glass.active {
+  background: rgba(13, 115, 119, 0.2);
+  /* Teal tint */
+  border: 2px solid #0D7377;
+  /* Teal border */
+  color: #0D7377;
+  font-weight: 600;
+}
+
+/* Hover effect */
+.filter-chip-glass:hover {
+  background: rgba(255, 255, 255, 0.7);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* === Gamified My Incidents Theme (Teal/Jade - App Theme) === */
+:root {
+  --my-incidents-primary: #0D7377;
+  /* Teal */
+  --my-incidents-secondary: #32936F;
+  /* Jade Green */
+  --my-incidents-accent: #14FFEC;
+  /* Electric Cyan */
+  --my-incidents-gradient-135: linear-gradient(135deg, #0D7377 0%, #32936F 100%);
+  --my-incidents-gradient-90: linear-gradient(90deg, #0D7377 0%, #32936F 100%);
+
+  /* Gamification Specific Status Colors */
+  --gamifed-active: #0D7377;
+  /* Teal */
+  --gamifed-resolved: #32936F;
+  /* Jade */
+  --gamifed-rejected: #EF4444;
+  /* Red */
+  --gamifed-closed: #546E7A;
+  /* Steel Gray */
+  --gamifed-pending: #FFB347;
+  /* Amber */
+}
+
+.my-incidents-bg-gradient {
+  background: var(--my-incidents-gradient-135);
+}
+
+.dot-grid-pattern {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.shimmer-sweep {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-sweep::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(to bottom right,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0) 40%,
+      rgba(255, 255, 255, 0.1) 50%,
+      rgba(255, 255, 255, 0) 60%,
+      rgba(255, 255, 255, 0) 100%);
+  animation: shimmer-sweep 3s infinite linear;
+  pointer-events: none;
+}
+
+@keyframes shimmer-sweep {
+  0% {
+    transform: translate(-30%, -30%);
   }
-  a:hover {
-    color: #747bff;
+
+  100% {
+    transform: translate(30%, 30%);
   }
-  button {
-    background-color: #f9f9f9;
+}
+
+.pulse-fill {
+  position: relative;
+  overflow: hidden;
+}
+
+.pulse-fill::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.3);
+  animation: pulse-fill 2s infinite ease-in-out;
+}
+
+@keyframes pulse-fill {
+  0% {
+    opacity: 0.1;
   }
+
+  50% {
+    opacity: 0.4;
+  }
+
+  100% {
+    opacity: 0.1;
+  }
+}
+
+.card-press-animation:active {
+  transform: scale(0.98);
+  transition: transform 0.1s ease;
+}
+
+.stat-card-translate:active {
+  transform: translateY(2px);
+  transition: transform 0.1s ease;
+}
+
+.glass-avatar {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* === Premium Animated Header Background === */
+@keyframes gradient-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.premium-gradient-animate {
+  background: linear-gradient(-45deg, #0D7377, #14FFEC, #32936F, #053B3E);
+  background-size: 400% 400%;
+  animation: gradient-flow 15s ease infinite;
+  box-shadow: 0 10px 30px -10px rgba(13, 115, 119, 0.5);
+}
+
+/* Optional: Overlay Pattern for Texture */
+.hero-pattern-overlay {
+  background-image:
+    radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+    radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 20px 20px;
+  background-position: 0 0, 10px 10px;
+  opacity: 0.2;
 }
