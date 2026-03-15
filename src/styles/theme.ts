@@ -201,6 +201,7 @@ export const getStatusBadgeColor = (status: string) => {
         'pending': { bg: colors.accent.warning, text: '#5D3A1A' },
         'assigned': { bg: '#9C27B0', text: '#FFFFFF' },
         'inprogress': { bg: colors.primary.main, text: '#FFFFFF' },
+        'pendingvalidation': { bg: '#F59E0B', text: '#FFFFFF' },  // Amber - awaiting approval
         'resolved': { bg: colors.secondary.main, text: '#FFFFFF' },
         'validated': { bg: '#4CAF50', text: '#FFFFFF' },  // Green - confirmed
         'rejected': { bg: colors.accent.danger, text: '#FFFFFF' },

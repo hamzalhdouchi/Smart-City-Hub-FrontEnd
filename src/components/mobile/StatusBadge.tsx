@@ -5,10 +5,12 @@ export type IncidentStatus =
     | 'NEW'
     | 'ASSIGNED'
     | 'IN_PROGRESS'
+    | 'PENDING_VALIDATION'
     | 'RESOLVED'
     | 'VALIDATED'
     | 'REJECTED'
-    | 'REOPENED';
+    | 'REOPENED'
+    | 'CLOSED';
 
 interface StatusBadgeProps {
     status: IncidentStatus | string;
@@ -20,8 +22,7 @@ export const StatusBadge: React.FC<StatusBadgeProps> = ({ status, className = ''
 
     // Format status text
     const statusText = status
-        .replace('_', ' ')
-        .split(' ')
+        .split('_')
         .map(word => word.charAt(0) + word.slice(1).toLowerCase())
         .join(' ');
 

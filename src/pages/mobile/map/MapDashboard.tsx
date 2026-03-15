@@ -9,8 +9,13 @@ import { DEMO_INCIDENTS } from './demoData';
 import { toast } from 'react-hot-toast';
 import { useAuth } from '../../../context/AuthContext';
 
-// Casablanca Center
-const DEFAULT_CENTER: [number, number] = [33.5731, -7.5898];
+import L from 'leaflet';
+
+const MARRAKECH_CENTER: [number, number] = [31.6295, -7.9811];
+const MARRAKECH_BOUNDS = L.latLngBounds(
+    L.latLng(31.54, -8.10),
+    L.latLng(31.72, -7.87)
+);
 
 export const MapDashboard: React.FC = () => {
     const navigate = useNavigate();
@@ -101,8 +106,12 @@ export const MapDashboard: React.FC = () => {
         <div className="relative w-full h-[100dvh] lg:h-screen bg-slate-900 overflow-hidden">
             {/* Map Container */}
             <MapContainer
-                center={DEFAULT_CENTER}
+                center={MARRAKECH_CENTER}
                 zoom={13}
+                minZoom={12}
+                maxZoom={18}
+                maxBounds={MARRAKECH_BOUNDS}
+                maxBoundsViscosity={1.0}
                 style={{ height: '100%', width: '100%' }}
                 zoomControl={false}
                 className="z-0"

@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, CheckCircle2, AlertTriangle, UploadCloud, Loader2 } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, AlertTriangle, UploadCloud, Loader2, X, Image as ImageIcon } from 'lucide-react';
 import { HeroGallery } from '../mobile/components/incident-detail/HeroGallery';
 import { TitleDescriptionCard } from '../mobile/components/incident-detail/TitleDescriptionCard';
 import { QuickInfoCard } from '../mobile/components/incident-detail/QuickInfoCard';
@@ -9,10 +9,140 @@ import { MapCard } from '../mobile/components/incident-detail/MapCard';
 import { CommentsSection } from '../mobile/components/incident-detail/CommentsSection';
 import { Card, Button, DataPulseLoader } from '../../components/common';
 import { incidentService } from '../../services/incidentService';
-import { incidentPhotoService } from '../../services/incidentPhotoService';
 import { useAuth } from '../../context/AuthContext';
 import type { IncidentDetail } from '../../types/incident';
 import toast from 'react-hot-toast';
+
+// ─── Resolve Modal ────────────────────────────────────────────────────────────
+
+interface ResolveModalProps {
+    isOpen: boolean;
+    isSubmitting: boolean;
+    onClose: () => void;
+    onSubmit: (files: File[]) => void;
+}
+
+const ResolveModal: React.FC<ResolveModalProps> = ({ isOpen, isSubmitting, onClose, onSubmit }) => {
+    const [files, setFiles] = useState<File[]>([]);
+    const [previews, setPreviews] = useState<string[]>([]);
+    const inputRef = useRef<HTMLInputElement>(null);
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const selected = Array.from(e.target.files || []);
+        setFiles(selected);
+        setPreviews(selected.map((f) => URL.createObjectURL(f)));
+    };
+
+    const removeFile = (index: number) => {
+        URL.revokeObjectURL(previews[index]);
+        setFiles((prev) => prev.filter((_, i) => i !== index));
+        setPreviews((prev) => prev.filter((_, i) => i !== index));
+    };
+
+    const handleClose = () => {
+        previews.forEach((url) => URL.revokeObjectURL(url));
+        setFiles([]);
+        setPreviews([]);
+        onClose();
+    };
+
+    if (!isOpen) return null;
+
+    return (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <div className="absolute inset-0 bg-black/50" onClick={handleClose} />
+            <div className="relative bg-white rounded-xl shadow-xl w-full max-w-lg">
+                {/* Header */}
+                <div className="flex items-center justify-between p-4 border-b border-[#ECEFF1]">
+                    <h2 className="text-lg font-semibold text-[#263238] flex items-center gap-2">
+                        <UploadCloud size={20} className="text-[#32936F]" />
+                        Submit Resolution
+                    </h2>
+                    <button
+                        onClick={handleClose}
+                        className="p-1.5 hover:bg-[#ECEFF1] rounded-lg transition-colors"
+                    >
+                        <X size={20} className="text-[#546E7A]" />
+                    </button>
+                </div>
+
+                {/* Body */}
+                <div className="p-4 space-y-4">
+                    <p className="text-sm text-[#546E7A]">
+                        Upload at least one clear photo showing the issue has been fixed. An admin will
+                        review your submission before the incident is officially resolved.
+                    </p>
+
+                    {/* Upload area */}
+                    <div
+                        className="border-2 border-dashed border-[#B0BEC5] rounded-xl p-6 text-center cursor-pointer hover:border-[#32936F] transition-colors"
+                        onClick={() => inputRef.current?.click()}
+                    >
+                        <ImageIcon size={32} className="mx-auto mb-2 text-[#B0BEC5]" />
+                        <p className="text-sm text-[#78909C]">
+                            Click to select photos (JPEG, PNG, WebP — max 10 MB each)
+                        </p>
+                        <input
+                            ref={inputRef}
+                            type="file"
+                            accept="image/jpeg,image/png,image/gif,image/webp"
+                            multiple
+                            className="hidden"
+                            onChange={handleFileChange}
+                        />
+                    </div>
+
+                    {/* Previews */}
+                    {previews.length > 0 && (
+                        <div className="grid grid-cols-3 gap-2">
+                            {previews.map((src, i) => (
+                                <div key={i} className="relative group rounded-lg overflow-hidden aspect-square">
+                                    <img
+                                        src={src}
+                                        alt={`Preview ${i + 1}`}
+                                        className="w-full h-full object-cover"
+                                    />
+                                    <button
+                                        onClick={() => removeFile(i)}
+                                        className="absolute top-1 right-1 w-5 h-5 bg-black/60 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                                    >
+                                        <X size={12} className="text-white" />
+                                    </button>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                </div>
+
+                {/* Footer */}
+                <div className="p-4 border-t border-[#ECEFF1] flex gap-3">
+                    <Button variant="outline" onClick={handleClose} className="flex-1">
+                        Cancel
+                    </Button>
+                    <Button
+                        onClick={() => onSubmit(files)}
+                        disabled={files.length === 0 || isSubmitting}
+                        className="flex-1 bg-[#32936F] text-white"
+                    >
+                        {isSubmitting ? (
+                            <>
+                                <Loader2 size={16} className="mr-2 animate-spin" />
+                                Submitting…
+                            </>
+                        ) : (
+                            <>
+                                <CheckCircle2 size={16} className="mr-2" />
+                                Submit Resolution
+                            </>
+                        )}
+                    </Button>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+// ─── Page ─────────────────────────────────────────────────────────────────────
 
 const AgentIncidentDetailPage: React.FC = () => {
     const { id } = useParams<{ id: string }>();
@@ -23,10 +153,8 @@ const AgentIncidentDetailPage: React.FC = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
+    const [showResolveModal, setShowResolveModal] = useState(false);
     const [isResolving, setIsResolving] = useState(false);
-    const [showResolvePanel, setShowResolvePanel] = useState(false);
-    const [resolveFiles, setResolveFiles] = useState<File[]>([]);
-    const [resolveComment, setResolveComment] = useState('');
 
     const loadIncident = useCallback(async () => {
         if (!id) return;
@@ -52,7 +180,7 @@ const AgentIncidentDetailPage: React.FC = () => {
                 });
             }
 
-            if (data.status === 'IN_PROGRESS' || data.status === 'RESOLVED' || data.status === 'VALIDATED') {
+            if (['IN_PROGRESS', 'PENDING_VALIDATION', 'RESOLVED', 'VALIDATED'].includes(data.status)) {
                 statusHistory.push({
                     status: 'IN_PROGRESS' as const,
                     timestamp: new Date(data.updatedAt),
@@ -61,7 +189,7 @@ const AgentIncidentDetailPage: React.FC = () => {
                 });
             }
 
-            if (data.status === 'RESOLVED' || data.status === 'VALIDATED') {
+            if (['PENDING_VALIDATION', 'RESOLVED', 'VALIDATED'].includes(data.status)) {
                 statusHistory.push({
                     status: 'RESOLVED' as const,
                     timestamp: (data as any).resolvedAt ? new Date((data as any).resolvedAt) : new Date(data.updatedAt),
@@ -125,24 +253,17 @@ const AgentIncidentDetailPage: React.FC = () => {
         }
     };
 
-    const handleResolve = async () => {
+    const handleSubmitResolution = async (files: File[]) => {
         if (!id || !incident) return;
-        if (resolveFiles.length === 0) {
-            toast.error('Please upload at least one photo of the resolved incident.');
-            return;
-        }
         try {
             setIsResolving(true);
-            await incidentPhotoService.uploadPhotos(id, resolveFiles);
-            await incidentService.updateStatus(id, { status: 'RESOLVED', comment: resolveComment || undefined });
-            toast.success('Incident marked as RESOLVED and photos uploaded for admin review');
-            setShowResolvePanel(false);
-            setResolveFiles([]);
-            setResolveComment('');
+            await incidentService.resolveIncident(id, files);
+            toast.success('Resolution submitted, awaiting admin approval');
+            setShowResolveModal(false);
             await loadIncident();
-        } catch (e) {
-            console.error('Failed to resolve incident:', e);
-            toast.error('Failed to resolve incident. Please try again.');
+        } catch (e: any) {
+            const msg = e?.response?.data?.message || 'Failed to submit resolution. Please try again.';
+            toast.error(msg);
         } finally {
             setIsResolving(false);
         }
@@ -165,8 +286,10 @@ const AgentIncidentDetailPage: React.FC = () => {
         );
     }
 
-    const canStartWork = incident.status === 'ASSIGNED';
-    const canResolve = incident.status === 'IN_PROGRESS' || incident.status === 'ASSIGNED';
+    const isAssignedAgent = incident.assignedAgent?.id === user?.id;
+    const canStartWork = incident.status === 'ASSIGNED' && isAssignedAgent;
+    const canResolve = incident.status === 'IN_PROGRESS' && isAssignedAgent;
+    const isPendingValidation = incident.status === 'PENDING_VALIDATION';
 
     return (
         <div className="space-y-6">
@@ -227,8 +350,8 @@ const AgentIncidentDetailPage: React.FC = () => {
                     <Card>
                         <h2 className="text-lg font-semibold text-[#263238] mb-2">Mission Status</h2>
                         <p className="text-sm text-[#546E7A] mb-4">
-                            Update the incident status as you work. A resolution photo is required to mark this
-                            incident as <strong>RESOLVED</strong>.
+                            Update the incident status as you work. A resolution photo is required to
+                            submit this incident for admin approval.
                         </p>
 
                         <QuickInfoCard
@@ -239,10 +362,7 @@ const AgentIncidentDetailPage: React.FC = () => {
                             isCurrentUser={incident.reporter.id === user?.id}
                             assignedAgent={
                                 incident.assignedAgent
-                                    ? {
-                                          name: incident.assignedAgent.fullName,
-                                          role: 'Agent',
-                                      }
+                                    ? { name: incident.assignedAgent.fullName, role: 'Agent' }
                                     : undefined
                             }
                         />
@@ -263,96 +383,28 @@ const AgentIncidentDetailPage: React.FC = () => {
                             {canResolve && (
                                 <Button
                                     variant="secondary"
-                                    onClick={() => setShowResolvePanel(true)}
+                                    onClick={() => setShowResolveModal(true)}
                                     className="border-[#32936F]/40 text-[#32936F]"
                                 >
                                     <CheckCircle2 size={18} className="mr-2" />
-                                    Mark as resolved (with photos)
+                                    Submit Resolution
                                 </Button>
                             )}
-                            {!canStartWork && !canResolve && (
+                            {isPendingValidation && (
+                                <div className="flex items-center gap-2 p-3 rounded-xl bg-amber-50 border border-amber-200">
+                                    <AlertTriangle size={18} className="text-amber-500 flex-shrink-0" />
+                                    <p className="text-sm text-amber-800">
+                                        Resolution submitted. Awaiting admin approval.
+                                    </p>
+                                </div>
+                            )}
+                            {!canStartWork && !canResolve && !isPendingValidation && (
                                 <p className="text-xs text-[#90A4AE]">
                                     This incident can no longer be updated by agents.
                                 </p>
                             )}
                         </div>
                     </Card>
-
-                    {/* Resolve panel */}
-                    {showResolvePanel && (
-                        <Card className="border border-[#32936F]/30 bg-[#E8F5E9]">
-                            <div className="flex items-start gap-3 mb-3">
-                                <div className="w-9 h-9 rounded-full bg-white flex items-center justify-center shadow">
-                                    <UploadCloud size={18} className="text-[#32936F]" />
-                                </div>
-                                <div>
-                                    <h3 className="text-sm font-semibold text-[#1B5E20]">
-                                        Upload resolution evidence
-                                    </h3>
-                                    <p className="text-xs text-[#388E3C]">
-                                        Add at least one clear photo showing the issue has been fixed. Admins will
-                                        review before closing the mission.
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div className="space-y-3">
-                                <input
-                                    type="file"
-                                    accept="image/*"
-                                    multiple
-                                    onChange={(e) => {
-                                        const files = Array.from(e.target.files || []);
-                                        setResolveFiles(files);
-                                    }}
-                                    className="block w-full text-xs text-[#546E7A] file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-[#0D7377]/10 file:text-[#0D7377] hover:file:bg-[#0D7377]/20"
-                                />
-                                <textarea
-                                    value={resolveComment}
-                                    onChange={(e) => setResolveComment(e.target.value)}
-                                    placeholder="Optional note for the admin (what was done, special details...)"
-                                    className="w-full text-xs border border-[#Cfd8dc] rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#0D7377]/40"
-                                    rows={3}
-                                />
-
-                                <div className="flex items-center justify-between mt-2">
-                                    <span className="text-[11px] text-[#455A64]">
-                                        Selected photos: <strong>{resolveFiles.length}</strong>
-                                    </span>
-                                    <div className="flex gap-2">
-                                        <Button
-                                            variant="ghost"
-                                            onClick={() => {
-                                                setShowResolvePanel(false);
-                                                setResolveFiles([]);
-                                                setResolveComment('');
-                                            }}
-                                            className="text-[#546E7A]"
-                                        >
-                                            Cancel
-                                        </Button>
-                                        <Button
-                                            onClick={handleResolve}
-                                            disabled={isResolving}
-                                            className="bg-[#32936F] text-white"
-                                        >
-                                            {isResolving ? (
-                                                <>
-                                                    <Loader2 size={16} className="mr-2 animate-spin" />
-                                                    Saving...
-                                                </>
-                                            ) : (
-                                                <>
-                                                    <CheckCircle2 size={16} className="mr-2" />
-                                                    Confirm & mark resolved
-                                                </>
-                                            )}
-                                        </Button>
-                                    </div>
-                                </div>
-                            </div>
-                        </Card>
-                    )}
 
                     <Card className="bg-[#FFFDE7] border border-[#FFECB3]">
                         <div className="flex gap-3">
@@ -364,17 +416,23 @@ const AgentIncidentDetailPage: React.FC = () => {
                                     Admin validation
                                 </h3>
                                 <p className="text-xs text-[#6D4C41]">
-                                    After you mark this incident as resolved with photos, supervisors and admins can
-                                    review the evidence and update the final status.
+                                    After you submit resolution photos, an admin will review the evidence
+                                    and approve or reject your submission.
                                 </p>
                             </div>
                         </div>
                     </Card>
                 </div>
             </div>
+
+            <ResolveModal
+                isOpen={showResolveModal}
+                isSubmitting={isResolving}
+                onClose={() => setShowResolveModal(false)}
+                onSubmit={handleSubmitResolution}
+            />
         </div>
     );
 };
 
 export default AgentIncidentDetailPage;
-

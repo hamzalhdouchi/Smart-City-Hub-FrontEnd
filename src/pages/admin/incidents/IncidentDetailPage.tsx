@@ -28,29 +28,18 @@ import { useAuth } from '../../../context/AuthContext';
 import toast from 'react-hot-toast';
 
 const getStatusBadge = (status: IncidentStatus) => {
-    const styles: Record<IncidentStatus, { bg: string; text: string; icon: React.ReactNode }> = {
-        NEW: {
-            bg: 'bg-blue-100',
-            text: 'text-blue-700',
-            icon: <AlertCircle size={16} />,
-        },
-        IN_PROGRESS: {
-            bg: 'bg-amber-100',
-            text: 'text-amber-700',
-            icon: <Play size={16} />,
-        },
-        RESOLVED: {
-            bg: 'bg-green-100',
-            text: 'text-green-700',
-            icon: <CheckCircle size={16} />,
-        },
-        CLOSED: {
-            bg: 'bg-gray-100',
-            text: 'text-gray-700',
-            icon: <XCircle size={16} />,
-        },
+    const styles: Partial<Record<IncidentStatus, { bg: string; text: string; icon: React.ReactNode }>> = {
+        NEW: { bg: 'bg-blue-100', text: 'text-blue-700', icon: <AlertCircle size={16} /> },
+        ASSIGNED: { bg: 'bg-purple-100', text: 'text-purple-700', icon: <Play size={16} /> },
+        IN_PROGRESS: { bg: 'bg-amber-100', text: 'text-amber-700', icon: <Play size={16} /> },
+        PENDING_VALIDATION: { bg: 'bg-orange-100', text: 'text-orange-700', icon: <AlertCircle size={16} /> },
+        RESOLVED: { bg: 'bg-green-100', text: 'text-green-700', icon: <CheckCircle size={16} /> },
+        VALIDATED: { bg: 'bg-emerald-100', text: 'text-emerald-700', icon: <CheckCircle size={16} /> },
+        REJECTED: { bg: 'bg-red-100', text: 'text-red-700', icon: <XCircle size={16} /> },
+        REOPENED: { bg: 'bg-orange-100', text: 'text-orange-700', icon: <AlertCircle size={16} /> },
+        CLOSED: { bg: 'bg-gray-100', text: 'text-gray-700', icon: <XCircle size={16} /> },
     };
-    return styles[status] || styles.NEW;
+    return styles[status] || { bg: 'bg-blue-100', text: 'text-blue-700', icon: <AlertCircle size={16} /> };
 };
 
 const getPriorityBadge = (priority: string) => {
@@ -161,6 +150,30 @@ const IncidentDetailPage: React.FC = () => {
         }
     };
 
+    const handleApproveResolution = async () => {
+        if (!incident) return;
+        try {
+            const updated = await incidentService.updateStatus(incident.id, { status: 'RESOLVED' });
+            setIncident(updated);
+            toast.success('Incident marked as resolved');
+        } catch (error) {
+            console.error('Failed to approve resolution:', error);
+            toast.error('Failed to approve resolution');
+        }
+    };
+
+    const handleRejectResolution = async () => {
+        if (!incident) return;
+        try {
+            const updated = await incidentService.updateStatus(incident.id, { status: 'REOPENED' });
+            setIncident(updated);
+            toast.success('Resolution rejected, incident reopened');
+        } catch (error) {
+            console.error('Failed to reject resolution:', error);
+            toast.error('Failed to reject resolution');
+        }
+    };
+
     const getGoogleMapsUrl = () => {
         if (!incident) return '';
         return `https://www.google.com/maps?q=${incident.latitude},${incident.longitude}`;
@@ -234,7 +247,27 @@ const IncidentDetailPage: React.FC = () => {
                 </div>
 
                 {isAdmin && (
-                    <div className="flex gap-2 self-start md:self-center">
+                    <div className="flex gap-2 self-start md:self-center flex-wrap">
+                        {incident.status === 'PENDING_VALIDATION' && (
+                            <>
+                                <Button
+                                    size="sm"
+                                    onClick={handleApproveResolution}
+                                    className="bg-green-600 hover:bg-green-700 text-white"
+                                >
+                                    <CheckCircle size={16} className="mr-2" />
+                                    Approve Resolution
+                                </Button>
+                                <Button
+                                    size="sm"
+                                    onClick={handleRejectResolution}
+                                    className="bg-red-600 hover:bg-red-700 text-white"
+                                >
+                                    <XCircle size={16} className="mr-2" />
+                                    Reject Resolution
+                                </Button>
+                            </>
+                        )}
                         <Button
                             variant="outline"
                             size="sm"

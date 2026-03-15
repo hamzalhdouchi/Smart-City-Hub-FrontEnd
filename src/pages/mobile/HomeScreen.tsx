@@ -23,6 +23,8 @@ export const HomeScreen: React.FC = () => {
     const { user } = useAuth();
     const navigate = useNavigate();
     const [isFilterOpen, setIsFilterOpen] = useState(false);
+    const [showSearch, setShowSearch] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
 
     const [incidents, setIncidents] = useState<Incident[]>([]);
     const [loading, setLoading] = useState(true);
@@ -111,6 +113,17 @@ export const HomeScreen: React.FC = () => {
         navigate(`/incidents/${id}`);
     };
 
+    // Client-side search filter
+    const q = searchQuery.trim().toLowerCase();
+    const displayedIncidents = q
+        ? incidents.filter(i =>
+            i.title?.toLowerCase().includes(q) ||
+            i.address?.toLowerCase().includes(q) ||
+            i.category?.name?.toLowerCase().includes(q) ||
+            i.description?.toLowerCase().includes(q)
+        )
+        : incidents;
+
     return (
         <div className="min-h-screen relative lg:bg-[#F5F7FA]" style={{ backgroundColor: !isDesktop ? theme.colors.neutral.glass : undefined }}>
             {/* Sticky Header Container */}
@@ -169,7 +182,7 @@ export const HomeScreen: React.FC = () => {
                                     <span className="text-[10px] font-black text-white/90 uppercase tracking-widest">Live</span>
                                 </div>
                                 <button
-                                    onClick={() => navigate('/search')}
+                                    onClick={() => { setShowSearch(s => !s); setSearchQuery(''); }}
                                     className="w-10 h-10 flex items-center justify-center rounded-xl bg-white/15 border border-white/25 hover:bg-white/25 transition-all"
                                     aria-label="Search"
                                 >
@@ -224,7 +237,7 @@ export const HomeScreen: React.FC = () => {
 
                             {/* Right: Search */}
                             <button
-                                onClick={() => navigate('/search')}
+                                onClick={() => { setShowSearch(s => !s); setSearchQuery(''); }}
                                 className="w-10 h-10 flex items-center justify-center rounded-xl bg-white/15 border border-white/25 hover:bg-white/25 active:scale-95 transition-all"
                                 aria-label="Search"
                             >
@@ -267,7 +280,30 @@ export const HomeScreen: React.FC = () => {
                         })}
                     </div>
                 </div>
-            </header >
+            </header>
+
+            {/* Expandable search bar */}
+            {showSearch && (
+                <div className="sticky top-0 z-30 px-4 py-2 bg-white border-b border-slate-100 shadow-sm animate-in slide-in-from-top-2 duration-200">
+                    <div className="relative">
+                        <Search size={17} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+                        <input
+                            autoFocus
+                            type="text"
+                            value={searchQuery}
+                            onChange={e => setSearchQuery(e.target.value)}
+                            placeholder="Search incidents by title, address, category…"
+                            className="w-full pl-9 pr-9 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium text-slate-700 placeholder:text-slate-400 focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/10"
+                        />
+                        {searchQuery && (
+                            <button
+                                onClick={() => setSearchQuery('')}
+                                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                            >✕</button>
+                        )}
+                    </div>
+                </div>
+            )}
 
             <style>{`
                 @keyframes animate-pulse-red {
@@ -371,13 +407,13 @@ export const HomeScreen: React.FC = () => {
                             </div>
                         ))}
                     </div>
-                ) : incidents.length === 0 ? (
+                ) : displayedIncidents.length === 0 ? (
                     // Empty state
                     <EmptyState
-                        icon={<div className="text-6xl">🏙️✨</div>}
-                        title="All Clear!"
-                        description="No incidents reported yet. Your city is running smoothly."
-                        action={{
+                        icon={<div className="text-6xl">{q ? '🔍' : '🏙️✨'}</div>}
+                        title={q ? 'No results found' : 'All Clear!'}
+                        description={q ? `No incidents match "${searchQuery}".` : 'No incidents reported yet. Your city is running smoothly.'}
+                        action={q ? undefined : {
                             label: 'Report First Incident',
                             onClick: () => navigate('/report'),
                         }}
@@ -385,7 +421,7 @@ export const HomeScreen: React.FC = () => {
                 ) : (
                     <div className="space-y-4 lg:space-y-0 lg:grid lg:grid-cols-4 lg:gap-5">
                         {/* Incident cards */}
-                        {incidents.map((incident) => (
+                        {displayedIncidents.map((incident) => (
                             <IncidentFeedCard
                                 key={incident.id}
                                 incident={incident}

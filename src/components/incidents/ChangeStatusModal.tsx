@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, AlertCircle, Play, CheckCircle, XCircle, FileCheck } from 'lucide-react';
+import { X, AlertCircle, Play, CheckCircle, XCircle, FileCheck, Clock, RotateCcw } from 'lucide-react';
 import { Button } from '../common';
 import type { IncidentStatus } from '../../services/incidentService';
 
@@ -19,6 +19,13 @@ const statusOptions: { value: IncidentStatus; label: string; description: string
         color: 'text-blue-600 bg-blue-100',
     },
     {
+        value: 'ASSIGNED',
+        label: 'Assigned',
+        description: 'Incident has been assigned to an agent',
+        icon: <Play size={20} />,
+        color: 'text-purple-600 bg-purple-100',
+    },
+    {
         value: 'IN_PROGRESS',
         label: 'In Progress',
         description: 'An agent is actively working on this incident',
@@ -26,11 +33,39 @@ const statusOptions: { value: IncidentStatus; label: string; description: string
         color: 'text-amber-600 bg-amber-100',
     },
     {
+        value: 'PENDING_VALIDATION',
+        label: 'Pending Approval',
+        description: 'Agent submitted resolution — awaiting admin approval',
+        icon: <Clock size={20} />,
+        color: 'text-orange-600 bg-orange-100',
+    },
+    {
         value: 'RESOLVED',
         label: 'Resolved',
         description: 'The issue has been addressed and fixed',
         icon: <CheckCircle size={20} />,
         color: 'text-green-600 bg-green-100',
+    },
+    {
+        value: 'VALIDATED',
+        label: 'Validated',
+        description: 'Resolution confirmed by admin',
+        icon: <CheckCircle size={20} />,
+        color: 'text-emerald-600 bg-emerald-100',
+    },
+    {
+        value: 'REJECTED',
+        label: 'Rejected',
+        description: 'Resolution was rejected by admin',
+        icon: <XCircle size={20} />,
+        color: 'text-red-600 bg-red-100',
+    },
+    {
+        value: 'REOPENED',
+        label: 'Reopened',
+        description: 'Incident has been reopened for further work',
+        icon: <RotateCcw size={20} />,
+        color: 'text-orange-600 bg-orange-100',
     },
     {
         value: 'CLOSED',

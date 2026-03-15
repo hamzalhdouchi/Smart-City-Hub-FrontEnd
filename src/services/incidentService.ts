@@ -1,6 +1,6 @@
 import api from './api';
 
-export type IncidentStatus = 'NEW' | 'ASSIGNED' | 'IN_PROGRESS' | 'RESOLVED' | 'VALIDATED' | 'REJECTED' | 'REOPENED' | 'CLOSED';
+export type IncidentStatus = 'NEW' | 'ASSIGNED' | 'IN_PROGRESS' | 'PENDING_VALIDATION' | 'RESOLVED' | 'VALIDATED' | 'REJECTED' | 'REOPENED' | 'CLOSED';
 export type Priority = 'HIGH' | 'MEDIUM' | 'LOW';
 
 export interface IncidentUser {
@@ -152,6 +152,16 @@ export const incidentService = {
     // Update incident status
     updateStatus: async (id: string, request: UpdateStatusRequest): Promise<Incident> => {
         const response = await api.patch(`/api/incidents/${id}/status`, request);
+        return response.data.data;
+    },
+
+    // Resolve incident with proof photos (agent only) → status becomes PENDING_VALIDATION
+    resolveIncident: async (id: string, photos: File[]): Promise<Incident> => {
+        const formData = new FormData();
+        photos.forEach((photo) => formData.append('photos', photo));
+        const response = await api.post(`/api/incidents/${id}/resolve`, formData, {
+            headers: { 'Content-Type': 'multipart/form-data' },
+        });
         return response.data.data;
     },
 
