@@ -141,11 +141,7 @@ export const incidentService = {
             });
         }
 
-        const response = await api.post('/api/incidents', formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            },
-        });
+        const response = await api.post('/api/incidents', formData);
         return response.data.data;
     },
 
@@ -159,10 +155,23 @@ export const incidentService = {
     resolveIncident: async (id: string, photos: File[]): Promise<Incident> => {
         const formData = new FormData();
         photos.forEach((photo) => formData.append('photos', photo));
-        const response = await api.post(`/api/incidents/${id}/resolve`, formData, {
-            headers: { 'Content-Type': 'multipart/form-data' },
+
+        const token = localStorage.getItem('accessToken');
+        const baseUrl = import.meta.env.VITE_API_URL || '';
+
+        const response = await fetch(`${baseUrl}/api/incidents/${id}/resolve`, {
+            method: 'POST',
+            headers: { Authorization: `Bearer ${token}` },
+            body: formData,
         });
-        return response.data.data;
+
+        if (!response.ok) {
+            const err = await response.json().catch(() => ({}));
+            throw Object.assign(new Error(err.message || 'Failed to submit resolution'), { response: { data: err } });
+        }
+
+        const json = await response.json();
+        return json.data;
     },
 
     // Assign agent to incident

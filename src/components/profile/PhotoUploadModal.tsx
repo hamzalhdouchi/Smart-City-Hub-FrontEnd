@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Upload, X, Image as ImageIcon, Check } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Upload, X, Image as ImageIcon } from 'lucide-react';
 import { Button } from '../common';
 import toast from 'react-hot-toast';
 import { userService } from '../../services/userService';
@@ -15,35 +15,29 @@ const PhotoUploadModal: React.FC<PhotoUploadModalProps> = ({ isOpen, onClose, on
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [previewUrl, setPreviewUrl] = useState<string | null>(null);
     const [isUploading, setIsUploading] = useState(false);
+    const inputRef = useRef<HTMLInputElement>(null);
+
+    // Reset state every time the modal opens
+    useEffect(() => {
+        if (isOpen) {
+            setSelectedFile(null);
+            setPreviewUrl(null);
+            setIsDragging(false);
+            setIsUploading(false);
+        }
+    }, [isOpen]);
+
+    // Revoke blob URL when preview changes or component unmounts
+    useEffect(() => {
+        return () => {
+            if (previewUrl) URL.revokeObjectURL(previewUrl);
+        };
+    }, [previewUrl]);
 
     if (!isOpen) return null;
 
-    const handleDragOver = (e: React.DragEvent) => {
-        e.preventDefault();
-        setIsDragging(true);
-    };
-
-    const handleDragLeave = () => {
-        setIsDragging(false);
-    };
-
-    const handleDrop = (e: React.DragEvent) => {
-        e.preventDefault();
-        setIsDragging(false);
-        if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-            handleFileSelect(e.dataTransfer.files[0]);
-        }
-    };
-
-    const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files && e.target.files[0]) {
-            handleFileSelect(e.target.files[0]);
-        }
-    };
-
     const handleFileSelect = (file: File) => {
-        // Validation
-        if (!file.type.match('image.*')) {
+        if (!file.type.startsWith('image/')) {
             toast.error('Please select an image file (JPG, PNG, WebP)');
             return;
         }
@@ -52,35 +46,72 @@ const PhotoUploadModal: React.FC<PhotoUploadModalProps> = ({ isOpen, onClose, on
             return;
         }
 
+        // Revoke previous blob before creating a new one
+        if (previewUrl) URL.revokeObjectURL(previewUrl);
+
         setSelectedFile(file);
-        const url = URL.createObjectURL(file);
-        setPreviewUrl(url);
+        setPreviewUrl(URL.createObjectURL(file));
+    };
+
+    const handleDragOver = (e: React.DragEvent) => { e.preventDefault(); setIsDragging(true); };
+    const handleDragLeave = () => setIsDragging(false);
+    const handleDrop = (e: React.DragEvent) => {
+        e.preventDefault();
+        setIsDragging(false);
+        const file = e.dataTransfer.files?.[0];
+        if (file) handleFileSelect(file);
+    };
+
+    const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (file) handleFileSelect(file);
+        // Reset input so selecting the same file again fires the event
+        e.target.value = '';
+    };
+
+    const handleClose = () => {
+        if (previewUrl) URL.revokeObjectURL(previewUrl);
+        setSelectedFile(null);
+        setPreviewUrl(null);
+        onClose();
     };
 
     const handleUpload = async () => {
-        if (!selectedFile || !previewUrl) return;
+        if (!selectedFile) return;
 
         try {
             setIsUploading(true);
-            const uploadedUrl = await userService.uploadProfilePhoto(selectedFile);
-            onUpload(uploadedUrl);
+            const returnedUrl = await userService.uploadProfilePhoto(selectedFile);
+
+            // The API may return the new URL or null — fall back to re-fetching if needed
+            if (returnedUrl) {
+                onUpload(returnedUrl);
+            } else {
+                const freshUrl = await userService.getMyProfilePhoto();
+                onUpload(freshUrl ?? previewUrl!);
+            }
+
             toast.success('Profile photo updated successfully!');
-            onClose();
-        } catch (error) {
+            handleClose();
+        } catch (error: any) {
             console.error('Failed to upload photo:', error);
-            toast.error('Failed to upload profile photo');
+            const msg = error.response?.data?.message || 'Failed to upload profile photo';
+            toast.error(msg);
         } finally {
             setIsUploading(false);
         }
     };
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
-            <div className="bg-white rounded-2xl w-full max-w-md shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+            <div className="bg-white rounded-2xl w-full max-w-md shadow-2xl overflow-hidden">
                 {/* Header */}
                 <div className="flex justify-between items-center p-6 border-b border-gray-100">
                     <h2 className="text-xl font-bold text-[#263238]">Upload Profile Photo</h2>
-                    <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-full transition-colors">
+                    <button
+                        onClick={handleClose}
+                        className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                    >
                         <X size={20} className="text-[#546E7A]" />
                     </button>
                 </div>
@@ -93,35 +124,40 @@ const PhotoUploadModal: React.FC<PhotoUploadModalProps> = ({ isOpen, onClose, on
                                 <img src={previewUrl} alt="Preview" className="w-full h-full object-cover" />
                             </div>
                             <p className="text-sm font-medium text-[#263238] mb-1">{selectedFile?.name}</p>
-                            <p className="text-xs text-[#78909C] mb-6">{(selectedFile!.size / 1024 / 1024).toFixed(2)} MB</p>
+                            <p className="text-xs text-[#78909C] mb-6">
+                                {selectedFile ? (selectedFile.size / 1024 / 1024).toFixed(2) : 0} MB
+                            </p>
 
                             <div className="flex gap-3 w-full">
-                                <Button variant="outline" onClick={() => { setSelectedFile(null); setPreviewUrl(null); }} className="flex-1">
+                                <Button
+                                    variant="outline"
+                                    onClick={() => inputRef.current?.click()}
+                                    className="flex-1"
+                                    disabled={isUploading}
+                                >
                                     Change
                                 </Button>
-                                <Button onClick={handleUpload} loading={isUploading} className="flex-1">
+                                <Button
+                                    onClick={handleUpload}
+                                    loading={isUploading}
+                                    className="flex-1"
+                                >
                                     Upload Photo
                                 </Button>
                             </div>
                         </div>
                     ) : (
                         <div
-                            className={`border-2 border-dashed rounded-xl p-8 text-center transition-all cursor-pointer ${isDragging
-                                ? 'border-[#0D7377] bg-[#E0F2F1]'
-                                : 'border-[#CFD8DC] hover:border-[#0D7377] hover:bg-gray-50'
-                                }`}
+                            className={`border-2 border-dashed rounded-xl p-8 text-center transition-all cursor-pointer ${
+                                isDragging
+                                    ? 'border-[#0D7377] bg-[#E0F2F1]'
+                                    : 'border-[#CFD8DC] hover:border-[#0D7377] hover:bg-gray-50'
+                            }`}
                             onDragOver={handleDragOver}
                             onDragLeave={handleDragLeave}
                             onDrop={handleDrop}
-                            onClick={() => document.getElementById('photo-upload-input')?.click()}
+                            onClick={() => inputRef.current?.click()}
                         >
-                            <input
-                                type="file"
-                                id="photo-upload-input"
-                                className="hidden"
-                                accept="image/png, image/jpeg, image/webp"
-                                onChange={handleFileInput}
-                            />
                             <div className="w-16 h-16 bg-[#ECEFF1] rounded-full flex items-center justify-center mx-auto mb-4 text-[#546E7A]">
                                 <Upload size={32} />
                             </div>
@@ -129,6 +165,15 @@ const PhotoUploadModal: React.FC<PhotoUploadModalProps> = ({ isOpen, onClose, on
                             <p className="text-sm text-[#78909C]">Max 5MB • JPG, PNG, WebP</p>
                         </div>
                     )}
+
+                    {/* Shared hidden input — always rendered */}
+                    <input
+                        ref={inputRef}
+                        type="file"
+                        className="hidden"
+                        accept="image/png,image/jpeg,image/webp"
+                        onChange={handleFileInput}
+                    />
 
                     <div className="mt-6 flex items-start gap-3 p-3 bg-[#E3F2FD] rounded-lg text-sm text-[#0277BD]">
                         <ImageIcon size={18} className="mt-0.5 flex-shrink-0" />

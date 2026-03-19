@@ -122,11 +122,7 @@ export const userService = {
     uploadProfilePhoto: async (file: File): Promise<string> => {
         const formData = new FormData();
         formData.append('file', file);
-        const response = await api.post('/api/users/me/photo', formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            },
-        });
+        const response = await api.post('/api/users/me/photo', formData);
         return response.data.data;
     }
 };

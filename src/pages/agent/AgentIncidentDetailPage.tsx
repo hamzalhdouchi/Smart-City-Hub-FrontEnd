@@ -6,7 +6,7 @@ import { TitleDescriptionCard } from '../mobile/components/incident-detail/Title
 import { QuickInfoCard } from '../mobile/components/incident-detail/QuickInfoCard';
 import { StatusTimelineCard } from '../mobile/components/incident-detail/StatusTimelineCard';
 import { MapCard } from '../mobile/components/incident-detail/MapCard';
-import { CommentsSection } from '../mobile/components/incident-detail/CommentsSection';
+import { CommentSection } from '../../components/incidents';
 import { Card, Button, DataPulseLoader } from '../../components/common';
 import { incidentService } from '../../services/incidentService';
 import { useAuth } from '../../context/AuthContext';
@@ -49,7 +49,7 @@ const ResolveModal: React.FC<ResolveModalProps> = ({ isOpen, isSubmitting, onClo
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 flex items-center justify-center p-4" style={{ zIndex: 9999 }}>
             <div className="absolute inset-0 bg-black/50" onClick={handleClose} />
             <div className="relative bg-white rounded-xl shadow-xl w-full max-w-lg">
                 {/* Header */}
@@ -229,18 +229,6 @@ const AgentIncidentDetailPage: React.FC = () => {
         loadIncident();
     }, [loadIncident]);
 
-    const handlePostComment = async (content: string) => {
-        if (!id) return;
-        await incidentService.postComment(id, content);
-        await loadIncident();
-    };
-
-    const handleDeleteComment = async (commentId: string) => {
-        if (!id) return;
-        await incidentService.deleteComment(id, commentId);
-        await loadIncident();
-    };
-
     const handleStartWork = async () => {
         if (!id || !incident) return;
         try {
@@ -338,11 +326,7 @@ const AgentIncidentDetailPage: React.FC = () => {
                         city=""
                     />
 
-                    <CommentsSection
-                        comments={incident.comments || []}
-                        onPostComment={handlePostComment}
-                        onDeleteComment={handleDeleteComment}
-                    />
+                    <CommentSection incidentId={incident.id} />
                 </div>
 
                 {/* Right column: agent mission panel */}

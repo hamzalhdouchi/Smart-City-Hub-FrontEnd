@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { navigationItems } from '../../config/navigationConfig';
-import { LogOut, ChevronDown, Settings, User as UserIcon } from 'lucide-react';
+import { LogOut, ChevronDown, User as UserIcon } from 'lucide-react';
 import logoImage from '../../assets/logo.png';
 import { userService } from '../../services/userService';
 
@@ -104,7 +104,7 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({ className = '' }
             {/* Navigation Items */}
             <nav className="flex-1 px-1 overflow-y-auto scrollbar-hide py-2">
                 <ul className="space-y-3">
-                    {navigationItems.map((item) => {
+                    {navigationItems.filter(item => item.id !== 'profile').map((item) => {
                         const active = isActive(item.route);
                         const Icon = item.icon;
 
@@ -205,14 +205,6 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({ className = '' }
                             >
                                 <UserIcon size={18} className="text-slate-500" />
                                 <span className="text-[14px] font-bold text-slate-700">Profile Settings</span>
-                            </button>
-
-                            <button
-                                onClick={() => { setIsProfileMenuOpen(false); }}
-                                className="w-full flex items-center gap-3 px-5 py-3.5 hover:bg-white/40 transition-colors text-left"
-                            >
-                                <Settings size={18} className="text-slate-500" />
-                                <span className="text-[14px] font-bold text-slate-700">Preferences</span>
                             </button>
 
                             <div className="h-[1px] bg-white/20 mx-2 my-1" />

@@ -233,6 +233,9 @@ const AppRoutes: React.FC = () => {
         {/* Statistics */}
         <Route path="statistics" element={<StatisticsPage />} />
 
+        {/* Profile */}
+        <Route path="profile" element={<ProfilePage />} />
+
         {/* Settings - placeholder */}
         <Route path="settings" element={
           <div className="text-center py-16">

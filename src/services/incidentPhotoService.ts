@@ -8,11 +8,7 @@ export const incidentPhotoService = {
             formData.append('files', file);
         });
 
-        const response = await api.post(`/api/incidents/${incidentId}/photos`, formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            },
-        });
+        const response = await api.post(`/api/incidents/${incidentId}/photos`, formData);
 
         return response.data.data;
     },

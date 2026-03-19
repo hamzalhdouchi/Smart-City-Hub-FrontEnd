@@ -78,6 +78,10 @@ export const authService = {
         }
     },
 
+    forgotPassword: async (email: string): Promise<void> => {
+        await api.post('/auth/forgot-password', { email });
+    },
+
     getCurrentUser: async (): Promise<User> => {
         const response = await api.get('/api/users/me');
         return response.data.data;

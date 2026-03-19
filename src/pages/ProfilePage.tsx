@@ -10,11 +10,6 @@ import {
     PhotoUploadModal,
     ChangePasswordModal
 } from '../components/profile';
-import {
-    CityScapeIllustration,
-    NetworkNodesPattern,
-    GeometricPattern
-} from '../components/profile/decorative';
 import { Camera } from 'lucide-react';
 import toast from 'react-hot-toast';
 
@@ -68,123 +63,116 @@ const ProfilePage: React.FC = () => {
 
     return (
         <div className="profile-split-container">
-            {/* LEFT PANEL - Japanese Visual Section */}
+            {/* LEFT PANEL */}
             <div className="profile-left-panel">
-                {/* Gradient Background */}
-                <div className="absolute inset-0 bg-gradient-to-br from-[#2C8D7D] via-[#0D7377] to-[#053B3E]">
-                    {/* Washi paper texture overlay */}
-                    <div
-                        className="absolute inset-0 opacity-5"
-                        style={{
-                            backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)',
-                            backgroundSize: '32px 32px'
-                        }}
-                    />
+                {/* Background */}
+                <div className="absolute inset-0 bg-gradient-to-br from-[#0a4f52] via-[#0D7377] to-[#053B3E]">
+                    {/* Dot grid */}
+                    <div className="absolute inset-0" style={{
+                        backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.07) 1px, transparent 0)',
+                        backgroundSize: '28px 28px',
+                    }} />
+                    {/* Ambient blobs */}
+                    <div className="absolute -top-24 -left-24 w-80 h-80 rounded-full bg-white/5 blur-3xl" />
+                    <div className="absolute -bottom-20 -right-20 w-96 h-96 rounded-full bg-[#32936F]/15 blur-3xl" />
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full bg-white/3 blur-2xl" />
                 </div>
 
-                {/* Content Layer */}
-                <div className="relative z-10 h-full flex flex-col items-center justify-between p-12">
-                    {/* Top Section - Decorative Pattern */}
-                    <div className="absolute top-8 right-8 w-32 h-32 animate-in fade-in duration-700 delay-200">
-                        <GeometricPattern />
+                {/* Content */}
+                <div className="relative z-10 h-full flex flex-col items-center justify-between py-10 px-8">
+
+                    {/* Top label */}
+                    <div className="self-start">
+                        <span className="text-white/40 text-[11px] font-semibold tracking-[4px] uppercase">
+                            Profile
+                        </span>
                     </div>
 
-                    {/* Middle Section - Profile Photo & Text */}
-                    <div className="flex-1 flex items-center justify-center profile-hero-content">
-                        <div className="flex items-center gap-16 desktop-layout">
-                            {/* Vertical Name Text - Japanese Style (DESKTOP ONLY) */}
-                            <div className="vertical-text-container animate-in slide-in-from-left duration-700 delay-300">
-                                <div className="vertical-text-backdrop">
-                                    <h1 className="vertical-text">
-                                        {profileUser.fullName}
-                                    </h1>
+                    {/* Centre: photo + name */}
+                    <div className="flex flex-col items-center gap-7 text-center">
+
+                        {/* Photo with rings */}
+                        <div className="relative profile-photo-wrapper">
+                            {/* Pulse ring */}
+                            <div
+                                className="absolute inset-0 rounded-full border-2 border-white/20 scale-[1.22] animate-pulse"
+                                style={{ animationDuration: '3s' }}
+                            />
+                            {/* Static ring */}
+                            <div className="absolute inset-0 rounded-full border border-white/30 scale-[1.1]" />
+
+                            <button
+                                onClick={() => setIsPhotoModalOpen(true)}
+                                title="Change Profile Photo"
+                                className="profile-photo-container rounded-full border-[3px] border-white/80 overflow-hidden bg-white/10 cursor-pointer relative group/photo"
+                                style={{ boxShadow: '0 0 0 6px rgba(255,255,255,0.06), 0 16px 40px rgba(0,0,0,0.25)' }}
+                            >
+                                {photoUrl ? (
+                                    <img src={photoUrl} alt={profileUser.fullName} className="w-full h-full object-cover" />
+                                ) : (
+                                    <div className="w-full h-full bg-gradient-to-br from-white/25 to-white/5 flex items-center justify-center">
+                                        <span className="profile-initials font-bold text-white tracking-widest">
+                                            {initials}
+                                        </span>
+                                    </div>
+                                )}
+                                <div className="absolute inset-0 bg-black/45 flex flex-col items-center justify-center gap-1 opacity-0 group-hover/photo:opacity-100 transition-opacity duration-200">
+                                    <Camera size={24} className="text-white" />
+                                    <span className="text-white text-[11px] font-semibold">Change</span>
                                 </div>
-                            </div>
-
-                            {/* Profile Photo with enhanced border */}
-                            <div className="relative group animate-in zoom-in duration-700 delay-400 profile-photo-wrapper">
-                                {/* Outer decorative ring */}
-                                <div className="absolute inset-0 rounded-full border border-white/30 scale-[1.15] outer-ring" />
-
-                                <div className="profile-photo-container rounded-full border-4 border-white shadow-[0_8px_24px_rgba(0,0,0,0.2)] overflow-hidden bg-white/10 backdrop-blur-sm" style={{ boxShadow: '0 8px 24px rgba(0, 0, 0, 0.2), inset 0 0 0 1px rgba(255, 255, 255, 0.3)' }}>
-                                    {photoUrl ? (
-                                        <img
-                                            src={photoUrl}
-                                            alt={profileUser.fullName}
-                                            className="w-full h-full object-cover"
-                                        />
-                                    ) : (
-                                        <div className="w-full h-full bg-gradient-to-br from-white/30 to-white/10 flex items-center justify-center">
-                                            <span className="profile-initials font-bold text-white tracking-widest">
-                                                {initials}
-                                            </span>
-                                        </div>
-                                    )}
-                                </div>
-
-                                {/* Change Photo Button */}
-                                <button
-                                    onClick={() => setIsPhotoModalOpen(true)}
-                                    className="absolute bottom-1 right-1 p-2 bg-white/90 backdrop-blur-sm rounded-full shadow-lg text-[#0D7377] hover:bg-white hover:scale-110 transition-all duration-300 photo-change-btn"
-                                    title="Change Profile Photo"
-                                >
-                                    <Camera size={16} />
-                                </button>
-
-                                {/* Decorative ring */}
-                                <div className="absolute inset-0 rounded-full border border-white/10 scale-110 animate-pulse outer-pulse"
-                                    style={{ animationDuration: '3s' }}
-                                />
-                            </div>
+                            </button>
                         </div>
 
-                        {/* Mobile Name Display (horizontal, shown only on mobile) */}
-                        <div className="mobile-name-display">
-                            <h2 className="text-xl font-semibold text-white text-center mt-3">
+                        {/* Name + role */}
+                        <div className="space-y-2">
+                            <h1 className="text-2xl font-bold text-white tracking-tight leading-tight">
                                 {profileUser.fullName}
-                            </h2>
-                            <p className="text-sm text-white/70 text-center mt-1">
-                                {profileUser.role?.replace('ROLE_', '')}
-                            </p>
+                            </h1>
+                            <p className="text-white/55 text-sm">{profileUser.email}</p>
+                            <div className="flex items-center justify-center gap-2 pt-1">
+                                <span className="px-3 py-1 rounded-full bg-white/10 border border-white/20 text-white/90 text-xs font-semibold">
+                                    {profileUser.role.replace('ROLE_', '')}
+                                </span>
+                                <span className="px-3 py-1 rounded-full bg-[#32936F]/35 border border-[#32936F]/50 text-emerald-200 text-xs font-semibold">
+                                    Active
+                                </span>
+                            </div>
                         </div>
-                    </div>
 
-                    {/* Decorative Illustrations - Enhanced visibility */}
-                    <div className="absolute bottom-32 left-8 w-80 h-40 animate-in slide-in-from-bottom duration-700 delay-500">
-                        <CityScapeIllustration opacity={0.22} />
-                    </div>
-
-                    <div className="absolute top-1/3 right-12 w-56 h-56 animate-in fade-in duration-700 delay-600">
-                        <NetworkNodesPattern opacity={0.25} />
-                    </div>
-
-                    {/* Additional balance element - middle left */}
-                    <div className="absolute top-1/4 left-12 w-40 h-40 animate-in fade-in duration-700 delay-550">
-                        <GeometricPattern opacity={0.18} />
-                    </div>
-
-                    {/* Bottom Section - Enhanced Branding */}
-                    <div className="text-center space-y-4 animate-in slide-in-from-bottom duration-700 delay-700">
-                        <div className="flex items-center justify-center gap-3 mb-3">
-                            <div className="w-3 h-3 rounded-full bg-[#C9A961]" />
-                            <div className="w-16 h-0.5 bg-gradient-to-r from-transparent via-[#C9A961] to-transparent" />
-                            <div className="w-3 h-3 rounded-full bg-[#C9A961]" />
+                        {/* Divider */}
+                        <div className="flex items-center gap-3 w-48">
+                            <div className="flex-1 h-px bg-white/15" />
+                            <div className="w-1.5 h-1.5 rounded-full bg-white/30" />
+                            <div className="flex-1 h-px bg-white/15" />
                         </div>
-                        <h2 className="text-3xl font-light tracking-wider" style={{ color: '#C9A961' }}>
+
+                        {/* Info row */}
+                        <div className="flex items-center gap-6">
+                            <div className="text-center">
+                                <p className="text-white font-semibold text-sm">
+                                    {new Date(profileUser.createdAt).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+                                </p>
+                                <p className="text-white/45 text-[11px] mt-0.5 uppercase tracking-wide">Member since</p>
+                            </div>
+                            <div className="w-px h-8 bg-white/20" />
+                            <div className="text-center">
+                                <p className="text-white font-semibold text-sm">{profileUser.status}</p>
+                                <p className="text-white/45 text-[11px] mt-0.5 uppercase tracking-wide">Status</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    {/* Bottom branding */}
+                    <div className="text-center space-y-1">
+                        <p className="text-[#C9A961] text-base font-light tracking-[3px] uppercase">
                             Smart City Hub
-                        </h2>
-                        <p className="text-sm text-white/70 tracking-wide uppercase mt-4">
-                            Connected • Sustainable • Innovative
                         </p>
-                        <div className="flex items-center justify-center gap-2 pt-3">
-                            <span className="px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm text-xs text-white/90 border border-white/20">
-                                {profileUser.role.replace('ROLE_', '')}
-                            </span>
-                            <span className="px-3 py-1.5 rounded-full bg-[#C9A961]/20 backdrop-blur-sm text-xs text-white/90 border border-[#C9A961]/30">
-                                v2.0
-                            </span>
-                        </div>
+                        <p className="text-white/35 text-[10px] tracking-[2px] uppercase">
+                            Connected · Sustainable · Innovative
+                        </p>
                     </div>
+
                 </div>
             </div>
 
@@ -255,27 +243,6 @@ const ProfilePage: React.FC = () => {
                     height: 100vh;
                 }
 
-                /* Vertical Text - Japanese Style with improved readability */
-                .vertical-text-container {
-                    writing-mode: vertical-rl;
-                    text-orientation: upright;
-                }
-
-                .vertical-text-backdrop {
-                    background: rgba(0, 0, 0, 0.15);
-                    padding: 20px 16px;
-                    border-radius: 8px;
-                    backdrop-filter: blur(4px);
-                }
-
-                .vertical-text {
-                    font-family: 'Noto Sans JP', sans-serif;
-                    font-size: 2rem;
-                    font-weight: 300;
-                    color: white;
-                    letter-spacing: 0.05em;
-                }
-
                 /* Smooth scrollbar for right panel */
                 .profile-right-panel::-webkit-scrollbar {
                     width: 8px;
@@ -307,7 +274,7 @@ const ProfilePage: React.FC = () => {
                     }
                 }
 
-                /* Mobile - Compact Header Layout */
+                /* Mobile */
                 @media (max-width: 767px) {
                     .profile-split-container {
                         display: block;
@@ -316,80 +283,23 @@ const ProfilePage: React.FC = () => {
                     }
 
                     .profile-left-panel {
-                        position: relative;
                         height: auto;
-                        min-height: 280px;
+                        min-height: 380px;
                         padding-bottom: 32px;
-                        overflow: visible; /* Allow rings/shadows to show */
-                    }
-
-                    .profile-left-panel > div:first-child + div {
-                        padding: 16px;
-                        justify-content: center;
-                        flex-direction: column;
-                    }
-
-                    .profile-hero-content {
-                        flex-direction: column;
-                        gap: 0 !important;
-                    }
-
-                    /* Hide desktop layout on mobile */
-                    .desktop-layout {
-                        flex-direction: column;
-                        gap: 0 !important;
-                    }
-
-                    /* Hide vertical text on mobile */
-                    .vertical-text-container {
-                        display: none !important;
-                    }
-
-                    .vertical-text-backdrop {
-                        display: none;
-                    }
-
-                    /* Smaller profile photo on mobile */
-                    .profile-photo-wrapper {
-                        margin-top: 0;
                     }
 
                     .profile-photo-container {
-                        width: 80px !important;
-                        height: 80px !important;
+                        width: 100px !important;
+                        height: 100px !important;
                     }
 
                     .profile-initials {
-                        font-size: 1.5rem !important;
-                    }
-
-                    .photo-change-btn {
-                        opacity: 1 !important;
-                        bottom: 0 !important;
-                        right: 0 !important;
-                    }
-
-                    .outer-ring,
-                    .outer-pulse {
-                        display: none;
-                    }
-
-                    /* Show mobile name display */
-                    .mobile-name-display {
-                        display: block !important;
-                    }
-
-                    /* Hide decorative elements on mobile */
-                    .profile-left-panel .absolute.top-8,
-                    .profile-left-panel .absolute.bottom-32,
-                    .profile-left-panel .absolute.top-1\\/3,
-                    .profile-left-panel .absolute.top-1\\/4 {
-                        display: none !important;
+                        font-size: 2rem !important;
                     }
 
                     .profile-right-panel {
                         height: auto;
-                        min-height: calc(100vh - 200px);
+                        min-height: calc(100vh - 380px);
                         padding-bottom: 100px;
                     }
 
@@ -398,28 +308,15 @@ const ProfilePage: React.FC = () => {
                     }
                 }
 
-                /* Hide mobile name display on desktop */
+                /* Desktop */
                 @media (min-width: 768px) {
-                    .mobile-name-display {
-                        display: none;
-                    }
-
                     .profile-photo-container {
-                        width: 160px;
-                        height: 160px;
+                        width: 148px;
+                        height: 148px;
                     }
 
                     .profile-initials {
-                        font-size: 3rem;
-                    }
-
-                    .photo-change-btn {
-                        opacity: 0;
-                    }
-
-                    .photo-change-btn:hover,
-                    .profile-photo-wrapper:hover .photo-change-btn {
-                        opacity: 1;
+                        font-size: 2.8rem;
                     }
                 }
 
