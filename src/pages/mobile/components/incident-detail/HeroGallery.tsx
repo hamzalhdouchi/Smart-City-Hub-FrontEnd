@@ -24,6 +24,7 @@ export const HeroGallery: React.FC<HeroGalleryProps> = ({
         NEW: { bg: '#FFB347', text: 'New', glow: '#FFB347' },
         ASSIGNED: { bg: '#2196F3', text: 'Assigned', glow: '#2196F3' },
         IN_PROGRESS: { bg: '#0D7377', text: 'In Progress', glow: '#0D7377' },
+        PENDING_VALIDATION: { bg: '#F59E0B', text: 'Pending Validation', glow: '#F59E0B' },
         RESOLVED: { bg: '#32936F', text: 'Resolved', glow: '#32936F' },
         VALIDATED: { bg: '#4CAF50', text: 'Validated', glow: '#4CAF50' },
         REJECTED: { bg: '#F44336', text: 'Rejected', glow: '#F44336' },
@@ -63,7 +64,7 @@ export const HeroGallery: React.FC<HeroGalleryProps> = ({
     };
 
     const currentPhoto = photos[currentIndex] || '/placeholder-incident.jpg';
-    const statusConfig = statusColors[status];
+    const statusConfig = statusColors[status] ?? { bg: '#546E7A', text: status, glow: '#546E7A' };
     const priorityInfo = priorityConfig[priority];
 
     return (

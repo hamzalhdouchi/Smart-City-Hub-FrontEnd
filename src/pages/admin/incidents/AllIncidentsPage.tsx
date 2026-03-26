@@ -4,9 +4,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
     Search, Download, AlertTriangle, MapPin,
     Clock, Eye, RefreshCw,
-    X, ArrowUp
+    X, ArrowUp, Trash2
 } from 'lucide-react';
-import { Card, Button, DataPulseLoader, CategoryIcon, Pagination } from '../../../components/common';
+import { Card, Button, DataPulseLoader, CategoryIcon, Pagination, DeleteConfirmationModal } from '../../../components/common';
 import { exportToCSV } from '../../../utils/exportUtils';
 import { incidentService } from '../../../services/incidentService';
 import type { Incident, Page } from '../../../services/incidentService';
@@ -102,6 +102,23 @@ const AllIncidentsPage: React.FC = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedStatuses, setSelectedStatuses] = useState<string[]>([]);
     const [selectedPriorities, setSelectedPriorities] = useState<string[]>([]);
+    const [deleteTargetId, setDeleteTargetId] = useState<string | null>(null);
+    const [isDeleting, setIsDeleting] = useState(false);
+
+    const handleDeleteConfirm = async () => {
+        if (!deleteTargetId) return;
+        try {
+            setIsDeleting(true);
+            await incidentService.deleteIncident(deleteTargetId);
+            toast.success('Incident deleted');
+            setDeleteTargetId(null);
+            fetchIncidents(page);
+        } catch (error) {
+            toast.error('Failed to delete incident');
+        } finally {
+            setIsDeleting(false);
+        }
+    };
 
     const fetchIncidents = useCallback(async (pageNum: number) => {
         try {
@@ -510,6 +527,17 @@ const AllIncidentsPage: React.FC = () => {
                                             <Eye size={16} />
                                             View
                                         </Button>
+                                        <Button
+                                            className="bg-red-500 hover:bg-red-600 text-white rounded-full px-4 py-2 flex items-center gap-2 shadow-md transition-all"
+                                            size="sm"
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                setDeleteTargetId(incident.id);
+                                            }}
+                                        >
+                                            <Trash2 size={16} />
+                                            Delete
+                                        </Button>
                                     </div>
                                 </div>
                             </div>
@@ -556,6 +584,14 @@ const AllIncidentsPage: React.FC = () => {
                     <p className="text-[#546E7A]">Try adjusting your search or filters</p>
                 </Card>
             )}
+            <DeleteConfirmationModal
+                isOpen={!!deleteTargetId}
+                onClose={() => setDeleteTargetId(null)}
+                onConfirm={handleDeleteConfirm}
+                isDeleting={isDeleting}
+                title="Delete Incident"
+                message="Are you sure you want to permanently delete this incident? All photos, comments and history will be lost. This action cannot be undone."
+            />
         </div>
     );
 };

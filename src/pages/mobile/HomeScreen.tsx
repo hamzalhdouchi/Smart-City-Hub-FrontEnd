@@ -151,7 +151,7 @@ export const HomeScreen: React.FC = () => {
                                     </h1>
                                     <div className="flex items-center gap-1 mt-1.5">
                                         <MapPin size={10} className="text-white/50" />
-                                        <span className="text-[11px] text-white/55 font-medium">Casablanca, Morocco</span>
+                                        <span className="text-[11px] text-white/55 font-medium">Marrakech, Morocco</span>
                                     </div>
                                 </div>
                             </div>
@@ -216,7 +216,7 @@ export const HomeScreen: React.FC = () => {
                                     </h1>
                                     <div className="flex items-center gap-1">
                                         <MapPin size={10} className="text-white/50" />
-                                        <span className="text-[11px] text-white/60 font-medium">Casablanca District</span>
+                                        <span className="text-[11px] text-white/60 font-medium">Marrakech District</span>
                                     </div>
                                 </div>
                             </div>

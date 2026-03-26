@@ -19,8 +19,12 @@ import {
     ExternalLink,
     Copy,
     Check,
+    ShieldAlert,
+    ShieldCheck,
+    ShieldX,
+    Trash2,
 } from 'lucide-react';
-import { Card, Button, DataPulseLoader, LocationMap } from '../../../components/common';
+import { Card, Button, DataPulseLoader, LocationMap, DeleteConfirmationModal } from '../../../components/common';
 import { PhotoGallery, CommentSection, StatusTimeline, AssignAgentModal, ChangeStatusModal } from '../../../components/incidents';
 import incidentService from '../../../services/incidentService';
 import type { Incident, IncidentStatus } from '../../../services/incidentService';
@@ -84,6 +88,8 @@ const IncidentDetailPage: React.FC = () => {
     const [copiedId, setCopiedId] = useState(false);
     const [showAssignModal, setShowAssignModal] = useState(false);
     const [showStatusModal, setShowStatusModal] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [isDeleting, setIsDeleting] = useState(false);
 
     const isAdmin = user?.role === 'ROLE_ADMIN' || user?.role === 'ROLE_SUPERVISOR';
 
@@ -172,6 +178,22 @@ const IncidentDetailPage: React.FC = () => {
         }
     };
 
+    const handleDeleteIncident = async () => {
+        if (!incident) return;
+        try {
+            setIsDeleting(true);
+            await incidentService.deleteIncident(incident.id);
+            toast.success('Incident deleted successfully');
+            navigate('/admin/incidents/all');
+        } catch (error) {
+            console.error('Failed to delete incident:', error);
+            toast.error('Failed to delete incident');
+        } finally {
+            setIsDeleting(false);
+            setShowDeleteModal(false);
+        }
+    };
+
     const getGoogleMapsUrl = () => {
         if (!incident) return '';
         return `https://www.google.com/maps?q=${incident.latitude},${incident.longitude}`;
@@ -206,9 +228,46 @@ const IncidentDetailPage: React.FC = () => {
 
     const statusStyle = getStatusBadge(incident.status);
 
+    const reporterPhotos = incident.photos?.filter(p => p.uploadedById === incident.reporter?.id) || [];
+    const resolutionPhotos = incident.photos?.filter(p => p.uploadedById !== incident.reporter?.id) || [];
+
     return (
         <div className="space-y-6">
-            
+            {incident.status === 'PENDING_VALIDATION' && isAdmin && (
+                <div className="rounded-xl border-2 border-orange-400 bg-orange-50 p-5">
+                    <div className="flex flex-col md:flex-row md:items-center gap-4">
+                        <div className="flex items-start gap-3 flex-1">
+                            <ShieldAlert size={28} className="text-orange-500 flex-shrink-0 mt-0.5 animate-pulse" />
+                            <div>
+                                <h3 className="font-bold text-orange-800 text-base">
+                                    Agent submitted resolution — awaiting your approval
+                                </h3>
+                                <p className="text-sm text-orange-700 mt-0.5">
+                                    <span className="font-semibold">{incident.assignedAgent?.fullName}</span> uploaded resolution proof photos.
+                                    Review the images below and approve or reject.
+                                </p>
+                            </div>
+                        </div>
+                        <div className="flex gap-3 flex-shrink-0">
+                            <Button
+                                onClick={handleApproveResolution}
+                                className="bg-green-600 hover:bg-green-700 text-white gap-2"
+                            >
+                                <ShieldCheck size={18} />
+                                Approve Resolution
+                            </Button>
+                            <Button
+                                onClick={handleRejectResolution}
+                                className="bg-red-600 hover:bg-red-700 text-white gap-2"
+                            >
+                                <ShieldX size={18} />
+                                Reject
+                            </Button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             <div className="flex flex-col md:flex-row md:items-center gap-4 mb-6">
                 <Button
                     variant="outline"
@@ -357,19 +416,52 @@ const IncidentDetailPage: React.FC = () => {
                         </div>
                     </Card>
 
-                    
+                    {incident.status === 'PENDING_VALIDATION' && resolutionPhotos.length > 0 && (
+                        <Card className="border-2 border-orange-300">
+                            <div className="p-6">
+                                <h2 className="text-lg font-semibold text-orange-700 mb-1 flex items-center gap-2">
+                                    <ShieldAlert size={20} className="text-orange-500" />
+                                    Resolution Proof Photos
+                                    <span className="text-sm font-normal text-orange-500">
+                                        ({resolutionPhotos.length}) — uploaded by agent
+                                    </span>
+                                </h2>
+                                <p className="text-sm text-orange-600 mb-4">
+                                    These photos were submitted by <span className="font-semibold">{incident.assignedAgent?.fullName}</span> as proof of resolution.
+                                </p>
+                                <PhotoGallery photos={resolutionPhotos} />
+                                <div className="flex gap-3 mt-5 pt-4 border-t border-orange-200">
+                                    <Button
+                                        onClick={handleApproveResolution}
+                                        className="bg-green-600 hover:bg-green-700 text-white gap-2 flex-1"
+                                    >
+                                        <ShieldCheck size={16} />
+                                        Approve Resolution
+                                    </Button>
+                                    <Button
+                                        onClick={handleRejectResolution}
+                                        className="bg-red-600 hover:bg-red-700 text-white gap-2 flex-1"
+                                    >
+                                        <ShieldX size={16} />
+                                        Reject &amp; Reopen
+                                    </Button>
+                                </div>
+                            </div>
+                        </Card>
+                    )}
+
                     <Card>
                         <div className="p-6">
                             <h2 className="text-lg font-semibold text-[#263238] mb-4 flex items-center gap-2">
                                 <ImageIcon size={20} className="text-[#00ACC1]" />
-                                Photos
-                                {incident.photos && incident.photos.length > 0 && (
+                                Incident Photos
+                                {reporterPhotos.length > 0 && (
                                     <span className="text-sm font-normal text-[#78909C]">
-                                        ({incident.photos.length})
+                                        ({reporterPhotos.length}) — uploaded by reporter
                                     </span>
                                 )}
                             </h2>
-                            <PhotoGallery photos={incident.photos || []} />
+                            <PhotoGallery photos={reporterPhotos.length > 0 ? reporterPhotos : (incident.photos || [])} />
                         </div>
                     </Card>
 
@@ -585,6 +677,15 @@ const IncidentDetailPage: React.FC = () => {
                 onClose={() => setShowStatusModal(false)}
                 onConfirm={handleStatusChange}
                 currentStatus={incident.status}
+            />
+
+            <DeleteConfirmationModal
+                isOpen={showDeleteModal}
+                onClose={() => setShowDeleteModal(false)}
+                onConfirm={handleDeleteIncident}
+                isDeleting={isDeleting}
+                title="Delete Incident"
+                message="Are you sure you want to permanently delete this incident? All photos, comments and history will be lost. This action cannot be undone."
             />
         </div>
     );

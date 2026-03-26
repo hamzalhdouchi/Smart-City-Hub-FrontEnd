@@ -179,6 +179,10 @@ export const incidentService = {
         const response = await api.get('/api/categories');
         return response.data.data;
     },
+
+    deleteIncident: async (id: string): Promise<void> => {
+        await api.delete(`/api/incidents/${id}`);
+    },
 };
 
 export default incidentService;

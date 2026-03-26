@@ -131,7 +131,7 @@ export const HeroHeader: React.FC = () => {
                         </h1>
                         <div className="flex items-center gap-1 mt-2">
                             <MapPin size={10} className="text-white/50 shrink-0" />
-                            <span className="text-[11px] text-white/55 font-medium">Casablanca, Morocco</span>
+                            <span className="text-[11px] text-white/55 font-medium">Marrakech, Morocco</span>
                         </div>
                     </div>
                 </div>

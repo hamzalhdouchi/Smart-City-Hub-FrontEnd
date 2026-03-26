@@ -94,7 +94,7 @@ class WeatherService {
     }
 
     
-    async getCurrentWeather(city: string = 'Casablanca', countryCode: string = 'MA'): Promise<WeatherData> {
+    async getCurrentWeather(city: string = 'Marrakech', countryCode: string = 'MA'): Promise<WeatherData> {
         const now = Date.now();
         if (this.cache.data && (now - this.cache.timestamp) < this.CACHE_DURATION) {
             return this.cache.data;

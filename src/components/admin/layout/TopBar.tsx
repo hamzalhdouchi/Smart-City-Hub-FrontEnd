@@ -2,16 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import {
     Menu,
-    Search,
     Bell,
     Settings,
     LogOut,
     User,
     ChevronDown,
-    X
+    X,
+    ShieldAlert,
 } from 'lucide-react';
 import { useAuth } from '../../../context/AuthContext';
 import { userService } from '../../../services/userService';
+import { incidentService } from '../../../services/incidentService';
+import type { Incident } from '../../../services/incidentService';
 
 interface TopBarProps {
     onMobileMenuClick: () => void;
@@ -42,8 +44,8 @@ export const TopBar: React.FC<TopBarProps> = ({ onMobileMenuClick }) => {
     const navigate = useNavigate();
     const [showUserMenu, setShowUserMenu] = useState(false);
     const [showNotifications, setShowNotifications] = useState(false);
-    const [showSearch, setShowSearch] = useState(false);
     const [photoUrl, setPhotoUrl] = useState<string | null>(null);
+    const [pendingValidation, setPendingValidation] = useState<Incident[]>([]);
 
     useEffect(() => {
         const fetchPhoto = async () => {
@@ -53,18 +55,26 @@ export const TopBar: React.FC<TopBarProps> = ({ onMobileMenuClick }) => {
         fetchPhoto();
     }, [user]);
 
+    useEffect(() => {
+        const fetchPending = async () => {
+            try {
+                const result = await incidentService.getIncidents('PENDING_VALIDATION', undefined, 0, 20);
+                setPendingValidation(result.content || []);
+            } catch {
+                setPendingValidation([]);
+            }
+        };
+        fetchPending();
+        const interval = setInterval(fetchPending, 60000);
+        return () => clearInterval(interval);
+    }, []);
+
     const handleLogout = async () => {
         await logout();
         navigate('/login', { replace: true });
     };
 
-    const notifications = [
-        { id: 1, title: 'New user registration', message: 'Ahmed K. requested approval', time: '5 min ago', unread: true },
-        { id: 2, title: 'Critical incident', message: 'Broken water pipe reported', time: '1 hour ago', unread: true },
-        { id: 3, title: 'Incident resolved', message: 'Street light fixed by Ali B.', time: '3 hours ago', unread: false },
-    ];
-
-    const unreadCount = notifications.filter(n => n.unread).length;
+    const unreadCount = pendingValidation.length;
 
     return (
         <header className="h-[70px] bg-white border-b border-[#B0BEC5] sticky top-0 z-30">
@@ -89,13 +99,6 @@ export const TopBar: React.FC<TopBarProps> = ({ onMobileMenuClick }) => {
 
                 
                 <div className="flex items-center gap-2">
-                    
-                    <button
-                        onClick={() => setShowSearch(!showSearch)}
-                        className="p-2 hover:bg-[#ECEFF1] rounded-lg transition-colors"
-                    >
-                        <Search size={20} className="text-[#546E7A]" />
-                    </button>
 
                     
                     <div className="relative">
@@ -105,8 +108,7 @@ export const TopBar: React.FC<TopBarProps> = ({ onMobileMenuClick }) => {
                         >
                             <Bell size={20} className="text-[#546E7A]" />
                             {unreadCount > 0 && (
-                                <span className="absolute top-1 right-1 w-4 h-4 bg-[#FFB347] text-white text-xs 
-                                 rounded-full flex items-center justify-center font-medium">
+                                <span className="absolute top-1 right-1 w-4 h-4 bg-orange-500 text-white text-xs rounded-full flex items-center justify-center font-bold animate-pulse">
                                     {unreadCount}
                                 </span>
                             )}
@@ -119,37 +121,58 @@ export const TopBar: React.FC<TopBarProps> = ({ onMobileMenuClick }) => {
                                     className="fixed inset-0 z-40"
                                     onClick={() => setShowNotifications(false)}
                                 />
-                                <div className="absolute right-0 top-full mt-2 w-80 bg-white rounded-xl shadow-lg 
-                                border border-[#B0BEC5] z-50 overflow-hidden">
-                                    <div className="p-4 border-b border-[#B0BEC5] flex justify-between items-center">
-                                        <h3 className="font-semibold text-[#263238]">Notifications</h3>
-                                        <button className="text-sm text-[#0D7377] hover:underline">
-                                            Mark all as read
-                                        </button>
+                                <div className="absolute right-0 top-full mt-2 w-96 bg-white rounded-xl shadow-lg border border-[#B0BEC5] z-50 overflow-hidden">
+                                    <div className="p-4 border-b border-[#B0BEC5] flex items-center gap-2">
+                                        <ShieldAlert size={18} className="text-orange-500" />
+                                        <h3 className="font-semibold text-[#263238] flex-1">Pending Validation</h3>
+                                        {unreadCount > 0 && (
+                                            <span className="text-xs font-bold bg-orange-100 text-orange-700 px-2 py-0.5 rounded-full">
+                                                {unreadCount} awaiting
+                                            </span>
+                                        )}
                                     </div>
                                     <div className="max-h-[400px] overflow-y-auto">
-                                        {notifications.map((notif) => (
-                                            <div
-                                                key={notif.id}
-                                                className={`p-4 border-b border-[#ECEFF1] hover:bg-[#ECEFF1]/50 cursor-pointer
-                                    ${notif.unread ? 'bg-[#0D7377]/5' : ''}`}
-                                            >
-                                                <div className="flex gap-3">
-                                                    {notif.unread && (
-                                                        <span className="w-2 h-2 bg-[#0D7377] rounded-full mt-2 flex-shrink-0" />
-                                                    )}
-                                                    <div className={notif.unread ? '' : 'ml-5'}>
-                                                        <p className="font-medium text-sm text-[#263238]">{notif.title}</p>
-                                                        <p className="text-sm text-[#546E7A]">{notif.message}</p>
-                                                        <p className="text-xs text-[#B0BEC5] mt-1">{notif.time}</p>
+                                        {pendingValidation.length === 0 ? (
+                                            <div className="p-8 text-center text-[#90A4AE]">
+                                                <ShieldAlert size={32} className="mx-auto mb-2 opacity-40" />
+                                                <p className="text-sm">No incidents awaiting validation</p>
+                                            </div>
+                                        ) : (
+                                            pendingValidation.map((incident) => (
+                                                <div
+                                                    key={incident.id}
+                                                    className="p-4 border-b border-[#ECEFF1] hover:bg-orange-50 cursor-pointer transition-colors"
+                                                    onClick={() => {
+                                                        setShowNotifications(false);
+                                                        navigate(`/admin/incidents/${incident.id}`);
+                                                    }}
+                                                >
+                                                    <div className="flex gap-3 items-start">
+                                                        <span className="w-2 h-2 bg-orange-400 rounded-full mt-2 flex-shrink-0 animate-pulse" />
+                                                        <div className="flex-1 min-w-0">
+                                                            <p className="font-semibold text-sm text-[#263238] truncate">{incident.title}</p>
+                                                            <p className="text-xs text-[#546E7A] mt-0.5">
+                                                                Agent: {incident.assignedAgent?.fullName || 'Unknown'}
+                                                            </p>
+                                                            <p className="text-xs text-[#90A4AE] mt-0.5">{incident.category?.name}</p>
+                                                        </div>
+                                                        <span className="text-xs font-bold text-orange-600 bg-orange-100 px-2 py-1 rounded-lg flex-shrink-0">
+                                                            Review
+                                                        </span>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        ))}
+                                            ))
+                                        )}
                                     </div>
                                     <div className="p-3 text-center border-t border-[#B0BEC5]">
-                                        <button className="text-sm text-[#0D7377] hover:underline font-medium">
-                                            View All Notifications
+                                        <button
+                                            className="text-sm text-[#0D7377] hover:underline font-medium"
+                                            onClick={() => {
+                                                setShowNotifications(false);
+                                                navigate('/admin/incidents/all');
+                                            }}
+                                        >
+                                            View All Incidents
                                         </button>
                                     </div>
                                 </div>
@@ -234,33 +257,6 @@ export const TopBar: React.FC<TopBarProps> = ({ onMobileMenuClick }) => {
                     </div>
                 </div>
             </div>
-
-            
-            {showSearch && (
-                <div className="fixed inset-0 bg-black/50 z-50 flex items-start justify-center pt-20">
-                    <div className="bg-white w-full max-w-2xl mx-4 rounded-xl shadow-2xl overflow-hidden">
-                        <div className="p-4 flex items-center gap-4 border-b border-[#B0BEC5]">
-                            <Search size={20} className="text-[#546E7A]" />
-                            <input
-                                type="text"
-                                placeholder="Search users, incidents, categories..."
-                                className="flex-1 text-lg outline-none"
-                                autoFocus
-                            />
-                            <button
-                                onClick={() => setShowSearch(false)}
-                                className="p-2 hover:bg-[#ECEFF1] rounded-lg"
-                            >
-                                <X size={20} className="text-[#546E7A]" />
-                            </button>
-                        </div>
-                        <div className="p-8 text-center text-[#546E7A]">
-                            <Search size={48} className="mx-auto mb-4 opacity-30" />
-                            <p>Start typing to search...</p>
-                        </div>
-                    </div>
-                </div>
-            )}
         </header>
     );
 };

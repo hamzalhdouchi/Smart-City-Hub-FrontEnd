@@ -97,8 +97,10 @@ export const ChangePasswordModal: React.FC<ChangePasswordModalProps> = ({ forced
             setTimeout(() => {
                 if (user?.role === 'ROLE_ADMIN' ) {
                     navigate('/admin/dashboard', { replace: true });
-                } else {
-                    navigate('/dashboard', { replace: true });
+                }else if (user?.role === 'ROLE_AGENT' ) {
+                    navigate('/agent/dashboard', { replace: true });
+                }else {
+                    navigate('/home', { replace: true });
                 }
             }, 1000);
         } catch (error: any) {

@@ -139,7 +139,6 @@ export const LoginForm: React.FC = () => {
                 return;
             }
 
-            toast.success('Welcome back!');
             const role = response.user.role;
             if (role === 'ROLE_ADMIN' || role === 'ROLE_SUPERVISOR') {
                 navigate('/admin/dashboard', { replace: true });
