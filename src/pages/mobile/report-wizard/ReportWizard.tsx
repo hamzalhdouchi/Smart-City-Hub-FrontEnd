@@ -5,12 +5,14 @@ import type { ReportWizardState, WizardStep } from './types';
 import { INITIAL_STATE } from './types';
 import { CategoryIcon, PhotoIcon, LocationIcon, DescriptionIcon, ReviewIcon } from '../../../components/icons/WizardIcons';
 import { incidentService } from '../../../services/incidentService';
-import { toast } from 'react-hot-toast';
+import { toast } from 'react-hot-toast';
+
 import Step1Category from './steps/Step1Category';
 import { Step2PhotoUpload } from './steps/Step2PhotoUpload';
 import Step3Location from './steps/Step3Location';
 import Step4Description from './steps/Step4Description';
-import Step6Review from './steps/Step6Review';
+import Step6Review from './steps/Step6Review';
+
 import { LivePreviewPanel } from './components/LivePreviewPanel';
 
 const STEP_NAMES = [
@@ -28,7 +30,8 @@ export const ReportWizard: React.FC = () => {
     const [state, setState] = useState<ReportWizardState>(() => {
         const saved = localStorage.getItem('incident_report_draft');
         if (saved) {
-            const parsed = JSON.parse(saved);
+            const parsed = JSON.parse(saved);
+
             return {
                 ...INITIAL_STATE,
                 ...parsed,
@@ -38,10 +41,12 @@ export const ReportWizard: React.FC = () => {
         return INITIAL_STATE;
     });
     const [isSubmitted, setIsSubmitted] = useState(false);
-    const [isChecking, setIsChecking] = useState(false);
+    const [isChecking, setIsChecking] = useState(false);
+
     useEffect(() => {
         localStorage.setItem('incident_report_draft', JSON.stringify(state));
-    }, [state]);
+    }, [state]);
+
     const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number) => {
         const R = 6371e3; // metres
         const φ1 = lat1 * Math.PI / 180;
@@ -62,7 +67,8 @@ export const ReportWizard: React.FC = () => {
 
         try {
             setIsChecking(true);
-            const duplicates = await incidentService.getIncidents(undefined, state.category, 0, 50);
+            const duplicates = await incidentService.getIncidents(undefined, state.category, 0, 50);
+
             const match = duplicates.content.find(i => {
                 const dist = calculateDistance(
                     state.location!.latitude,
@@ -99,11 +105,13 @@ export const ReportWizard: React.FC = () => {
     };
 
     const handleNext = async () => {
-        if (state.step < 5) {
+        if (state.step < 5) {
+
             if (state.step === 3) {
                 const isDuplicate = await checkDuplicates();
                 if (isDuplicate) return;
-            }
+            }
+
             const newCompletedSteps = [...(state.completedSteps || [])];
             if (!newCompletedSteps.includes(state.step)) {
                 newCompletedSteps.push(state.step);
@@ -116,8 +124,10 @@ export const ReportWizard: React.FC = () => {
         }
     };
 
-    const canNavigateToStep = (targetStep: WizardStep): boolean => {
-        if (targetStep <= state.step) return true;
+    const canNavigateToStep = (targetStep: WizardStep): boolean => {
+
+        if (targetStep <= state.step) return true;
+
         return false;
     };
 
@@ -137,8 +147,10 @@ export const ReportWizard: React.FC = () => {
     };
 
     useEffect(() => {
-        if (isSubmitted) {
-            localStorage.removeItem('incident_report_draft');
+        if (isSubmitted) {
+
+            localStorage.removeItem('incident_report_draft');
+
             navigate('/my-incidents', {
                 state: {
                     showSuccess: true,

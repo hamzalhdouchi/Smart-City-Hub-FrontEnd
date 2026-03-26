@@ -2,7 +2,6 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import {
     LayoutDashboard,
-    ClipboardList,
     Map,
     User,
     X,
@@ -19,12 +18,6 @@ const navItems = [
         label: 'Dashboard',
         description: 'Overview of your work',
         icon: <LayoutDashboard size={20} />,
-        path: '/agent/dashboard',
-    },
-    {
-        label: 'My Queue',
-        description: 'All assigned incidents',
-        icon: <ClipboardList size={20} />,
         path: '/agent/dashboard',
     },
     {
