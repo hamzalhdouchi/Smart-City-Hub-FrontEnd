@@ -3,20 +3,14 @@ import { Toaster, toast as hotToast } from 'react-hot-toast';
 import { theme } from '../../styles/theme';
 import { CheckCircle, XCircle, Info, AlertTriangle } from 'lucide-react';
 
-/**
- * Toast notification wrapper for react-hot-toast
- * Mobile-optimized positioning and styling
- */
+
 
 export const ToastContainer: React.FC = () => {
     return (
         <Toaster
             position="bottom-center"
-            toastOptions={{
-                // Default options
-                duration: 3000,
-
-                // Mobile-specific positioning
+            toastOptions={{
+                duration: 3000,
                 style: {
                     background: theme.colors.neutral.asphalt,
                     color: theme.colors.neutral.white,
@@ -28,9 +22,7 @@ export const ToastContainer: React.FC = () => {
                     maxWidth: '90%',
                     bottom: '80px', // Above tab bar
                     boxShadow: theme.shadows.level2,
-                },
-
-                // Success toast
+                },
                 success: {
                     duration: 3000,
                     icon: <CheckCircle size={20} color="#4CAF50" />,
@@ -38,9 +30,7 @@ export const ToastContainer: React.FC = () => {
                         background: theme.colors.neutral.asphalt,
                         opacity: 0.9,
                     },
-                },
-
-                // Error toast
+                },
                 error: {
                     duration: 5000, // Longer for errors
                     icon: <XCircle size={20} color={theme.colors.accent.danger} />,
@@ -48,9 +38,7 @@ export const ToastContainer: React.FC = () => {
                         background: theme.colors.neutral.asphalt,
                         opacity: 0.9,
                     },
-                },
-
-                // Loading toast
+                },
                 loading: {
                     duration: Infinity,
                     style: {
@@ -58,9 +46,7 @@ export const ToastContainer: React.FC = () => {
                         opacity: 0.9,
                     },
                 },
-            }}
-
-            // Container style for positioning
+            }}
             containerStyle={{
                 bottom: 80, // Above bottom tab bar
                 zIndex: theme.zIndex.toast,
@@ -69,9 +55,7 @@ export const ToastContainer: React.FC = () => {
     );
 };
 
-/**
- * Toast notification helper functions
- */
+
 
 export const toast = {
     success: (message: string, options?: any) => {

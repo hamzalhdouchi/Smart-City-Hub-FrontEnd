@@ -145,8 +145,7 @@ const CommentSection: React.FC<CommentSectionProps> = ({ incidentId }) => {
     };
 
     const canModify = (comment: Comment) => {
-        if (!user) return false;
-        // User can edit/delete their own comments, or admin can delete any
+        if (!user) return false;
         return comment.authorId === user.id || user.role === 'ROLE_ADMIN';
     };
 
@@ -177,7 +176,7 @@ const CommentSection: React.FC<CommentSectionProps> = ({ incidentId }) => {
 
     return (
         <div className="space-y-6">
-            {/* Comments list */}
+            
             <div className="space-y-4">
                 {comments.length === 0 ? (
                     <div className="text-center py-8 bg-[#ECEFF1]/50 rounded-lg">
@@ -188,7 +187,7 @@ const CommentSection: React.FC<CommentSectionProps> = ({ incidentId }) => {
                 ) : (
                     comments.map(comment => (
                         <div key={comment.id} className="flex gap-3">
-                            {/* Avatar */}
+                            
                             <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#00ACC1] to-[#26A69A] flex items-center justify-center text-white font-semibold text-sm flex-shrink-0 overflow-hidden border border-white/20">
                                 {comment.authorPhotoUrl ? (
                                     <img src={comment.authorPhotoUrl} alt={comment.authorName} className="w-full h-full object-cover" />
@@ -197,7 +196,7 @@ const CommentSection: React.FC<CommentSectionProps> = ({ incidentId }) => {
                                 )}
                             </div>
 
-                            {/* Content */}
+                            
                             <div className="flex-1 min-w-0">
                                 <div className="flex items-center gap-2 flex-wrap">
                                     <span className="font-medium text-[#263238]">{comment.authorName}</span>
@@ -243,7 +242,7 @@ const CommentSection: React.FC<CommentSectionProps> = ({ incidentId }) => {
                                     </p>
                                 )}
 
-                                {/* Actions */}
+                                
                                 {canModify(comment) && editingId !== comment.id && (
                                     <div className="flex gap-2 mt-2">
                                         {comment.authorId === user?.id && (
@@ -270,15 +269,11 @@ const CommentSection: React.FC<CommentSectionProps> = ({ incidentId }) => {
                 )}
             </div>
 
-            {/* Add comment form */}
+            
             <form onSubmit={handleSubmit} className="border-t border-[#ECEFF1] pt-4">
                 <div className="flex gap-3">
                     <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#00ACC1] to-[#26A69A] flex items-center justify-center text-white font-semibold text-sm flex-shrink-0 overflow-hidden border border-white/20">
-                        {/* We need to get the current user's photo here. Since we don't have it in the user object directly, we might need to fetch it or use a context.
-                            For now, let's leave it as generic user icon or initials if user is present.
-                            Actually, TopBar fetches it. Maybe AuthContext should store it?
-                            For now, I'll stick to the existing generic icon or use initials if user exists.
-                         */}
+                        
                         {currentUserPhoto ? (
                             <img src={currentUserPhoto} alt="Me" className="w-full h-full object-cover" />
                         ) : user ? (
@@ -311,7 +306,7 @@ const CommentSection: React.FC<CommentSectionProps> = ({ incidentId }) => {
                     </div>
                 </div>
             </form>
-            {/* Delete Confirmation Modal */}
+            
             <DeleteConfirmationModal
                 isOpen={deleteModalInfo.show}
                 onClose={() => setDeleteModalInfo({ show: false, commentId: null })}

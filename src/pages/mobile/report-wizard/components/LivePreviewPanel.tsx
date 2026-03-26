@@ -20,7 +20,7 @@ export const LivePreviewPanel: React.FC<LivePreviewPanelProps> = ({ state }) => 
     return (
         <div className="hidden lg:block sticky top-6 h-fit">
             <div className="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden">
-                {/* Header */}
+                
                 <div className="px-6 py-4" style={{ background: '#0D7377' }}>
                     <h3 className="text-white font-bold text-lg flex items-center gap-2">
                         <Eye size={20} />
@@ -29,9 +29,9 @@ export const LivePreviewPanel: React.FC<LivePreviewPanelProps> = ({ state }) => 
                     <p className="text-teal-100 text-sm mt-1">See how your report will look</p>
                 </div>
 
-                {/* Preview Content */}
+                
                 <div className="p-6 space-y-4">
-                    {/* Category Badge */}
+                    
                     {state.category ? (
                         <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-teal-50 text-teal-700 rounded-full text-sm font-semibold border border-teal-200">
                             <div className="w-2 h-2 bg-teal-500 rounded-full animate-pulse" />
@@ -41,20 +41,18 @@ export const LivePreviewPanel: React.FC<LivePreviewPanelProps> = ({ state }) => 
                         <div className="text-slate-400 text-sm italic">No category selected yet...</div>
                     )}
 
-                    {/* Photos Preview */}
+                    
                     {state.photos.length > 0 && (
                         <div className="space-y-2">
                             <p className="text-xs font-semibold text-slate-600 uppercase tracking-wide">Photos ({state.photos.length})</p>
                             <div className="grid grid-cols-3 gap-2">
-                                {state.photos.slice(0, 6).map((photo, idx) => {
-                                    // Safely try to create object URL
+                                {state.photos.slice(0, 6).map((photo, idx) => {
                                     let photoUrl: string | null = null;
                                     try {
                                         if (photo && typeof photo === 'object') {
                                             photoUrl = URL.createObjectURL(photo as Blob);
                                         }
-                                    } catch (error) {
-                                        // Photo is not a valid Blob/File (e.g., from localStorage)
+                                    } catch (error) {
                                         photoUrl = null;
                                     }
 
@@ -83,7 +81,7 @@ export const LivePreviewPanel: React.FC<LivePreviewPanelProps> = ({ state }) => 
                         </div>
                     )}
 
-                    {/* Location */}
+                    
                     {state.location && (
                         <div className="space-y-2">
                             <p className="text-xs font-semibold text-slate-600 uppercase tracking-wide">Location</p>
@@ -97,7 +95,7 @@ export const LivePreviewPanel: React.FC<LivePreviewPanelProps> = ({ state }) => 
                         </div>
                     )}
 
-                    {/* Title & Description */}
+                    
                     {(state.title || state.description) && (
                         <div className="space-y-3 pt-2 border-t border-slate-200">
                             {state.title && (
@@ -115,7 +113,7 @@ export const LivePreviewPanel: React.FC<LivePreviewPanelProps> = ({ state }) => 
                         </div>
                     )}
 
-                    {/* Urgency & Visibility */}
+                    
                     <div className="flex flex-wrap gap-2 pt-2">
                         <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border ${getUrgencyColor(state.urgencyLevel)}`}>
                             <AlertCircle size={14} />
@@ -133,7 +131,7 @@ export const LivePreviewPanel: React.FC<LivePreviewPanelProps> = ({ state }) => 
                         )}
                     </div>
 
-                    {/* Timestamp Simulation */}
+                    
                     <div className="pt-3 border-t border-slate-200">
                         <div className="flex items-center gap-2 text-xs text-slate-400">
                             <Calendar size={14} />
@@ -141,7 +139,7 @@ export const LivePreviewPanel: React.FC<LivePreviewPanelProps> = ({ state }) => 
                         </div>
                     </div>
 
-                    {/* Empty State */}
+                    
                     {!state.category && state.photos.length === 0 && !state.location && !state.title && (
                         <div className="text-center py-8">
                             <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-3">
@@ -154,7 +152,7 @@ export const LivePreviewPanel: React.FC<LivePreviewPanelProps> = ({ state }) => 
                 </div>
             </div>
 
-            {/* Progress Indicator */}
+            
             <div className="mt-4 bg-white rounded-2xl shadow-lg border border-slate-200 p-4">
                 <div className="flex items-center justify-between mb-2">
                     <span className="text-xs font-semibold text-slate-600 uppercase tracking-wide">Completion</span>

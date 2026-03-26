@@ -134,7 +134,7 @@ const AgentDashboard: React.FC = () => {
 
     return (
         <div className="space-y-8 pb-16">
-            {/* Hero Header */}
+            
             <div
                 className="
                     relative overflow-hidden rounded-3xl px-6 py-8 md:px-10 md:py-10 text-white shadow-2xl
@@ -146,7 +146,7 @@ const AgentDashboard: React.FC = () => {
                     backgroundPosition: 'center',
                 }}
             >
-                {/* Subtle overlay grid */}
+                
                 <div className="absolute inset-0 opacity-25 bg-[radial-gradient(circle_at_top_left,rgba(20,255,236,0.35),transparent_55%),radial-gradient(circle_at_bottom_right,rgba(50,147,111,0.4),transparent_55%)]" />
 
                 <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-8">
@@ -163,7 +163,7 @@ const AgentDashboard: React.FC = () => {
                     </div>
 
                     <div className="flex flex-col md:flex-row gap-4 w-full md:w-auto">
-                        {/* Active incidents pill */}
+                        
                         <div className="flex-1 min-w-[220px] rounded-3xl bg-slate-950/70 border border-white/10 shadow-[0_18px_45px_rgba(0,0,0,0.6)] px-6 py-4 flex items-center justify-between">
                             <div>
                                 <p className="text-[11px] font-semibold tracking-[0.2em] uppercase text-teal-300">
@@ -181,7 +181,7 @@ const AgentDashboard: React.FC = () => {
                             </div>
                         </div>
 
-                        {/* Fixed / resolved pill */}
+                        
                         <div className="flex-1 min-w-[220px] rounded-3xl bg-white text-slate-900 shadow-[0_18px_45px_rgba(15,23,42,0.35)] px-6 py-4 flex items-center justify-between">
                             <div>
                                 <p className="text-[11px] font-semibold tracking-[0.2em] uppercase text-teal-700">
@@ -202,7 +202,7 @@ const AgentDashboard: React.FC = () => {
                 </div>
             </div>
 
-            {/* Metric Cards */}
+            
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <Card className="relative overflow-hidden">
                     <div className="absolute inset-0 bg-gradient-to-br from-[#14FFEC]/10 to-transparent pointer-events-none" />
@@ -277,9 +277,9 @@ const AgentDashboard: React.FC = () => {
                 </Card>
             </div>
 
-            {/* Main Content */}
+            
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                {/* Queue list */}
+                
                 <div className="lg:col-span-2">
                     <Card>
                         <div className="flex items-center justify-between mb-4">
@@ -325,7 +325,7 @@ const AgentDashboard: React.FC = () => {
                                             onClick={() => navigate(`/agent/incidents/${incident.id}`)}
                                         >
                                             <div className="p-4 md:p-5 flex gap-4">
-                                                {/* Category Icon */}
+                                                
                                                 <div className="flex-shrink-0">
                                                     <CategoryIcon
                                                         iconName={
@@ -337,7 +337,7 @@ const AgentDashboard: React.FC = () => {
                                                     />
                                                 </div>
 
-                                                {/* Main Content */}
+                                                
                                                 <div className="flex-1 min-w-0">
                                                     <div className="flex flex-wrap items-start justify-between gap-2 mb-1">
                                                         <div className="min-w-0">
@@ -397,7 +397,7 @@ const AgentDashboard: React.FC = () => {
                                                     </div>
                                                 </div>
 
-                                                {/* CTA */}
+                                                
                                                 <div className="hidden md:flex flex-col justify-center items-center gap-2">
                                                     <Button
                                                         size="sm"
@@ -424,7 +424,7 @@ const AgentDashboard: React.FC = () => {
                             </div>
                         )}
 
-                        {/* Pagination */}
+                        
                         {assignedPage && (
                             <div className="mt-4 pt-4 border-t border-gray-100">
                                 <Pagination
@@ -440,7 +440,7 @@ const AgentDashboard: React.FC = () => {
                     </Card>
                 </div>
 
-                {/* Right column: focus & tips */}
+                
                 <div className="space-y-4">
                     <Card>
                         <h2 className="text-lg font-semibold text-[#263238] mb-2">

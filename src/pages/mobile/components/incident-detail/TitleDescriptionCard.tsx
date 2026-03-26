@@ -25,9 +25,7 @@ export const TitleDescriptionCard: React.FC<TitleDescriptionCardProps> = ({
     categoryIcon
 }) => {
     const [isExpanded, setIsExpanded] = useState(false);
-    const config = categoryConfig[category] || categoryConfig.OTHER;
-
-    // Check if description is long enough to need expansion
+    const config = categoryConfig[category] || categoryConfig.OTHER;
     const needsExpansion = description.length > 150;
 
     return (
@@ -38,14 +36,14 @@ export const TitleDescriptionCard: React.FC<TitleDescriptionCardProps> = ({
                 boxShadow: '0 4px 20px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.05)'
             }}
         >
-            {/* Decorative Top Gradient */}
+            
             <div
                 className="absolute top-0 left-0 right-0 h-1.5"
                 style={{ background: `linear-gradient(90deg, ${config.color}, ${config.color}80)` }}
             />
 
             <div className="p-5">
-                {/* Category Badge */}
+                
                 <div
                     className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-4"
                     style={{ background: config.bg }}
@@ -64,14 +62,14 @@ export const TitleDescriptionCard: React.FC<TitleDescriptionCardProps> = ({
                     </span>
                 </div>
 
-                {/* Title with Sparkle */}
+                
                 <div className="flex items-start gap-3 mb-4">
                     <h1 className="text-2xl font-bold text-[#263238] leading-tight tracking-tight">
                         {title}
                     </h1>
                 </div>
 
-                {/* Description */}
+                
                 <div className="relative">
                     <p
                         className={`text-[15px] text-[#546E7A] leading-relaxed transition-all duration-300 ${!isExpanded && needsExpansion ? 'line-clamp-3' : ''
@@ -80,7 +78,7 @@ export const TitleDescriptionCard: React.FC<TitleDescriptionCardProps> = ({
                         {description}
                     </p>
 
-                    {/* Gradient Fade for truncated text */}
+                    
                     {!isExpanded && needsExpansion && (
                         <div
                             className="absolute bottom-0 left-0 right-0 h-12 pointer-events-none"
@@ -89,7 +87,7 @@ export const TitleDescriptionCard: React.FC<TitleDescriptionCardProps> = ({
                     )}
                 </div>
 
-                {/* Read More Button */}
+                
                 {needsExpansion && (
                     <button
                         onClick={() => setIsExpanded(!isExpanded)}

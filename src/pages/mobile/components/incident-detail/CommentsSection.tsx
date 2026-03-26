@@ -50,7 +50,7 @@ export const CommentsSection: React.FC<CommentsSectionProps> = ({
                 boxShadow: '0 4px 20px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.05)'
             }}
         >
-            {/* Header */}
+            
             <div
                 className="px-5 py-4 flex items-center justify-between"
                 style={{
@@ -74,7 +74,7 @@ export const CommentsSection: React.FC<CommentsSectionProps> = ({
                 </div>
             </div>
 
-            {/* Chat Messages */}
+            
             <div className="p-5 pt-4 space-y-2.5 max-h-[400px] overflow-y-auto">
                 {comments.length === 0 ? (
                     <div className="text-center py-8">
@@ -90,7 +90,7 @@ export const CommentsSection: React.FC<CommentsSectionProps> = ({
                             key={comment.id}
                             className={`flex gap-2 ${comment.isOwn ? 'flex-row' : 'flex-row-reverse'}`}
                         >
-                            {/* Avatar */}
+                            
                             <div className="flex-shrink-0">
                                 {comment.author.avatarUrl ? (
                                     <img
@@ -108,9 +108,9 @@ export const CommentsSection: React.FC<CommentsSectionProps> = ({
                                 )}
                             </div>
 
-                            {/* Message Bubble */}
+                            
                             <div className={`flex-1 max-w-[85%] ${comment.isOwn ? '' : 'flex flex-col items-end'}`}>
-                                {/* Author Name & Time */}
+                                
                                 <div className={`flex items-center gap-2 mb-1 ${comment.isOwn ? '' : 'flex-row-reverse'}`}>
                                     <div className="flex items-center gap-1.5">
                                         <span className="text-xs font-semibold text-[#263238]">
@@ -135,7 +135,7 @@ export const CommentsSection: React.FC<CommentsSectionProps> = ({
                                     </span>
                                 </div>
 
-                                {/* Message Content */}
+                                
                                 <div className="relative group">
                                     <div
                                         className={`px-3 py-2 rounded-2xl ${comment.isOwn
@@ -156,7 +156,7 @@ export const CommentsSection: React.FC<CommentsSectionProps> = ({
                                         </p>
                                     </div>
 
-                                    {/* Delete Button */}
+                                    
                                     {comment.isOwn && (
                                         <button
                                             onClick={() => {
@@ -176,7 +176,7 @@ export const CommentsSection: React.FC<CommentsSectionProps> = ({
                 )}
             </div>
 
-            {/* New Comment Form */}
+            
             <form onSubmit={handleSubmit} className="p-5 m-5">
                 <div
                     className="flex items-end gap-3 p-3 rounded-2xl transition-all"

@@ -38,21 +38,21 @@ export const EnhancedIncidentCard: React.FC<EnhancedIncidentCardProps> = ({ inci
                 className="group relative bg-white rounded-2xl overflow-hidden cursor-pointer active:scale-[0.98] transition-all duration-200"
                 style={{ boxShadow: '0 2px 12px rgba(0,0,0,0.07)' }}
             >
-                {/* Priority accent bar — top */}
+                
                 <div
                     className="h-[3px] w-full"
                     style={{ background: `linear-gradient(90deg, ${priColor} 0%, ${priColor}44 100%)` }}
                 />
 
-                {/* Left teal border accent on tap */}
+                
                 <div
                     className="absolute left-0 top-0 bottom-0 w-0.5 rounded-l-2xl opacity-0 group-active:opacity-100 transition-opacity duration-200"
                     style={{ background: 'linear-gradient(to bottom, #0D7377, #32936F)' }}
                 />
 
-                {/* Main body */}
+                
                 <div className="p-4 flex gap-3">
-                    {/* Photo / Placeholder */}
+                    
                     <div className="relative shrink-0 w-[72px] h-[72px] rounded-xl overflow-hidden">
                         {photoSrc ? (
                             <img
@@ -75,16 +75,16 @@ export const EnhancedIncidentCard: React.FC<EnhancedIncidentCardProps> = ({ inci
                                 )}
                             </div>
                         )}
-                        {/* Priority dot */}
+                        
                         <div
                             className="absolute top-1.5 right-1.5 w-2.5 h-2.5 rounded-full border-2 border-white shadow-sm"
                             style={{ background: priColor }}
                         />
                     </div>
 
-                    {/* Content */}
+                    
                     <div className="flex-1 min-w-0">
-                        {/* Status + time */}
+                        
                         <div className="flex items-center justify-between gap-2 mb-1.5 flex-wrap">
                             <StatusBadge status={incident.status} />
                             <div className="flex items-center gap-1" style={{ color: '#B0BEC5' }}>
@@ -93,7 +93,7 @@ export const EnhancedIncidentCard: React.FC<EnhancedIncidentCardProps> = ({ inci
                             </div>
                         </div>
 
-                        {/* Title */}
+                        
                         <h3
                             className="font-black text-[14px] leading-snug line-clamp-1 mb-1"
                             style={{ color: '#263238', fontFamily: "'Noto Sans JP', sans-serif" }}
@@ -101,12 +101,12 @@ export const EnhancedIncidentCard: React.FC<EnhancedIncidentCardProps> = ({ inci
                             {incident.title}
                         </h3>
 
-                        {/* Description */}
+                        
                         <p className="text-[12px] line-clamp-2 leading-relaxed mb-1.5" style={{ color: '#546E7A' }}>
                             {incident.description}
                         </p>
 
-                        {/* Location */}
+                        
                         {incident.address && (
                             <div className="flex items-center gap-1">
                                 <MapPin size={10} className="shrink-0" style={{ color: '#0D7377' }} />
@@ -118,7 +118,7 @@ export const EnhancedIncidentCard: React.FC<EnhancedIncidentCardProps> = ({ inci
                     </div>
                 </div>
 
-                {/* Progress tracker */}
+                
                 <div className="px-4 pb-3">
                     <div className="flex items-center justify-between mb-1">
                         {PROGRESS_STEPS.map((label, i) => (
@@ -144,7 +144,7 @@ export const EnhancedIncidentCard: React.FC<EnhancedIncidentCardProps> = ({ inci
                     </div>
                 </div>
 
-                {/* Rating row — shown only if rated */}
+                
                 {incident.rating && (
                     <div
                         className="mx-4 mb-3 px-3 py-2 rounded-xl flex items-center gap-2"
@@ -175,13 +175,13 @@ export const EnhancedIncidentCard: React.FC<EnhancedIncidentCardProps> = ({ inci
                     </div>
                 )}
 
-                {/* Footer */}
+                
                 <div
                     className="flex items-center justify-between px-4 py-2.5 border-t"
                     style={{ borderColor: '#ECEFF1', background: '#f8fafb' }}
                 >
                     <div className="flex items-center gap-3">
-                        {/* Priority badge */}
+                        
                         <span
                             className="px-2 py-0.5 rounded-md text-[10px] font-black uppercase tracking-wide"
                             style={{
@@ -192,7 +192,7 @@ export const EnhancedIncidentCard: React.FC<EnhancedIncidentCardProps> = ({ inci
                             {incident.priority}
                         </span>
 
-                        {/* Comments count */}
+                        
                         {incident.commentsCount > 0 && (
                             <div className="flex items-center gap-1" style={{ color: '#546E7A' }}>
                                 <MessageCircle size={12} />
@@ -201,7 +201,7 @@ export const EnhancedIncidentCard: React.FC<EnhancedIncidentCardProps> = ({ inci
                         )}
                     </div>
 
-                    {/* CTA */}
+                    
                     <button
                         className="flex items-center gap-1 px-3 py-1.5 rounded-xl text-[11px] font-black uppercase tracking-wide text-white transition-all active:scale-95"
                         style={{ background: 'linear-gradient(135deg, #0D7377, #32936F)' }}

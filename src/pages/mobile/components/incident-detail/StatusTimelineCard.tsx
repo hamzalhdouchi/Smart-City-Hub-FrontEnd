@@ -42,7 +42,7 @@ export const StatusTimelineCard: React.FC<StatusTimelineCardProps> = ({
                 boxShadow: '0 4px 20px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.05)'
             }}
         >
-            {/* Header with gradient */}
+            
             <div
                 className="px-5 py-4 flex items-center gap-3"
                 style={{
@@ -64,7 +64,7 @@ export const StatusTimelineCard: React.FC<StatusTimelineCardProps> = ({
                 </div>
             </div>
 
-            {/* Timeline */}
+            
             <div className="p-5 pt-4">
                 <div className="relative">
                     {statusOrder.map((status, index) => {
@@ -76,9 +76,9 @@ export const StatusTimelineCard: React.FC<StatusTimelineCardProps> = ({
 
                         return (
                             <div key={status} className="relative flex gap-4">
-                                {/* Timeline Line & Dot */}
+                                
                                 <div className="flex flex-col items-center">
-                                    {/* Icon */}
+                                    
                                     <div
                                         className={`relative z-10 flex items-center justify-center transition-all duration-500 ${isCurrent ? 'scale-110' : ''
                                             }`}
@@ -90,7 +90,7 @@ export const StatusTimelineCard: React.FC<StatusTimelineCardProps> = ({
                                         )}
                                     </div>
 
-                                    {/* Connecting Line */}
+                                    
                                     {!isLast && (
                                         <div
                                             className="w-0.5 flex-1 min-h-[40px] my-1 rounded-full transition-all duration-500"
@@ -103,7 +103,7 @@ export const StatusTimelineCard: React.FC<StatusTimelineCardProps> = ({
                                     )}
                                 </div>
 
-                                {/* Content */}
+                                
                                 <div className={`flex-1 pb-6 ${isLast ? 'pb-0' : ''}`}>
                                     <div className="flex items-center gap-2 mb-1">
                                         <h3

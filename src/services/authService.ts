@@ -47,9 +47,7 @@ export interface User {
     mustChangePassword: boolean;
     photoUrl?: string;
     createdAt: string;
-}
-
-// Auth API calls
+}
 export const authService = {
     register: async (data: RegisterRequest): Promise<RegistrationResponse> => {
         const response = await api.post('/auth/register', data);
@@ -85,9 +83,7 @@ export const authService = {
     getCurrentUser: async (): Promise<User> => {
         const response = await api.get('/api/users/me');
         return response.data.data;
-    },
-
-    // Admin endpoints
+    },
     getPendingUsers: async (): Promise<User[]> => {
         const response = await api.get('/api/users/pending');
         return response.data.data.content || response.data.data;

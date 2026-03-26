@@ -33,9 +33,7 @@ export const WeatherWidget: React.FC = () => {
     };
 
     useEffect(() => {
-        fetchWeather();
-
-        // Auto-refresh every 30 minutes
+        fetchWeather();
         const interval = setInterval(() => {
             fetchWeather();
         }, 30 * 60 * 1000);
@@ -91,9 +89,7 @@ export const WeatherWidget: React.FC = () => {
                 </div>
             </div>
         );
-    }
-
-    // Format current date in French
+    }
     const formattedDate = format(new Date(), 'EEEE d MMMM yyyy', { locale: fr });
 
     return (
@@ -104,7 +100,7 @@ export const WeatherWidget: React.FC = () => {
                 boxShadow: theme.shadows.level2,
             }}
         >
-            {/* Decorative background pattern */}
+            
             <div
                 className="absolute inset-0 opacity-10"
                 style={{
@@ -114,9 +110,9 @@ export const WeatherWidget: React.FC = () => {
                 }}
             />
 
-            {/* Content */}
+            
             <div className="relative z-10">
-                {/* Header */}
+                
                 <div className="flex items-start justify-between mb-4">
                     <div>
                         <h3 className="text-white text-lg font-bold" style={{ fontFamily: theme.fonts.heading }}>
@@ -139,7 +135,7 @@ export const WeatherWidget: React.FC = () => {
                     </button>
                 </div>
 
-                {/* Main Weather Display */}
+                
                 <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-3">
                         <img
@@ -158,12 +154,12 @@ export const WeatherWidget: React.FC = () => {
                     </div>
                 </div>
 
-                {/* Divider */}
+                
                 <div className="h-px bg-white/20 mb-4" />
 
-                {/* Weather Details Grid */}
+                
                 <div className="grid grid-cols-3 gap-3">
-                    {/* Humidity */}
+                    
                     <div className="bg-white/10 backdrop-blur-sm rounded-xl p-3">
                         <div className="flex items-center gap-2 mb-1">
                             <Droplets size={16} className="text-white/80" />
@@ -174,7 +170,7 @@ export const WeatherWidget: React.FC = () => {
                         </p>
                     </div>
 
-                    {/* Wind Speed */}
+                    
                     <div className="bg-white/10 backdrop-blur-sm rounded-xl p-3">
                         <div className="flex items-center gap-2 mb-1">
                             <Wind size={16} className="text-white/80" />
@@ -185,7 +181,7 @@ export const WeatherWidget: React.FC = () => {
                         </p>
                     </div>
 
-                    {/* Pressure */}
+                    
                     <div className="bg-white/10 backdrop-blur-sm rounded-xl p-3">
                         <div className="flex items-center gap-2 mb-1">
                             <Gauge size={16} className="text-white/80" />
@@ -197,7 +193,7 @@ export const WeatherWidget: React.FC = () => {
                     </div>
                 </div>
 
-                {/* Feels Like */}
+                
                 <p className="text-white/70 text-xs text-center mt-3">
                     Feels like: {weather.feelsLike}°C
                 </p>

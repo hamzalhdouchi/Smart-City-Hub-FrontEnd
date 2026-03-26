@@ -4,9 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { Navigate } from 'react-router-dom';
 
 const ChangePasswordPage: React.FC = () => {
-    const { isAuthenticated, isLoading, mustChangePassword } = useAuth();
-
-    // If not authenticated, redirect to login
+    const { isAuthenticated, isLoading, mustChangePassword } = useAuth();
     if (!isLoading && !isAuthenticated) {
         return <Navigate to="/login" replace />;
     }

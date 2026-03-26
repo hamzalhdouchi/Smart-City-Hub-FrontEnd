@@ -100,7 +100,7 @@ export const HeroGallery: React.FC<HeroGalleryProps> = ({
                 )}
             </div>
 
-            {/* Gradient Overlays */}
+            
             <div
                 className="absolute inset-0 pointer-events-none"
                 style={{
@@ -108,7 +108,7 @@ export const HeroGallery: React.FC<HeroGalleryProps> = ({
                 }}
             />
 
-            {/* Status Badge - Top Left */}
+            
             <div
                 className="absolute top-4 left-4 px-4 py-2 rounded-full text-white text-sm font-bold shadow-lg flex items-center gap-2"
                 style={{
@@ -120,7 +120,7 @@ export const HeroGallery: React.FC<HeroGalleryProps> = ({
                 {statusConfig.text}
             </div>
 
-            {/* Priority Badge - Top Right */}
+            
             {priorityInfo.show && (
                 <div
                     className="absolute top-4 right-4 px-3 py-2 rounded-full text-white text-xs font-bold shadow-lg backdrop-blur-md"
@@ -133,7 +133,7 @@ export const HeroGallery: React.FC<HeroGalleryProps> = ({
                 </div>
             )}
 
-            {/* Photo Counter & Dots - Bottom Center */}
+            
             {photos.length > 1 && (
                 <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2">
                     <span className="text-white text-xs font-medium bg-black/30 px-3 py-1 rounded-full backdrop-blur-sm">
@@ -157,7 +157,7 @@ export const HeroGallery: React.FC<HeroGalleryProps> = ({
                 </div>
             )}
 
-            {/* Fullscreen Button */}
+            
             {photos.length > 0 && (
                 <button
                     onClick={(e) => {
@@ -170,7 +170,7 @@ export const HeroGallery: React.FC<HeroGalleryProps> = ({
                 </button>
             )}
 
-            {/* Navigation Arrows (Desktop) */}
+            
             {photos.length > 1 && (
                 <>
                     <button

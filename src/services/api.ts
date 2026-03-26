@@ -7,9 +7,7 @@ export const api = axios.create({
     headers: {
         'Content-Type': 'application/json',
     },
-});
-
-// Request interceptor - add auth token
+});
 api.interceptors.request.use(
     (config) => {
         const token = localStorage.getItem('accessToken');
@@ -19,15 +17,11 @@ api.interceptors.request.use(
         return config;
     },
     (error) => Promise.reject(error)
-);
-
-// Response interceptor - handle errors & token refresh
+);
 api.interceptors.response.use(
     (response) => response,
     async (error) => {
-        const originalRequest = error.config;
-
-        // If 401 and not already retried
+        const originalRequest = error.config;
         if (error.response?.status === 401 && !originalRequest._retry) {
             originalRequest._retry = true;
 
@@ -43,8 +37,7 @@ api.interceptors.response.use(
 
                     originalRequest.headers.Authorization = `Bearer ${accessToken}`;
                     return api(originalRequest);
-                } catch (refreshError) {
-                    // Refresh failed, logout user
+                } catch (refreshError) {
                     localStorage.removeItem('accessToken');
                     localStorage.removeItem('refreshToken');
                     window.location.href = '/login';

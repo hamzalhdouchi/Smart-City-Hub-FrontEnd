@@ -21,9 +21,7 @@ const ChangePasswordModal: React.FC<ChangePasswordModalProps> = ({ isOpen, onClo
         current: false, new: false, confirm: false
     });
 
-    if (!isOpen) return null;
-
-    // Password Strength & Validation Logic
+    if (!isOpen) return null;
     const validations = {
         length: formData.newPassword.length >= 8,
         uppercase: /[A-Z]/.test(formData.newPassword),
@@ -57,8 +55,7 @@ const ChangePasswordModal: React.FC<ChangePasswordModalProps> = ({ isOpen, onClo
             setIsLoading(true);
             await authService.changePassword(formData);
             toast.success('Password updated successfully!');
-            onClose();
-            // Reset form
+            onClose();
             setFormData({ currentPassword: '', newPassword: '', confirmPassword: '' });
         } catch (error: any) {
             console.error(error);
@@ -75,7 +72,7 @@ const ChangePasswordModal: React.FC<ChangePasswordModalProps> = ({ isOpen, onClo
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
             <div className="bg-white rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200">
-                {/* Header */}
+                
                 <div className="flex justify-between items-center p-6 border-b border-gray-100">
                     <h2 className="text-xl font-bold text-[#263238] flex items-center gap-2">
                         <Lock className="text-[#0D7377]" size={24} />
@@ -88,7 +85,7 @@ const ChangePasswordModal: React.FC<ChangePasswordModalProps> = ({ isOpen, onClo
 
                 <form onSubmit={handleSubmit} className="p-6 space-y-5">
 
-                    {/* Current Password */}
+                    
                     <div>
                         <label className="block text-sm font-medium text-[#546E7A] mb-1.5">Current Password</label>
                         <div className="relative">
@@ -109,7 +106,7 @@ const ChangePasswordModal: React.FC<ChangePasswordModalProps> = ({ isOpen, onClo
                         </div>
                     </div>
 
-                    {/* New Password */}
+                    
                     <div>
                         <label className="block text-sm font-medium text-[#546E7A] mb-1.5">New Password</label>
                         <div className="relative">
@@ -129,7 +126,7 @@ const ChangePasswordModal: React.FC<ChangePasswordModalProps> = ({ isOpen, onClo
                             </button>
                         </div>
 
-                        {/* Strength Meter */}
+                        
                         {formData.newPassword && (
                             <div className="mt-2">
                                 <div className="flex justify-between text-xs mb-1">
@@ -147,7 +144,7 @@ const ChangePasswordModal: React.FC<ChangePasswordModalProps> = ({ isOpen, onClo
                         )}
                     </div>
 
-                    {/* Requirements Checklist */}
+                    
                     <div className="grid grid-cols-2 gap-2 text-xs text-[#78909C] bg-gray-50 p-3 rounded-lg">
                         <div className={`flex items-center gap-1.5 ${validations.length ? 'text-green-600' : ''}`}>
                             {validations.length ? <Check size={12} /> : <div className="w-3 h-3 rounded-full border border-gray-300" />}
@@ -171,7 +168,7 @@ const ChangePasswordModal: React.FC<ChangePasswordModalProps> = ({ isOpen, onClo
                         </div>
                     </div>
 
-                    {/* Confirm Password */}
+                    
                     <div>
                         <label className="block text-sm font-medium text-[#546E7A] mb-1.5">Confirm New Password</label>
                         <div className="relative">

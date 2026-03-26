@@ -53,7 +53,7 @@ export const AgentSidebar: React.FC<AgentSidebarProps> = ({
                 ${isMobileOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
             `}
         >
-            {/* Header / Logo */}
+            
             <div className="h-20 flex items-center justify-between px-4 border-b border-[#B0BEC5]">
                 <NavLink to="/agent/dashboard" className="flex items-center gap-3">
                     <SmartCityLogo variant="icon" size={36} />
@@ -67,7 +67,7 @@ export const AgentSidebar: React.FC<AgentSidebarProps> = ({
                     </div>
                 </NavLink>
 
-                {/* Mobile close button */}
+                
                 <button
                     onClick={onMobileClose}
                     className="lg:hidden p-2 hover:bg-[#ECEFF1] rounded-lg"
@@ -76,7 +76,7 @@ export const AgentSidebar: React.FC<AgentSidebarProps> = ({
                 </button>
             </div>
 
-            {/* Navigation */}
+            
             <nav className="p-4 space-y-2 overflow-y-auto h-[calc(100%-80px)]">
                 {navItems.map((item) => (
                     <NavLink

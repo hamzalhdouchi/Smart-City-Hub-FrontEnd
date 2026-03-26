@@ -1,4 +1,4 @@
-// Services barrel export
+
 export { authService } from './authService';
 export type { RegisterRequest, LoginRequest, ChangePasswordRequest, LoginResponse, RegistrationResponse, User } from './authService';
 

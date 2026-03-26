@@ -21,14 +21,14 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
 }) => {
     return (
         <div className={`flex flex-col items-center justify-center text-center py-16 px-4 ${className}`}>
-            {/* Icon/Illustration */}
+            
             {icon && (
                 <div className="mb-6 text-gray-300">
                     {icon}
                 </div>
             )}
 
-            {/* Title */}
+            
             <h3
                 className="text-xl font-bold mb-2"
                 style={{
@@ -39,7 +39,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
                 {title}
             </h3>
 
-            {/* Description */}
+            
             {description && (
                 <p
                     className="text-base mb-6 max-w-sm"
@@ -49,7 +49,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
                 </p>
             )}
 
-            {/* Action Button */}
+            
             {action && (
                 <button
                     onClick={action.onClick}

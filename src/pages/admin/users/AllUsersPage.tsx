@@ -46,9 +46,7 @@ const AllUsersPage: React.FC = () => {
 
     useEffect(() => {
         fetchUsers();
-    }, [fetchUsers]);
-
-    // Client-side filtering
+    }, [fetchUsers]);
     const filteredUsers = users.filter(user => {
         const matchesSearch =
             user.fullName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -141,7 +139,7 @@ const AllUsersPage: React.FC = () => {
 
     return (
         <div className="space-y-6">
-            {/* Header */}
+            
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
                     <h1 className="text-2xl font-bold text-[#263238] font-['Noto_Sans_JP']">
@@ -166,10 +164,10 @@ const AllUsersPage: React.FC = () => {
                 </div>
             </div>
 
-            {/* Filters */}
+            
             <Card padding="md">
                 <div className="flex flex-col md:flex-row gap-4">
-                    {/* Search */}
+                    
                     <div className="flex-1 relative">
                         <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#546E7A]" />
                         <input
@@ -182,7 +180,7 @@ const AllUsersPage: React.FC = () => {
                         />
                     </div>
 
-                    {/* Status Filter */}
+                    
                     <select
                         value={statusFilter}
                         onChange={(e) => setStatusFilter(e.target.value as UserStatus | 'ALL')}
@@ -196,7 +194,7 @@ const AllUsersPage: React.FC = () => {
                         <option value="REJECTED">Rejected</option>
                     </select>
 
-                    {/* Role Filter */}
+                    
                     <select
                         value={roleFilter}
                         onChange={(e) => setRoleFilter(e.target.value as Role | 'ALL')}
@@ -212,7 +210,7 @@ const AllUsersPage: React.FC = () => {
                 </div>
             </Card>
 
-            {/* Users Table */}
+            
             <Card padding="none">
                 <div className="overflow-x-auto">
                     <table className="w-full">
@@ -273,7 +271,7 @@ const AllUsersPage: React.FC = () => {
                                                 <MoreVertical size={16} className="text-[#546E7A]" />
                                             </button>
 
-                                            {/* Action Menu */}
+                                            
                                             {openActionMenu === user.id && (
                                                 <div className="absolute right-0 top-full mt-1 w-48 bg-white rounded-lg shadow-lg border border-[#B0BEC5] z-10">
                                                     <div className="py-1">
@@ -320,7 +318,7 @@ const AllUsersPage: React.FC = () => {
                     </table>
                 </div>
 
-                {/* Empty State */}
+                
                 {filteredUsers.length === 0 && !loading && (
                     <div className="text-center py-16">
                         <p className="text-[#546E7A]">No users found</p>
@@ -328,7 +326,7 @@ const AllUsersPage: React.FC = () => {
                 )}
             </Card>
 
-            {/* Pagination */}
+            
             {pageData && (
                 <Card padding="md">
                     <Pagination

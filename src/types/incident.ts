@@ -1,4 +1,4 @@
-// Import types from incidentService
+
 import type {
     Incident,
     IncidentStatus,
@@ -11,9 +11,7 @@ import type {
     CreateIncidentRequest,
     UpdateStatusRequest,
     AssignAgentRequest
-} from '../services/incidentService';
-
-// Re-export with proper names
+} from '../services/incidentService';
 export type {
     IncidentStatus,
     Incident,
@@ -25,12 +23,8 @@ export type {
     CreateIncidentRequest,
     UpdateStatusRequest,
     AssignAgentRequest
-};
-
-// Export Priority as IncidentPriority
-export type IncidentPriority = Priority;
-
-// Extended types for detail page
+};
+export type IncidentPriority = Priority;
 export interface StatusHistoryItem {
     status: IncidentStatus;
     timestamp: Date;
@@ -48,10 +42,7 @@ export interface Comment {
     };
     createdAt: Date;
     isOwn?: boolean;
-}
-
-// IncidentDetail is just an alias for Incident with additional runtime data
-// The backend returns Incident, and we add comments/history/rating client-side
+}
 export type IncidentDetail = Incident & {
     statusHistory?: StatusHistoryItem[];
     comments?: Comment[];

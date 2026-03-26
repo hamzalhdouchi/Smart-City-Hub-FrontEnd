@@ -67,7 +67,7 @@ export const Step2PhotoUpload: React.FC<Step2PhotoUploadProps> = ({ state, onUpd
                 </p>
             </div>
 
-            {/* Desktop Drag & Drop Zone */}
+            
             <div className="hidden lg:block mb-6">
                 <div
                     onClick={() => fileInputRef.current?.click()}
@@ -97,7 +97,7 @@ export const Step2PhotoUpload: React.FC<Step2PhotoUploadProps> = ({ state, onUpd
                 </div>
             </div>
 
-            {/* Mobile Upload Button - Only visible on mobile */}
+            
             {state.photos.length < 10 && (
                 <button
                     onClick={() => fileInputRef.current?.click()}
@@ -108,7 +108,7 @@ export const Step2PhotoUpload: React.FC<Step2PhotoUploadProps> = ({ state, onUpd
                 </button>
             )}
 
-            {/* Photo Preview Grid */}
+            
             {state.photos.length > 0 ? (
                 <div className="mb-6">
                     <p className="text-xs font-semibold text-slate-600 uppercase tracking-wide mb-3">
@@ -158,7 +158,7 @@ export const Step2PhotoUpload: React.FC<Step2PhotoUploadProps> = ({ state, onUpd
                     </div>
                 </div>
             ) : (
-                /* Empty State */
+                
                 <div className="flex-1 flex flex-col items-center justify-center text-center py-12 lg:py-0">
                     <div className="w-20 h-20 rounded-full bg-slate-100 flex items-center justify-center mb-4">
                         <ImageIcon size={32} className="text-slate-400" />
@@ -177,7 +177,7 @@ export const Step2PhotoUpload: React.FC<Step2PhotoUploadProps> = ({ state, onUpd
                 accept="image/*"
             />
 
-            {/* Tips */}
+            
             <div className="bg-teal-50/50 rounded-2xl p-4 mt-auto mb-6 flex gap-3 border border-teal-100/50">
                 <Lightbulb className="text-teal-500 shrink-0" size={20} />
                 <div className="flex flex-col gap-1">
@@ -190,7 +190,7 @@ export const Step2PhotoUpload: React.FC<Step2PhotoUploadProps> = ({ state, onUpd
                 </div>
             </div>
 
-            {/* Validation Message */}
+            
             {state.photos.length === 0 && (
                 <div className="bg-amber-50 border border-amber-200 rounded-xl p-3 mb-4 flex items-start gap-2">
                     <ImageIcon className="text-amber-600 shrink-0 mt-0.5" size={18} />
@@ -199,7 +199,7 @@ export const Step2PhotoUpload: React.FC<Step2PhotoUploadProps> = ({ state, onUpd
                     </p>
                 </div>
             )}
-            {/* Mobile Continue Button */}
+            
             <button
                 onClick={onNext}
                 disabled={state.photos.length === 0}

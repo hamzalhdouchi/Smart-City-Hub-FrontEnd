@@ -25,7 +25,7 @@ export const AdminLayout: React.FC = () => {
     return (
         <SidebarContext.Provider value={{ isCollapsed, toggleSidebar }}>
             <div className="min-h-screen bg-[#ECEFF1]">
-                {/* Mobile Overlay */}
+                
                 {isMobileOpen && (
                     <div
                         className="fixed inset-0 bg-black/50 z-40 lg:hidden"
@@ -33,14 +33,14 @@ export const AdminLayout: React.FC = () => {
                     />
                 )}
 
-                {/* Sidebar */}
+                
                 <Sidebar
                     isCollapsed={isCollapsed}
                     isMobileOpen={isMobileOpen}
                     onMobileClose={toggleMobile}
                 />
 
-                {/* Main Content */}
+                
                 <div
                     className={`transition-all duration-300 ${isCollapsed ? 'lg:ml-20' : 'lg:ml-[280px]'
                         }`}

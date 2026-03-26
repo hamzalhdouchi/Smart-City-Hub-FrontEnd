@@ -12,7 +12,7 @@ const SecuritySettingsCard: React.FC<SecuritySettingsCardProps> = ({ onChangePas
     return (
         <Card className="mb-6">
             <div className="p-8">
-                {/* Header */}
+                
                 <div className="flex items-center gap-3 mb-6">
                     <div className="p-2 bg-[#F3E5F5] rounded-lg text-[#7B1FA2]">
                         <Shield size={24} />
@@ -22,7 +22,7 @@ const SecuritySettingsCard: React.FC<SecuritySettingsCardProps> = ({ onChangePas
 
                 <div className="space-y-6">
 
-                    {/* Password */}
+                    
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-gray-100">
                         <div>
                             <h3 className="font-semibold text-[#263238] mb-1">Password</h3>
@@ -41,7 +41,7 @@ const SecuritySettingsCard: React.FC<SecuritySettingsCardProps> = ({ onChangePas
                         </Button>
                     </div>
 
-                    {/* 2FA - UI only (not yet implemented) */}
+                    
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-2">
                         <div>
                             <h3 className="font-semibold text-[#263238] mb-1">Two-Factor Authentication</h3>

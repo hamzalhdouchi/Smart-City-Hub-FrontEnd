@@ -35,9 +35,7 @@ export const ChangePasswordModal: React.FC<ChangePasswordModalProps> = ({ forced
     const { setMustChangePassword, checkAuth, user } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
-    const [passwordStrength, setPasswordStrength] = useState(0);
-
-    // Check if forced from navigation state
+    const [passwordStrength, setPasswordStrength] = useState(0);
     const isForced = forced || (location.state as any)?.forced === true;
 
     const {
@@ -86,17 +84,13 @@ export const ChangePasswordModal: React.FC<ChangePasswordModalProps> = ({ forced
                 currentPassword: data.currentPassword,
                 newPassword: data.newPassword,
                 confirmPassword: data.confirmPassword,
-            });
-
-            // Store new tokens
+            });
             localStorage.setItem('accessToken', response.accessToken);
             localStorage.setItem('refreshToken', response.refreshToken);
 
             toast.success('Password changed successfully!');
             setMustChangePassword(false);
-            await checkAuth();
-
-            // Redirect after short delay
+            await checkAuth();
             setTimeout(() => {
                 if (user?.role === 'ROLE_ADMIN' || user?.role === 'ROLE_SUPERVISOR') {
                     navigate('/admin/dashboard', { replace: true });
@@ -124,7 +118,7 @@ export const ChangePasswordModal: React.FC<ChangePasswordModalProps> = ({ forced
                 transition={{ type: 'spring', damping: 25 }}
                 className="w-full max-w-md mx-4"
             >
-                {/* Forced Warning Banner */}
+                
                 {isForced && (
                     <motion.div
                         initial={{ opacity: 0, y: -10 }}
@@ -142,7 +136,7 @@ export const ChangePasswordModal: React.FC<ChangePasswordModalProps> = ({ forced
                 )}
 
                 <Card className="w-full" padding="lg" accentBorder="left">
-                    {/* Header */}
+                    
                     <div className="flex items-center gap-3 mb-6">
                         <div className="w-12 h-12 rounded-full bg-[#0D7377]/20 flex items-center justify-center">
                             <Key size={24} className="text-[#0D7377]" />
@@ -157,7 +151,7 @@ export const ChangePasswordModal: React.FC<ChangePasswordModalProps> = ({ forced
                         </div>
                     </div>
 
-                    {/* Form */}
+                    
                     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
                         <Input
                             label="Current Temporary Password"
@@ -180,7 +174,7 @@ export const ChangePasswordModal: React.FC<ChangePasswordModalProps> = ({ forced
 
                             {newPassword && (
                                 <div className="mt-3">
-                                    {/* Strength meter */}
+                                    
                                     <div className="flex justify-between items-center mb-1">
                                         <span className="text-xs text-[#546E7A]">Password Strength</span>
                                         <span
@@ -199,7 +193,7 @@ export const ChangePasswordModal: React.FC<ChangePasswordModalProps> = ({ forced
                                         />
                                     </div>
 
-                                    {/* Requirements checklist */}
+                                    
                                     <div className="grid grid-cols-1 gap-1.5 mt-3">
                                         {requirements.map((req, index) => (
                                             <motion.div
@@ -255,7 +249,7 @@ export const ChangePasswordModal: React.FC<ChangePasswordModalProps> = ({ forced
                             {isForced ? 'Change Password & Continue' : 'Update Password'}
                         </Button>
 
-                        {/* Only show cancel if not forced */}
+                        
                         {!isForced && (
                             <Button
                                 type="button"

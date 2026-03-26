@@ -69,7 +69,7 @@ const PhotoLightbox: React.FC<PhotoLightboxProps> = ({
             className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center"
             onClick={handleBackdropClick}
         >
-            {/* Close button */}
+            
             <button
                 onClick={onClose}
                 className="absolute top-4 right-4 p-2 text-white hover:bg-white/20 rounded-full transition-colors z-10"
@@ -77,7 +77,7 @@ const PhotoLightbox: React.FC<PhotoLightboxProps> = ({
                 <X size={24} />
             </button>
 
-            {/* Download button */}
+            
             <button
                 onClick={handleDownload}
                 className="absolute top-4 right-16 p-2 text-white hover:bg-white/20 rounded-full transition-colors z-10"
@@ -85,12 +85,12 @@ const PhotoLightbox: React.FC<PhotoLightboxProps> = ({
                 <Download size={24} />
             </button>
 
-            {/* Image counter */}
+            
             <div className="absolute top-4 left-4 text-white text-sm bg-black/50 px-3 py-1 rounded-full">
                 {currentIndex + 1} / {photos.length}
             </div>
 
-            {/* Navigation arrows */}
+            
             {photos.length > 1 && (
                 <>
                     <button
@@ -110,7 +110,7 @@ const PhotoLightbox: React.FC<PhotoLightboxProps> = ({
                 </>
             )}
 
-            {/* Main image */}
+            
             <div className="max-w-[90vw] max-h-[85vh] relative">
                 <img
                     src={photo.url || photo.fileUrl}
@@ -118,7 +118,7 @@ const PhotoLightbox: React.FC<PhotoLightboxProps> = ({
                     className="max-w-full max-h-[85vh] object-contain rounded-lg"
                 />
 
-                {/* Photo info */}
+                
                 <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent rounded-b-lg">
                     <p className="text-white font-medium">{photo.fileName}</p>
                     <div className="flex items-center gap-4 text-white/70 text-sm mt-1">
@@ -195,14 +195,14 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({ photos }) => {
                         className="relative aspect-square rounded-lg overflow-hidden bg-[#ECEFF1] cursor-pointer group"
                         onClick={() => openLightbox(index)}
                     >
-                        {/* Skeleton loader */}
+                        
                         {!loadedImages.has(photo.id) && !failedImages.has(photo.id) && (
                             <div className="absolute inset-0 bg-[#ECEFF1] animate-pulse flex items-center justify-center">
                                 <Camera size={32} className="text-[#B0BEC5]" />
                             </div>
                         )}
 
-                        {/* Error state */}
+                        
                         {failedImages.has(photo.id) && (
                             <div className="absolute inset-0 bg-[#ECEFF1] flex flex-col items-center justify-center">
                                 <Camera size={32} className="text-[#B0BEC5] mb-2" />
@@ -210,7 +210,7 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({ photos }) => {
                             </div>
                         )}
 
-                        {/* Actual image */}
+                        
                         <img
                             src={photo.url || photo.fileUrl}
                             alt={photo.fileName}
@@ -221,7 +221,7 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({ photos }) => {
                             loading="lazy"
                         />
 
-                        {/* Hover overlay */}
+                        
                         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center">
                             <ZoomIn
                                 size={32}
@@ -229,7 +229,7 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({ photos }) => {
                             />
                         </div>
 
-                        {/* Photo info on hover */}
+                        
                         <div className="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
                             <p className="text-white text-xs truncate">{photo.fileName}</p>
                             {photo.fileSize && (
@@ -240,7 +240,7 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({ photos }) => {
                 ))}
             </div>
 
-            {/* Lightbox */}
+            
             {lightboxIndex !== null && (
                 <PhotoLightbox
                     photos={photos}

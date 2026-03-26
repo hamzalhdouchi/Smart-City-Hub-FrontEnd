@@ -33,12 +33,12 @@ export const PendingStatusModal: React.FC<PendingStatusModalProps> = ({ isOpen, 
                 transition={{ type: 'spring', damping: 25 }}
             >
                 <Card className="w-full max-w-md mx-4" padding="lg" accentBorder="top">
-                    {/* Animated Icon */}
+                    
                     <div className="flex justify-center mb-6">
                         <DataPulseLoader size={80} />
                     </div>
 
-                    {/* Content */}
+                    
                     <div className="text-center">
                         <h2 className="text-2xl font-bold text-[#0D7377] font-['Noto_Sans_JP'] mb-3">
                             Profile Under Review
@@ -49,7 +49,7 @@ export const PendingStatusModal: React.FC<PendingStatusModalProps> = ({ isOpen, 
                             You'll receive an email with your login credentials once approved.
                         </p>
 
-                        {/* Timeline */}
+                        
                         <div className="flex items-center justify-center gap-2 mb-6">
                             <div className="flex flex-col items-center">
                                 <div className="w-10 h-10 rounded-full bg-[#4CAF50] flex items-center justify-center">
@@ -77,13 +77,13 @@ export const PendingStatusModal: React.FC<PendingStatusModalProps> = ({ isOpen, 
                             </div>
                         </div>
 
-                        {/* Estimated time */}
+                        
                         <div className="flex items-center justify-center gap-2 text-sm text-[#546E7A] mb-6">
                             <Clock size={16} />
                             <span>Usually within 24 hours</span>
                         </div>
 
-                        {/* Button */}
+                        
                         <Button variant="primary" fullWidth onClick={handleGotIt}>
                             Got It
                         </Button>

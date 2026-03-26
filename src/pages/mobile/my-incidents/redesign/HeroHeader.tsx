@@ -58,11 +58,11 @@ export const HeroHeader: React.FC = () => {
                 }
             `}</style>
 
-            {/* Teal gradient stays on-brand */}
+            
             <div className="relative pt-14 pb-10 px-5 overflow-hidden"
                 style={{ background: 'linear-gradient(145deg, #0a4f54 0%, #0d7377 45%, #0e9e8e 100%)' }}>
 
-                {/* Soft white dot texture */}
+                
                 {[
                     { w: 4, h: 4, top: '18%', left: '72%', delay: '0s',   dur: '3.5s' },
                     { w: 3, h: 3, top: '40%', left: '88%', delay: '0.7s', dur: '4s'   },
@@ -76,13 +76,13 @@ export const HeroHeader: React.FC = () => {
                             animationDelay: d.delay }} />
                 ))}
 
-                {/* Ambient glows */}
+                
                 <div className="absolute -top-16 -right-16 w-56 h-56 rounded-full pointer-events-none"
                     style={{ background: 'radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%)' }} />
                 <div className="absolute -bottom-12 -left-12 w-44 h-44 rounded-full pointer-events-none"
                     style={{ background: 'radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%)' }} />
 
-                {/* ── Top bar ── */}
+                
                 <div className="relative z-20 flex items-center justify-between mb-8">
                     <button
                         onClick={() => navigate('/home')}
@@ -91,7 +91,7 @@ export const HeroHeader: React.FC = () => {
                         <ArrowLeft size={18} />
                     </button>
 
-                    {/* Live pill */}
+                    
                     <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/15 border border-white/25 backdrop-blur-sm">
                         <div className="w-1.5 h-1.5 rounded-full bg-white"
                             style={{ animation: 'blinkDot 2s ease-in-out infinite' }} />
@@ -99,10 +99,10 @@ export const HeroHeader: React.FC = () => {
                     </div>
                 </div>
 
-                {/* ── Avatar + Identity row ── */}
+                
                 <div className="relative z-20 flex items-center gap-4 mb-7">
 
-                    {/* Avatar */}
+                    
                     <div className="relative shrink-0 cursor-pointer" onClick={() => navigate('/profile')}>
                         <div className="w-[68px] h-[68px] rounded-2xl overflow-hidden border-2 border-white/40"
                             style={{ animation: 'avatarRing 3.5s ease-in-out infinite' }}>
@@ -115,13 +115,13 @@ export const HeroHeader: React.FC = () => {
                                     onError={() => setImgError(true)} />
                             )}
                         </div>
-                        {/* Zap badge */}
+                        
                         <div className="absolute -bottom-1.5 -right-1.5 w-5 h-5 bg-white rounded-md flex items-center justify-center shadow-md">
                             <Zap size={10} style={{ color: '#0d7377', fill: '#0d7377' }} />
                         </div>
                     </div>
 
-                    {/* Identity */}
+                    
                     <div className="flex-1 min-w-0">
                         <p className="text-[10px] font-bold text-white/70 uppercase tracking-[0.22em] mb-0.5">
                             {getGreeting()}
@@ -136,14 +136,14 @@ export const HeroHeader: React.FC = () => {
                     </div>
                 </div>
 
-                {/* ── Section divider ── */}
+                
                 <div className="relative z-20 flex items-center gap-3">
                     <div className="h-px flex-1" style={{ background: 'linear-gradient(to right, rgba(255,255,255,0.4), transparent)' }} />
                     <span className="text-[9px] font-black text-white/50 uppercase tracking-[0.35em]">My Incidents</span>
                     <div className="h-px flex-1" style={{ background: 'linear-gradient(to left, rgba(255,255,255,0.4), transparent)' }} />
                 </div>
 
-                {/* ── Scan line at bottom ── */}
+                
                 <div className="absolute bottom-0 left-0 right-0 h-px overflow-hidden bg-white/10">
                     <div className="absolute top-0 h-full w-28"
                         style={{

@@ -3,12 +3,12 @@ import { ChevronRight } from 'lucide-react';
 export const GamificationCard: React.FC = () => {
     return (
         <div className="mx-4 mb-8 bg-white rounded-3xl p-5 shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-teal-100 flex flex-col relative overflow-hidden">
-            {/* Background Accent */}
+            
             <div className="absolute top-[-20px] right-[-20px] w-32 h-32 bg-teal-50 rounded-full blur-3xl opacity-50" />
 
             <div className="flex items-center justify-between mb-5">
                 <div className="flex items-center gap-3">
-                    {/* Creative Citizen Crest (No Emoji) */}
+                    
                     <div className="relative w-12 h-12 flex items-center justify-center">
                         <div className="absolute inset-0 bg-gradient-to-br from-[#0D7377] to-[#32936F] rounded-2xl rotate-45 shadow-lg shadow-teal-100/50" />
                         <div className="absolute inset-1.5 border-2 border-white/20 rounded-xl rotate-45" />
@@ -32,7 +32,7 @@ export const GamificationCard: React.FC = () => {
                     <span className="text-[13px] font-black text-[#0D7377]">320 / 500 XP</span>
                 </div>
 
-                {/* Progress Bar */}
+                
                 <div className="h-3 w-full bg-slate-100 rounded-full overflow-hidden shadow-inner">
                     <div
                         className="h-full bg-gradient-to-r from-[#0D7377] to-[#32936F] rounded-full pulse-fill shadow-[0_0_10px_rgba(13,115,119,0.3)] transition-all duration-1000 ease-out"
@@ -41,7 +41,7 @@ export const GamificationCard: React.FC = () => {
                 </div>
 
                 <div className="bg-teal-50/50 rounded-xl p-3 border border-teal-100/50 flex items-center gap-3">
-                    {/* Creative Target Shape (No Emoji) */}
+                    
                     <div className="w-8 h-8 rounded-lg bg-white border border-teal-100 flex items-center justify-center shadow-sm shrink-0">
                         <div className="w-4 h-4 rounded-full border-2 border-teal-200 flex items-center justify-center">
                             <div className="w-1.5 h-1.5 bg-[#0D7377] rounded-full" />

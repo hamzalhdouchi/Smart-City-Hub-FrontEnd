@@ -22,9 +22,7 @@ const DEFAULT_PREFERENCES: Preferences = {
 const PreferencesCard: React.FC = () => {
     const [preferences, setPreferences] = useState<Preferences>(DEFAULT_PREFERENCES);
     const [isSaving, setIsSaving] = useState(false);
-    const [hasChanges, setHasChanges] = useState(false);
-
-    // Load from local storage on mount
+    const [hasChanges, setHasChanges] = useState(false);
     useEffect(() => {
         const saved = localStorage.getItem('user_preferences');
         if (saved) {
@@ -42,8 +40,7 @@ const PreferencesCard: React.FC = () => {
     };
 
     const handleSave = async () => {
-        setIsSaving(true);
-        // Simulate API call delay
+        setIsSaving(true);
         await new Promise(resolve => setTimeout(resolve, 800));
 
         localStorage.setItem('user_preferences', JSON.stringify(preferences));
@@ -55,7 +52,7 @@ const PreferencesCard: React.FC = () => {
     return (
         <Card className="mb-6">
             <div className="p-8">
-                {/* Header */}
+                
                 <div className="flex items-center gap-3 mb-6">
                     <div className="p-2 bg-[#FFF3E0] rounded-lg text-[#EF6C00]">
                         <Settings size={24} />
@@ -65,7 +62,7 @@ const PreferencesCard: React.FC = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
 
-                    {/* Language */}
+                    
                     <div>
                         <label className="block text-sm font-medium text-[#546E7A] mb-2 flex items-center gap-2">
                             <Globe size={16} /> Language
@@ -81,7 +78,7 @@ const PreferencesCard: React.FC = () => {
                         </select>
                     </div>
 
-                    {/* Timezone */}
+                    
                     <div>
                         <label className="block text-sm font-medium text-[#546E7A] mb-2 flex items-center gap-2">
                             <Clock size={16} /> Time Zone
@@ -97,7 +94,7 @@ const PreferencesCard: React.FC = () => {
                         </select>
                     </div>
 
-                    {/* Date Format */}
+                    
                     <div>
                         <label className="block text-sm font-medium text-[#546E7A] mb-2 flex items-center gap-2">
                             <Calendar size={16} /> Date Format
@@ -113,7 +110,7 @@ const PreferencesCard: React.FC = () => {
                         </select>
                     </div>
 
-                    {/* Notifications */}
+                    
                     <div>
                         <label className="block text-sm font-medium text-[#546E7A] mb-2 flex items-center gap-2">
                             <Bell size={16} /> Notifications
@@ -142,7 +139,7 @@ const PreferencesCard: React.FC = () => {
 
                 </div>
 
-                {/* Footer Action */}
+                
                 <div className="mt-8 flex justify-end">
                     <Button
                         onClick={handleSave}

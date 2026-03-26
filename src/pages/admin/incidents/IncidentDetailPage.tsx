@@ -81,9 +81,7 @@ const IncidentDetailPage: React.FC = () => {
     const [incident, setIncident] = useState<Incident | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-    const [copiedId, setCopiedId] = useState(false);
-
-    // Modals
+    const [copiedId, setCopiedId] = useState(false);
     const [showAssignModal, setShowAssignModal] = useState(false);
     const [showStatusModal, setShowStatusModal] = useState(false);
 
@@ -210,7 +208,7 @@ const IncidentDetailPage: React.FC = () => {
 
     return (
         <div className="space-y-6">
-            {/* Header */}
+            
             <div className="flex flex-col md:flex-row md:items-center gap-4 mb-6">
                 <Button
                     variant="outline"
@@ -288,9 +286,9 @@ const IncidentDetailPage: React.FC = () => {
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                {/* Main Content - Left Column (2/3) */}
+                
                 <div className="lg:col-span-2 space-y-6">
-                    {/* Description Card */}
+                    
                     <Card>
                         <div className="p-6">
                             <h2 className="text-lg font-semibold text-[#263238] mb-4">Description</h2>
@@ -298,7 +296,7 @@ const IncidentDetailPage: React.FC = () => {
                                 {incident.description}
                             </p>
 
-                            {/* Reporter Info */}
+                            
                             <div className="mt-6 pt-4 border-t border-[#ECEFF1]">
                                 <p className="text-sm font-medium text-[#78909C] mb-3">Reported by</p>
                                 <div className="flex items-center gap-4">
@@ -321,7 +319,7 @@ const IncidentDetailPage: React.FC = () => {
                         </div>
                     </Card>
 
-                    {/* Location Card */}
+                    
                     <Card>
                         <div className="p-6">
                             <div className="flex items-center justify-between mb-4">
@@ -337,7 +335,7 @@ const IncidentDetailPage: React.FC = () => {
                                 </a>
                             </div>
 
-                            {/* Interactive Map */}
+                            
                             <div className="mb-4">
                                 <LocationMap
                                     address={incident.address}
@@ -359,7 +357,7 @@ const IncidentDetailPage: React.FC = () => {
                         </div>
                     </Card>
 
-                    {/* Photo Gallery */}
+                    
                     <Card>
                         <div className="p-6">
                             <h2 className="text-lg font-semibold text-[#263238] mb-4 flex items-center gap-2">
@@ -375,7 +373,7 @@ const IncidentDetailPage: React.FC = () => {
                         </div>
                     </Card>
 
-                    {/* Comments Section */}
+                    
                     <Card>
                         <div className="p-6">
                             <h2 className="text-lg font-semibold text-[#263238] mb-4 flex items-center gap-2">
@@ -392,14 +390,14 @@ const IncidentDetailPage: React.FC = () => {
                     </Card>
                 </div>
 
-                {/* Sidebar - Right Column (1/3) */}
+                
                 <div className="space-y-6">
-                    {/* Details Card */}
+                    
                     <Card>
                         <div className="p-6">
                             <h3 className="font-semibold text-[#263238] mb-4">Details</h3>
                             <div className="space-y-4">
-                                {/* Incident ID */}
+                                
                                 <div className="flex items-center justify-between">
                                     <span className="text-sm text-[#78909C]">ID</span>
                                     <div className="flex items-center gap-2">
@@ -420,7 +418,7 @@ const IncidentDetailPage: React.FC = () => {
                                     </div>
                                 </div>
 
-                                {/* Category */}
+                                
                                 <div className="flex items-center justify-between">
                                     <span className="text-sm text-[#78909C]">Category</span>
                                     <span className="text-sm font-medium text-[#263238] flex items-center gap-1.5">
@@ -429,7 +427,7 @@ const IncidentDetailPage: React.FC = () => {
                                     </span>
                                 </div>
 
-                                {/* Priority */}
+                                
                                 <div className="flex items-center justify-between">
                                     <span className="text-sm text-[#78909C]">Priority</span>
                                     <span className={`px-2 py-1 rounded text-xs font-medium ${getPriorityBadge(incident.priority)}`}>
@@ -437,7 +435,7 @@ const IncidentDetailPage: React.FC = () => {
                                     </span>
                                 </div>
 
-                                {/* Status */}
+                                
                                 <div className="flex items-center justify-between">
                                     <span className="text-sm text-[#78909C]">Status</span>
                                     <span className={`inline-flex items-center gap-1 px-2 py-1 rounded text-xs font-medium ${statusStyle.bg} ${statusStyle.text}`}>
@@ -446,7 +444,7 @@ const IncidentDetailPage: React.FC = () => {
                                     </span>
                                 </div>
 
-                                {/* Created Date */}
+                                
                                 <div className="flex items-start justify-between">
                                     <span className="text-sm text-[#78909C]">Created</span>
                                     <span className="text-sm text-[#263238] text-right">
@@ -454,7 +452,7 @@ const IncidentDetailPage: React.FC = () => {
                                     </span>
                                 </div>
 
-                                {/* Updated Date */}
+                                
                                 <div className="flex items-start justify-between">
                                     <span className="text-sm text-[#78909C]">Last Updated</span>
                                     <span className="text-sm text-[#263238] text-right">
@@ -462,7 +460,7 @@ const IncidentDetailPage: React.FC = () => {
                                     </span>
                                 </div>
 
-                                {/* Resolved Date */}
+                                
                                 {incident.resolvedAt && (
                                     <div className="flex items-start justify-between">
                                         <span className="text-sm text-[#78909C]">Resolved</span>
@@ -472,7 +470,7 @@ const IncidentDetailPage: React.FC = () => {
                                     </div>
                                 )}
 
-                                {/* Photos count */}
+                                
                                 <div className="flex items-center justify-between">
                                     <span className="text-sm text-[#78909C]">Photos</span>
                                     <span className="text-sm text-[#263238]">
@@ -480,7 +478,7 @@ const IncidentDetailPage: React.FC = () => {
                                     </span>
                                 </div>
 
-                                {/* Comments count */}
+                                
                                 <div className="flex items-center justify-between">
                                     <span className="text-sm text-[#78909C]">Comments</span>
                                     <span className="text-sm text-[#263238]">
@@ -491,7 +489,7 @@ const IncidentDetailPage: React.FC = () => {
                         </div>
                     </Card>
 
-                    {/* Assigned Agent Card */}
+                    
                     <Card>
                         <div className="p-6">
                             <h3 className="font-semibold text-[#263238] mb-4 flex items-center gap-2">
@@ -530,7 +528,7 @@ const IncidentDetailPage: React.FC = () => {
                         </div>
                     </Card>
 
-                    {/* Status Timeline Card */}
+                    
                     <Card>
                         <div className="p-6">
                             <h3 className="font-semibold text-[#263238] mb-4">Status History</h3>
@@ -541,7 +539,7 @@ const IncidentDetailPage: React.FC = () => {
                         </div>
                     </Card>
 
-                    {/* Rating Card (if resolved) */}
+                    
                     {incident.rating && (
                         <Card>
                             <div className="p-6">
@@ -574,7 +572,7 @@ const IncidentDetailPage: React.FC = () => {
                 </div>
             </div>
 
-            {/* Modals */}
+            
             <AssignAgentModal
                 isOpen={showAssignModal}
                 onClose={() => setShowAssignModal(false)}

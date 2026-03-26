@@ -22,7 +22,7 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({
             }}
         >
             <div className="p-5">
-                {/* Last Updated */}
+                
                 <div className="flex items-center justify-center gap-2 mb-4">
                     <Clock size={14} className="text-[#546E7A]" />
                     <span className="text-xs text-[#546E7A]">
@@ -30,7 +30,7 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({
                     </span>
                 </div>
 
-                {/* Incident ID */}
+                
                 <div className="mt-0 text-center">
                     <button
                         onClick={async () => {
@@ -45,7 +45,7 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({
                     </button>
                 </div>
 
-                {/* Incident ID */}
+                
                 <div className="mt-4 text-center">
                     <button
                         onClick={async () => {

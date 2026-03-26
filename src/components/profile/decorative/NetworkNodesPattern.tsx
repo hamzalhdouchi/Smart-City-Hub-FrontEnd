@@ -17,7 +17,7 @@ export const NetworkNodesPattern: React.FC<NetworkNodesPatternProps> = ({
             xmlns="http://www.w3.org/2000/svg"
             style={{ opacity }}
         >
-            {/* Connection lines */}
+            
             <line x1="50" y1="50" x2="150" y2="80" stroke="white" strokeWidth="0.5" strokeDasharray="3,3" />
             <line x1="150" y1="80" x2="250" y2="100" stroke="white" strokeWidth="0.5" strokeDasharray="3,3" />
             <line x1="50" y1="50" x2="100" y2="150" stroke="white" strokeWidth="0.5" strokeDasharray="3,3" />
@@ -27,7 +27,7 @@ export const NetworkNodesPattern: React.FC<NetworkNodesPatternProps> = ({
             <line x1="100" y1="150" x2="150" y2="250" stroke="white" strokeWidth="0.5" strokeDasharray="3,3" />
             <line x1="200" y1="180" x2="150" y2="250" stroke="white" strokeWidth="0.5" strokeDasharray="3,3" />
 
-            {/* Nodes with animated pulse */}
+            
             <g className="animate-pulse" style={{ animationDuration: '3s' }}>
                 <circle cx="50" cy="50" r="4" fill="white" opacity="0.8" />
                 <circle cx="50" cy="50" r="8" stroke="white" strokeWidth="0.5" fill="none" opacity="0.4" />
@@ -48,7 +48,7 @@ export const NetworkNodesPattern: React.FC<NetworkNodesPatternProps> = ({
                 <circle cx="150" cy="250" r="8" stroke="white" strokeWidth="0.5" fill="none" opacity="0.4" />
             </g>
 
-            {/* Data flow indicator */}
+            
             <circle cx="125" cy="65" r="2" fill="#C9A961" opacity="0.6">
                 <animateMotion
                     dur="4s"

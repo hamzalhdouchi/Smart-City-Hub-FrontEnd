@@ -42,7 +42,7 @@ export const Step4Description: React.FC<Step4DescriptionProps> = ({ state, onUpd
             </div>
 
             <div className="space-y-6 mb-6">
-                {/* Title Field */}
+                
                 <div className="flex flex-col gap-2">
                     <label className="text-[14px] font-black text-slate-700 uppercase tracking-wider flex items-center gap-2">
                         Title <span className="text-red-500">*</span>
@@ -69,7 +69,7 @@ export const Step4Description: React.FC<Step4DescriptionProps> = ({ state, onUpd
                     )}
                 </div>
 
-                {/* Description Field */}
+                
                 <div className="flex flex-col gap-2">
                     <label className="text-[14px] font-black text-slate-700 uppercase tracking-wider flex items-center gap-2">
                         Description <span className="text-red-500">*</span>
@@ -103,7 +103,7 @@ export const Step4Description: React.FC<Step4DescriptionProps> = ({ state, onUpd
                     )}
                 </div>
 
-                {/* Urgency Level */}
+                
                 <div className="flex flex-col gap-3">
                     <label className="text-[14px] font-black text-slate-700 uppercase tracking-wider">
                         Urgency Level
@@ -125,7 +125,7 @@ export const Step4Description: React.FC<Step4DescriptionProps> = ({ state, onUpd
                     </div>
                 </div>
 
-                {/* Visibility Toggle */}
+                
                 <div className="flex flex-col gap-3">
                     <label className="text-[14px] font-black text-slate-700 uppercase tracking-wider">
                         Visibility
@@ -160,7 +160,7 @@ export const Step4Description: React.FC<Step4DescriptionProps> = ({ state, onUpd
                 </div>
             </div>
 
-            {/* Tips */}
+            
             <div className="bg-teal-50/50 rounded-2xl p-4 mb-6 flex gap-3 border border-teal-100/50">
                 <Lightbulb className="text-teal-500 shrink-0" size={20} />
                 <div className="flex flex-col gap-1">
@@ -173,7 +173,7 @@ export const Step4Description: React.FC<Step4DescriptionProps> = ({ state, onUpd
                 </div>
             </div>
 
-            {/* Mobile Continue Button */}
+            
             <button
                 onClick={onNext}
                 disabled={!isValid}

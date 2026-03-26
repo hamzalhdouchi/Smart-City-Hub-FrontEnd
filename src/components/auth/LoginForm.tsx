@@ -7,9 +7,7 @@ import { Button, Input, Card, SmartCityLogo } from '../common';
 import { useAuth } from '../../context/AuthContext';
 import { authService } from '../../services/authService';
 import { useNavigate } from 'react-router-dom';
-import toast from 'react-hot-toast';
-
-// ─── Schemas ──────────────────────────────────────────────────────────────────
+import toast from 'react-hot-toast';
 
 const loginSchema = z.object({
     email: z.string().email('Please enter a valid email'),
@@ -21,9 +19,7 @@ const forgotSchema = z.object({
 });
 
 type LoginFormData = z.infer<typeof loginSchema>;
-type ForgotFormData = z.infer<typeof forgotSchema>;
-
-// ─── Forgot Password Form ─────────────────────────────────────────────────────
+type ForgotFormData = z.infer<typeof forgotSchema>;
 
 const ForgotPasswordForm: React.FC<{ onBack: () => void }> = ({ onBack }) => {
     const [submitted, setSubmitted] = useState(false);
@@ -40,11 +36,8 @@ const ForgotPasswordForm: React.FC<{ onBack: () => void }> = ({ onBack }) => {
         try {
             await authService.forgotPassword(data.email);
             setSubmitted(true);
-        } catch (error: any) {
-            // 400 = invalid email format (field-level error handled by zod, but surface API errors too)
-            const msg = error.response?.data?.message || 'Something went wrong. Please try again.';
-            // We surface the error inline via react-hook-form setError equivalent — but since it's
-            // a catch-all we use toast for non-400 errors.
+        } catch (error: any) {
+            const msg = error.response?.data?.message || 'Something went wrong. Please try again.';
             toast.error(msg);
         }
     };
@@ -122,9 +115,7 @@ const ForgotPasswordForm: React.FC<{ onBack: () => void }> = ({ onBack }) => {
             </div>
         </>
     );
-};
-
-// ─── Login Form ───────────────────────────────────────────────────────────────
+};
 
 export const LoginForm: React.FC = () => {
     const { login } = useAuth();
@@ -170,7 +161,7 @@ export const LoginForm: React.FC = () => {
 
     return (
         <Card className="w-full max-w-md" padding="lg">
-            {/* Logo — always visible */}
+            
             <div className="text-center mb-8">
                 <div className="flex justify-center mb-4">
                     <SmartCityLogo variant="icon" size={50} />

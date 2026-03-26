@@ -18,9 +18,7 @@ interface StatusBadgeProps {
 }
 
 export const StatusBadge: React.FC<StatusBadgeProps> = ({ status, className = '' }) => {
-    const { bg, text } = getStatusBadgeColor(status);
-
-    // Format status text
+    const { bg, text } = getStatusBadgeColor(status);
     const statusText = status
         .split('_')
         .map(word => word.charAt(0) + word.slice(1).toLowerCase())

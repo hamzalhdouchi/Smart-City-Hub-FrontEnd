@@ -29,7 +29,7 @@ export const FilterBottomSheet: React.FC<FilterBottomSheetProps> = ({
     return (
         <BottomSheet isOpen={isOpen} onClose={onClose} title="Filter by category">
             <div className="space-y-4">
-                {/* Header with Clear All */}
+                
                 {hasActiveFilters && (
                     <div className="flex items-center justify-between pb-3 border-b" style={{ borderColor: theme.colors.neutral.concrete }}>
                         <p className="text-sm" style={{ color: theme.colors.neutral.steel }}>
@@ -46,7 +46,7 @@ export const FilterBottomSheet: React.FC<FilterBottomSheetProps> = ({
                     </div>
                 )}
 
-                {/* Category Grid */}
+                
                 <div className="grid grid-cols-2 gap-3">
                     {categories.map((category) => {
                         const isSelected = selectedCategories.includes(category.id);
@@ -95,7 +95,7 @@ export const FilterBottomSheet: React.FC<FilterBottomSheetProps> = ({
                     })}
                 </div>
 
-                {/* Apply Button */}
+                
                 <button
                     onClick={onClose}
                     className="w-full py-3 rounded-xl font-medium text-white"

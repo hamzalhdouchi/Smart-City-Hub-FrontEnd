@@ -15,26 +15,19 @@ export const BottomTabBar: React.FC<BottomTabBarProps> = ({
     const navigate = useNavigate();
     const location = useLocation();
     const [isVisible, setIsVisible] = useState(true);
-    const [lastScrollY, setLastScrollY] = useState(0);
-
-    // Auto-hide logic
+    const [lastScrollY, setLastScrollY] = useState(0);
     const handleScroll = useCallback(() => {
         if (!autoHide) return;
 
-        const currentScrollY = window.scrollY;
-
-        // Always show at top
+        const currentScrollY = window.scrollY;
         if (currentScrollY <= 10) {
             setIsVisible(true);
             setLastScrollY(currentScrollY);
             return;
-        }
-
-        // Hide when scrolling down (after 100px threshold)
+        }
         if (currentScrollY > lastScrollY && currentScrollY > 100) {
             setIsVisible(false);
-        }
-        // Show when scrolling up
+        }
         else if (currentScrollY < lastScrollY) {
             setIsVisible(true);
         }
@@ -72,9 +65,7 @@ export const BottomTabBar: React.FC<BottomTabBarProps> = ({
             <div className="flex items-center justify-around h-full max-w-screen-lg mx-auto px-2">
                 {navigationItems.map((item) => {
                     const active = isActive(item.route);
-                    const Icon = item.icon;
-
-                    // Center tab (Report) - FAB style
+                    const Icon = item.icon;
                     if (item.isCenter) {
                         return (
                             <button
@@ -108,9 +99,7 @@ export const BottomTabBar: React.FC<BottomTabBarProps> = ({
                                 </span>
                             </button>
                         );
-                    }
-
-                    // Regular tabs
+                    }
                     return (
                         <button
                             key={item.id}
@@ -119,7 +108,7 @@ export const BottomTabBar: React.FC<BottomTabBarProps> = ({
                             aria-label={item.label}
                             aria-current={active ? 'page' : undefined}
                         >
-                            {/* Active Glow Pill */}
+                            
                             {active && (
                                 <div className="nav-item-active-glow" />
                             )}

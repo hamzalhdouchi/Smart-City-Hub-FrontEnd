@@ -32,8 +32,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
         try {
             const currentUser = await authService.getCurrentUser();
-            setUser(currentUser);
-            // Read from user object
+            setUser(currentUser);
             setMustChangePassword(currentUser.mustChangePassword ?? false);
         } catch (error) {
             localStorage.removeItem('accessToken');
@@ -53,11 +52,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         const response = await authService.login(data);
 
         localStorage.setItem('accessToken', response.accessToken);
-        localStorage.setItem('refreshToken', response.refreshToken);
-
-        // Set user from response
-        setUser(response.user);
-        // Read mustChangePassword from user object 
+        localStorage.setItem('refreshToken', response.refreshToken);
+        setUser(response.user);
         setMustChangePassword(response.user.mustChangePassword ?? false);
 
         return response;

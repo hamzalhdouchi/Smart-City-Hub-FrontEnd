@@ -31,7 +31,7 @@ export const FAB: React.FC<FABProps> = ({
         >
             {icon}
 
-            {/* Pulse animation */}
+            
             <span
                 className="absolute inset-0 rounded-full animate-ping opacity-20"
                 style={{ backgroundColor: theme.colors.accent.electric }}

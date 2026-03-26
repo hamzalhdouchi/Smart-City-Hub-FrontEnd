@@ -110,15 +110,15 @@ const ChangeStatusModal: React.FC<ChangeStatusModalProps> = ({
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-            {/* Backdrop */}
+            
             <div
                 className="absolute inset-0 bg-black/50"
                 onClick={handleClose}
             />
 
-            {/* Modal */}
+            
             <div className="relative bg-white rounded-xl shadow-xl w-full max-w-lg">
-                {/* Header */}
+                
                 <div className="flex items-center justify-between p-4 border-b border-[#ECEFF1]">
                     <h2 className="text-lg font-semibold text-[#263238] flex items-center gap-2">
                         <FileCheck size={20} className="text-[#00ACC1]" />
@@ -132,7 +132,7 @@ const ChangeStatusModal: React.FC<ChangeStatusModalProps> = ({
                     </button>
                 </div>
 
-                {/* Current status */}
+                
                 <div className="p-4 bg-[#F5F7FA] border-b border-[#ECEFF1]">
                     <p className="text-sm text-[#78909C] mb-1">Current Status</p>
                     <div className="flex items-center gap-2">
@@ -143,7 +143,7 @@ const ChangeStatusModal: React.FC<ChangeStatusModalProps> = ({
                     </div>
                 </div>
 
-                {/* Status options */}
+                
                 <div className="p-4 space-y-2">
                     <p className="text-sm font-medium text-[#546E7A] mb-3">Select New Status</p>
                     {statusOptions.map(option => (
@@ -176,7 +176,7 @@ const ChangeStatusModal: React.FC<ChangeStatusModalProps> = ({
                     ))}
                 </div>
 
-                {/* Comment */}
+                
                 {selectedStatus && (
                     <div className="px-4 pb-4">
                         <label className="block text-sm font-medium text-[#546E7A] mb-2">
@@ -192,7 +192,7 @@ const ChangeStatusModal: React.FC<ChangeStatusModalProps> = ({
                     </div>
                 )}
 
-                {/* Warning for closing without resolution */}
+                
                 {selectedStatus === 'CLOSED' && currentStatus !== 'RESOLVED' && (
                     <div className="mx-4 mb-4 p-3 bg-amber-50 border border-amber-200 rounded-lg flex items-start gap-2">
                         <AlertCircle size={18} className="text-amber-600 flex-shrink-0 mt-0.5" />
@@ -202,7 +202,7 @@ const ChangeStatusModal: React.FC<ChangeStatusModalProps> = ({
                     </div>
                 )}
 
-                {/* Footer */}
+                
                 <div className="p-4 border-t border-[#ECEFF1] flex gap-3">
                     <Button
                         variant="outline"

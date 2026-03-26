@@ -46,7 +46,7 @@ export const QuickInfoCard: React.FC<QuickInfoCardProps> = ({
         className?: string;
     }) => (
         <div className={`relative p-4 ${className}`}>
-            {/* Icon with gradient background */}
+            
             <div className="flex items-center gap-3 mb-2">
                 <div
                     className="w-9 h-9 rounded-xl flex items-center justify-center"
@@ -62,7 +62,7 @@ export const QuickInfoCard: React.FC<QuickInfoCardProps> = ({
                 </span>
             </div>
 
-            {/* Value */}
+            
             <div className="ml-12">
                 <p className="text-[15px] font-semibold text-[#263238] truncate">{value}</p>
                 {subValue && (
@@ -93,7 +93,7 @@ export const QuickInfoCard: React.FC<QuickInfoCardProps> = ({
             }}
         >
             <div className="grid grid-cols-2">
-                {/* Location */}
+                
                 <InfoItem
                     icon={MapPin}
                     label="Location"
@@ -102,7 +102,7 @@ export const QuickInfoCard: React.FC<QuickInfoCardProps> = ({
                     className="border-r border-b border-[#ECEFF1]"
                 />
 
-                {/* Reported */}
+                
                 <InfoItem
                     icon={Clock}
                     label="Reported"
@@ -111,7 +111,7 @@ export const QuickInfoCard: React.FC<QuickInfoCardProps> = ({
                     className="border-b border-[#ECEFF1]"
                 />
 
-                {/* Reporter */}
+                
                 <InfoItem
                     icon={User}
                     label="Reporter"
@@ -120,7 +120,7 @@ export const QuickInfoCard: React.FC<QuickInfoCardProps> = ({
                     className="border-r border-[#ECEFF1]"
                 />
 
-                {/* Assigned To */}
+                
                 <div className="relative p-4">
                     <div className="flex items-center gap-3 mb-2">
                         <div

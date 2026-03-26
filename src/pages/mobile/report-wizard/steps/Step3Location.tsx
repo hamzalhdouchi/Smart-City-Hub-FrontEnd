@@ -4,9 +4,7 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { MapPin, Navigation, Crosshair, Radar, PenLine, CheckCircle2, AlertTriangle } from 'lucide-react';
 import { LocationIcon } from '../../../../components/icons/WizardIcons';
-import type { ReportWizardState } from '../types';
-
-// ── Marrakech geographic constraints ─────────────────────────────────────────
+import type { ReportWizardState } from '../types';
 const MARRAKECH_CENTER: [number, number] = [31.6295, -7.9811];
 const MARRAKECH_BOUNDS = L.latLngBounds(
     L.latLng(31.54, -8.10),  // SW corner
@@ -15,18 +13,14 @@ const MARRAKECH_BOUNDS = L.latLngBounds(
 
 function isInsideMarrakech(lat: number, lng: number): boolean {
     return MARRAKECH_BOUNDS.contains(L.latLng(lat, lng));
-}
-
-// ── Marker icon (matches app theme) ──────────────────────────────────────────
+}
 const customIcon = L.divIcon({
     className: 'custom-map-marker',
     html: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#0D7377" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:40px;height:40px"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3" fill="#ffffff"></circle></svg>`,
     iconSize: [40, 40],
     iconAnchor: [20, 40],
     popupAnchor: [0, -40],
-});
-
-// ── Reverse geocode helper ────────────────────────────────────────────────────
+});
 async function reverseGeocode(lat: number, lng: number): Promise<string> {
     const res = await fetch(
         `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}&localityLanguage=en`
@@ -45,9 +39,7 @@ async function reverseGeocode(lat: number, lng: number): Promise<string> {
 
     if (!address && data.principalSubdivision) address = data.principalSubdivision;
     return address || `${lat.toFixed(4)}, ${lng.toFixed(4)}`;
-}
-
-// ── Map click handler (inner component) ──────────────────────────────────────
+}
 interface MapClickHandlerProps {
     onPick: (lat: number, lng: number) => void;
     onOutOfBounds: () => void;
@@ -65,9 +57,7 @@ const MapClickHandler: React.FC<MapClickHandlerProps> = ({ onPick, onOutOfBounds
         },
     });
     return null;
-};
-
-// ── Main component ────────────────────────────────────────────────────────────
+};
 interface Step3LocationProps {
     state: ReportWizardState;
     onUpdate: (updates: Partial<ReportWizardState>) => void;
@@ -84,9 +74,7 @@ export const Step3Location: React.FC<Step3LocationProps> = ({ state, onUpdate, o
     const [manualAddress, setManualAddress] = useState(state.location?.address || '');
     const [markerPos, setMarkerPos] = useState<[number, number] | null>(
         state.location ? [state.location.latitude, state.location.longitude] : null
-    );
-
-    // ── GPS detection ────────────────────────────────────────────────────────
+    );
     const handleGPS = () => {
         if (!navigator.geolocation) return;
         setIsLocating(true);
@@ -115,9 +103,7 @@ export const Step3Location: React.FC<Step3LocationProps> = ({ state, onUpdate, o
             () => setIsLocating(false),
             { enableHighAccuracy: true, timeout: 10000 }
         );
-    };
-
-    // ── Map click (manual mode) ──────────────────────────────────────────────
+    };
     const handleMapPick = useCallback(async (lat: number, lng: number) => {
         setOutOfBounds(false);
         setMarkerPos([lat, lng]);
@@ -133,9 +119,7 @@ export const Step3Location: React.FC<Step3LocationProps> = ({ state, onUpdate, o
         } finally {
             setIsGeocoding(false);
         }
-    }, [onUpdate]);
-
-    // ── Continue ─────────────────────────────────────────────────────────────
+    }, [onUpdate]);
     const handleContinue = () => {
         if (!state.location && manualAddress) {
             const pos = markerPos ?? MARRAKECH_CENTER;
@@ -144,13 +128,11 @@ export const Step3Location: React.FC<Step3LocationProps> = ({ state, onUpdate, o
         onNext();
     };
 
-    const canContinue = !!state.location || !!manualAddress;
-
-    // ════════════════════════════════════════════════════════════════════════
+    const canContinue = !!state.location || !!manualAddress;
     return (
         <div className="flex flex-col h-full animate-in fade-in slide-in-from-right-4 duration-500">
 
-            {/* Header */}
+            
             <div className="mb-6">
                 <div className="flex items-center gap-2 mb-3">
                     <div className="w-10 h-10 rounded-2xl flex items-center justify-center shadow-lg" style={{ background: '#0D7377' }}>
@@ -169,9 +151,9 @@ export const Step3Location: React.FC<Step3LocationProps> = ({ state, onUpdate, o
                 </p>
             </div>
 
-            {/* ── Mode selector ── */}
+            
             <div className="grid grid-cols-2 gap-3 mb-6">
-                {/* Option 1 — GPS */}
+                
                 <button
                     onClick={() => {
                         setMode('gps');
@@ -198,7 +180,7 @@ export const Step3Location: React.FC<Step3LocationProps> = ({ state, onUpdate, o
                     )}
                 </button>
 
-                {/* Option 2 — Manual map */}
+                
                 <button
                     onClick={() => setMode('manual')}
                     className={`relative flex flex-col items-center gap-3 p-5 rounded-2xl border-2 transition-all active:scale-[0.97] ${mode === 'manual'
@@ -223,7 +205,7 @@ export const Step3Location: React.FC<Step3LocationProps> = ({ state, onUpdate, o
                 </button>
             </div>
 
-            {/* ── Out-of-bounds error banner ── */}
+            
             {outOfBounds && (
                 <div className="flex items-center gap-3 p-4 mb-4 bg-red-50 border-2 border-red-200 rounded-2xl animate-in fade-in slide-in-from-bottom-2 duration-300">
                     <AlertTriangle size={20} className="text-red-500 shrink-0" />
@@ -234,7 +216,7 @@ export const Step3Location: React.FC<Step3LocationProps> = ({ state, onUpdate, o
                 </div>
             )}
 
-            {/* ── GPS mode content ── */}
+            
             {mode === 'gps' && (
                 <div className="space-y-4 mb-6 animate-in fade-in slide-in-from-bottom-2 duration-300">
                     <button
@@ -258,7 +240,7 @@ export const Step3Location: React.FC<Step3LocationProps> = ({ state, onUpdate, o
                 </div>
             )}
 
-            {/* ── Manual map mode content ── */}
+            
             {mode === 'manual' && (
                 <div className="space-y-3 mb-6 animate-in fade-in slide-in-from-bottom-2 duration-300">
                     <p className="text-xs font-semibold text-slate-500 text-center">
@@ -290,7 +272,7 @@ export const Step3Location: React.FC<Step3LocationProps> = ({ state, onUpdate, o
                         </MapContainer>
                     </div>
 
-                    {/* Address field — auto-filled after map click, still editable */}
+                    
                     <div className="relative group">
                         <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-teal-500 transition-colors z-10">
                             <MapPin size={18} />
@@ -318,7 +300,7 @@ export const Step3Location: React.FC<Step3LocationProps> = ({ state, onUpdate, o
                 </div>
             )}
 
-            {/* ── Confirmed location badge ── */}
+            
             {state.location && (
                 <div className="p-4 rounded-2xl shadow-md text-white mb-4 animate-in slide-in-from-bottom-2 duration-500" style={{ background: '#0D7377' }}>
                     <div className="flex items-center gap-3">
@@ -340,7 +322,7 @@ export const Step3Location: React.FC<Step3LocationProps> = ({ state, onUpdate, o
                 </div>
             )}
 
-            {/* ── Continue button (mobile) ── */}
+            
             <button
                 onClick={handleContinue}
                 disabled={!canContinue}

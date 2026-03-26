@@ -38,7 +38,7 @@ const AccountInfoCard: React.FC<AccountInfoCardProps> = ({ user }) => {
     return (
         <Card className="mb-6">
             <div className="p-8">
-                {/* Header */}
+                
                 <div className="flex items-center gap-3 mb-6">
                     <div className="p-2 bg-[#E3F2FD] rounded-lg text-[#1976D2]">
                         <CreditCard size={24} />
@@ -46,10 +46,10 @@ const AccountInfoCard: React.FC<AccountInfoCardProps> = ({ user }) => {
                     <h2 className="text-xl font-bold text-[#263238]">Account Information</h2>
                 </div>
 
-                {/* Content Rows */}
+                
                 <div className="space-y-6">
 
-                    {/* User ID */}
+                    
                     <div className="pb-6 border-b border-gray-100">
                         <p className="text-sm font-medium text-[#546E7A] mb-2">User ID</p>
                         <div className="flex items-center justify-between">
@@ -66,7 +66,7 @@ const AccountInfoCard: React.FC<AccountInfoCardProps> = ({ user }) => {
                         </div>
                     </div>
 
-                    {/* Role & Status */}
+                    
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pb-6 border-b border-gray-100">
                         <div>
                             <p className="text-sm font-medium text-[#546E7A] mb-2">Role</p>
@@ -91,7 +91,7 @@ const AccountInfoCard: React.FC<AccountInfoCardProps> = ({ user }) => {
                         </div>
                     </div>
 
-                    {/* Dates */}
+                    
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <p className="text-sm font-medium text-[#546E7A] mb-1">Member Since</p>

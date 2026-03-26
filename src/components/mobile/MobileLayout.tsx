@@ -9,10 +9,7 @@ interface MobileLayoutProps {
     className?: string;
 }
 
-/**
- * Mobile Layout Wrapper
- * Provides consistent layout for mobile citizen screens with bottom tab navigation
- */
+
 export const MobileLayout: React.FC<MobileLayoutProps> = ({
     children,
     showTabBar = true,
@@ -20,7 +17,7 @@ export const MobileLayout: React.FC<MobileLayoutProps> = ({
 }) => {
     return (
         <div className={`min-h-screen bg-gray-50 ${className}`}>
-            {/* Main Content Area */}
+            
             <main
                 className="pb-20" // Padding bottom for tab bar
                 style={{
@@ -30,10 +27,10 @@ export const MobileLayout: React.FC<MobileLayoutProps> = ({
                 {children || <Outlet />}
             </main>
 
-            {/* Bottom Tab Bar */}
+            
             {showTabBar && <BottomTabBar />}
 
-            {/* Toast Container */}
+            
             <ToastContainer />
         </div>
     );

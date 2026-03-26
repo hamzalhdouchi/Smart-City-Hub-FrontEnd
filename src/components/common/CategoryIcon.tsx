@@ -205,11 +205,8 @@ const CategoryIcon: React.FC<CategoryIconProps> = ({
     className = '',
     variant = 'default',
     color
-}) => {
-    // Normalize the icon name
-    const normalizedName = iconName?.toLowerCase().trim() || 'default';
-
-    // Map of icon names to Lucide components
+}) => {
+    const normalizedName = iconName?.toLowerCase().trim() || 'default';
     const iconMap: Record<string, React.ElementType> = {
         'road': Map,
         'lightbulb': Lightbulb,
@@ -236,8 +233,7 @@ const CategoryIcon: React.FC<CategoryIconProps> = ({
         'sports': Activity,
         'other': Grid,
         'autre': Grid, // Handle French "Other"
-        'default': Layout,
-        // Emoji mappings for backward compatibility
+        'default': Layout,
         '🏗️': Building,
         '🌳': Trees,
         '🔦': Search, // Flashlight not in all sets, Search or Lightbulb?
@@ -249,11 +245,7 @@ const CategoryIcon: React.FC<CategoryIconProps> = ({
         '⚡': Zap,
         '🏥': Activity,
         '📋': Clipboard,
-    };
-
-    // Try to find a matching icon
-    // 1. Direct match
-    // 2. Fallback to default
+    };
     const IconComponent = iconMap[normalizedName] || iconMap['default'];
 
     if (variant === 'badge') {

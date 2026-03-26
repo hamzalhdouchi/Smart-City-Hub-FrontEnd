@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { User, Mail, Phone, CreditCard, Edit2, X, Save, Lock, Check } from 'lucide-react';
 import { Card } from '../common';
-import type { User as UserType } from '../../services/userService';
-
-// Helper for country codes (simplified)
+import type { User as UserType } from '../../services/userService';
 const COUNTRY_CODES = [
     { code: '+212', flag: '🇲🇦' },
     { code: '+1', flag: '🇺🇸' },
@@ -55,7 +53,7 @@ const PersonalInfoCard: React.FC<PersonalInfoCardProps> = ({ user, onUpdate }) =
     return (
         <Card className="mb-6 mt-8 overflow-visible" padding="none">
             <div className="p-5">
-                {/* Header */}
+                
                 <div className="flex justify-between items-start mb-8">
                     <div>
                         <div className="flex items-center gap-3 mb-1">
@@ -64,7 +62,7 @@ const PersonalInfoCard: React.FC<PersonalInfoCardProps> = ({ user, onUpdate }) =
                             </div>
                             <h2 className="text-lg font-semibold text-slate-800">Personal Information</h2>
                         </div>
-                        {/* Teal Accent Line */}
+                        
                         <div className="w-10 h-[3px] bg-[#2D8B7E] rounded-full ml-11" />
                     </div>
 
@@ -79,10 +77,10 @@ const PersonalInfoCard: React.FC<PersonalInfoCardProps> = ({ user, onUpdate }) =
                     )}
                 </div>
 
-                {/* Form Content */}
+                
                 <div className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        {/* First Name */}
+                        
                         <div className="w-full">
                             <label className="block text-sm font-medium text-gray-500 mb-1.5 ml-1">First Name</label>
                             {isEditing ? (
@@ -105,7 +103,7 @@ const PersonalInfoCard: React.FC<PersonalInfoCardProps> = ({ user, onUpdate }) =
                             )}
                         </div>
 
-                        {/* Last Name */}
+                        
                         <div className="w-full">
                             <label className="block text-sm font-medium text-gray-500 mb-1.5 ml-1">Last Name</label>
                             {isEditing ? (
@@ -129,7 +127,7 @@ const PersonalInfoCard: React.FC<PersonalInfoCardProps> = ({ user, onUpdate }) =
                         </div>
                     </div>
 
-                    {/* Email (Read-only) */}
+                    
                     <div className="w-full">
                         <label className="flex items-center justify-between text-sm font-medium text-gray-500 mb-1.5 ml-1">
                             Email Address
@@ -148,7 +146,7 @@ const PersonalInfoCard: React.FC<PersonalInfoCardProps> = ({ user, onUpdate }) =
                         </div>
                     </div>
 
-                    {/* National ID (Read-only) */}
+                    
                     <div className="w-full">
                         <label className="flex items-center justify-between text-sm font-medium text-gray-500 mb-1.5 ml-1">
                             National ID
@@ -165,7 +163,7 @@ const PersonalInfoCard: React.FC<PersonalInfoCardProps> = ({ user, onUpdate }) =
                         </div>
                     </div>
 
-                    {/* Phone Number */}
+                    
                     <div className="w-full">
                         <label className="block text-sm font-medium text-gray-500 mb-1.5 ml-1">Phone Number</label>
                         {isEditing ? (
@@ -211,7 +209,7 @@ const PersonalInfoCard: React.FC<PersonalInfoCardProps> = ({ user, onUpdate }) =
                     </div>
                 </div>
 
-                {/* Actions */}
+                
                 {isEditing && (
                     <div className="mt-8 flex justify-end gap-3 pt-6 border-t border-gray-100 animate-in fade-in slide-in-from-top-2">
                         <button

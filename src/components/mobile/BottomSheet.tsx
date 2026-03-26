@@ -20,8 +20,7 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
     height = 'half',
     showHandle = true,
     className = '',
-}) => {
-    // Lock body scroll when open
+}) => {
     useEffect(() => {
         if (isOpen) {
             document.body.style.overflow = 'hidden';
@@ -31,9 +30,7 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
         return () => {
             document.body.style.overflow = '';
         };
-    }, [isOpen]);
-
-    // Close on Escape key
+    }, [isOpen]);
     useEffect(() => {
         const handleEscape = (e: KeyboardEvent) => {
             if (e.key === 'Escape' && isOpen) {
@@ -61,14 +58,14 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
 
     return (
         <>
-            {/* Backdrop */}
+            
             <div
                 className="fixed inset-0 bg-black bg-opacity-40 transition-opacity"
                 style={{ zIndex: theme.zIndex.modalBackdrop }}
                 onClick={onClose}
             />
 
-            {/* Bottom Sheet */}
+            
             <div
                 className={`fixed bottom-0 left-0 right-0 bg-white overflow-hidden transition-transform duration-300 ease-out ${getHeightClass()} ${className}`}
                 style={{
@@ -78,7 +75,7 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
                     zIndex: theme.zIndex.modal,
                 }}
             >
-                {/* Handle Bar */}
+                
                 {showHandle && (
                     <div className="flex justify-center pt-3 pb-2">
                         <div
@@ -91,7 +88,7 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
                     </div>
                 )}
 
-                {/* Header */}
+                
                 {title && (
                     <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200">
                         <h3
@@ -113,7 +110,7 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
                     </div>
                 )}
 
-                {/* Content */}
+                
                 <div className="overflow-y-auto h-full pb-6">
                     {children}
                 </div>

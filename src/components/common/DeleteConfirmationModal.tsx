@@ -27,7 +27,7 @@ export const DeleteConfirmationModal: React.FC<DeleteConfirmationModalProps> = (
                 className="bg-white rounded-2xl w-full max-w-sm shadow-2xl transform transition-all animate-in zoom-in-95 duration-200"
                 onClick={(e) => e.stopPropagation()}
             >
-                {/* Header */}
+                
                 <div className="flex justify-between items-start p-6 pb-0">
                     <div className="w-12 h-12 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0">
                         <AlertTriangle className="text-red-500" size={24} />
@@ -40,7 +40,7 @@ export const DeleteConfirmationModal: React.FC<DeleteConfirmationModalProps> = (
                     </button>
                 </div>
 
-                {/* Content */}
+                
                 <div className="p-6 pt-4">
                     <h3 className="text-lg font-bold text-gray-900 mb-2">
                         {title}
@@ -50,7 +50,7 @@ export const DeleteConfirmationModal: React.FC<DeleteConfirmationModalProps> = (
                     </p>
                 </div>
 
-                {/* Footer */}
+                
                 <div className="p-6 pt-0 flex gap-3">
                     <Button
                         variant="ghost"

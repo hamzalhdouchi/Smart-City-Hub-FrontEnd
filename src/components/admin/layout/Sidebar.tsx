@@ -98,7 +98,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         ${isMobileOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
       `}
         >
-            {/* Logo Section */}
+            
             <div className="h-20 flex items-center justify-between px-4 border-b border-[#B0BEC5]">
                 <NavLink to="/admin/dashboard" className="flex items-center gap-3">
                     <SmartCityLogo variant="icon" size={36} />
@@ -109,7 +109,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     )}
                 </NavLink>
 
-                {/* Mobile close button */}
+                
                 <button
                     onClick={onMobileClose}
                     className="lg:hidden p-2 hover:bg-[#ECEFF1] rounded-lg"
@@ -118,7 +118,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 </button>
             </div>
 
-            {/* Navigation */}
+            
             <nav className="p-4 space-y-1 overflow-y-auto h-[calc(100%-80px-60px)]">
                 {navItems.map((item) => (
                     <div key={item.label}>
@@ -150,7 +150,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                                     )}
                                 </button>
 
-                                {/* Sub-items */}
+                                
                                 {!isCollapsed && expandedItems.includes(item.label) && (
                                     <div className="ml-6 mt-1 space-y-1">
                                         {item.children.map((child) => (
@@ -195,7 +195,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 ))}
             </nav>
 
-            {/* Collapse Toggle */}
+            
             <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-[#B0BEC5] hidden lg:block">
                 <button
                     onClick={toggleSidebar}

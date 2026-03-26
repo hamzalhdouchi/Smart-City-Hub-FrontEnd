@@ -81,7 +81,7 @@ const PendingUsersPage: React.FC = () => {
 
     return (
         <div className="space-y-6">
-            {/* Header */}
+            
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-8">
                 <div>
                     <h1 className="text-2xl font-bold text-[#0D7377] font-['Noto_Sans_JP'] flex items-center gap-3">
@@ -95,7 +95,7 @@ const PendingUsersPage: React.FC = () => {
                     <p className="text-[#546E7A] mt-1">Review and approve new user registrations</p>
                 </div>
 
-                {/* Search & Filter */}
+                
                 <div className="flex gap-3">
                     <div className="relative">
                         <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#546E7A]" />
@@ -113,7 +113,7 @@ const PendingUsersPage: React.FC = () => {
                 </div>
             </div>
 
-            {/* Users Grid */}
+            
             {filteredUsers.length === 0 ? (
                 <Card className="text-center py-16">
                     <UserCheck size={64} className="mx-auto mb-4 text-[#B0BEC5]" />
@@ -128,7 +128,7 @@ const PendingUsersPage: React.FC = () => {
                             className="hover:shadow-xl transition-shadow duration-200"
                             padding="md"
                         >
-                            {/* User Header */}
+                            
                             <div className="flex items-start gap-4 mb-4">
                                 <div className="w-12 h-12 rounded-full bg-[#0D7377] flex items-center justify-center text-white font-bold text-lg">
                                     {user.firstName[0]}{user.lastName[0]}
@@ -144,7 +144,7 @@ const PendingUsersPage: React.FC = () => {
                                 </div>
                             </div>
 
-                            {/* User Details */}
+                            
                             <div className="space-y-2 mb-4">
                                 <div className="flex items-center gap-2 text-sm text-[#546E7A]">
                                     <Mail size={16} className="text-[#0D7377]" />
@@ -162,10 +162,10 @@ const PendingUsersPage: React.FC = () => {
                                 </div>
                             </div>
 
-                            {/* Divider */}
+                            
                             <hr className="border-[#B0BEC5] mb-4" />
 
-                            {/* Actions */}
+                            
                             <div className="flex gap-3">
                                 <Button
                                     variant="primary"

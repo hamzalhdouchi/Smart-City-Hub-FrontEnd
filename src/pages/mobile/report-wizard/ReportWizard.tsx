@@ -5,16 +5,12 @@ import type { ReportWizardState, WizardStep } from './types';
 import { INITIAL_STATE } from './types';
 import { CategoryIcon, PhotoIcon, LocationIcon, DescriptionIcon, ReviewIcon } from '../../../components/icons/WizardIcons';
 import { incidentService } from '../../../services/incidentService';
-import { toast } from 'react-hot-toast';
-
-// Steps
+import { toast } from 'react-hot-toast';
 import Step1Category from './steps/Step1Category';
 import { Step2PhotoUpload } from './steps/Step2PhotoUpload';
 import Step3Location from './steps/Step3Location';
 import Step4Description from './steps/Step4Description';
-import Step6Review from './steps/Step6Review';
-
-// Live Preview
+import Step6Review from './steps/Step6Review';
 import { LivePreviewPanel } from './components/LivePreviewPanel';
 
 const STEP_NAMES = [
@@ -32,8 +28,7 @@ export const ReportWizard: React.FC = () => {
     const [state, setState] = useState<ReportWizardState>(() => {
         const saved = localStorage.getItem('incident_report_draft');
         if (saved) {
-            const parsed = JSON.parse(saved);
-            // Migrate old data: ensure completedSteps exists
+            const parsed = JSON.parse(saved);
             return {
                 ...INITIAL_STATE,
                 ...parsed,
@@ -43,14 +38,10 @@ export const ReportWizard: React.FC = () => {
         return INITIAL_STATE;
     });
     const [isSubmitted, setIsSubmitted] = useState(false);
-    const [isChecking, setIsChecking] = useState(false);
-
-    // Auto-save draft
+    const [isChecking, setIsChecking] = useState(false);
     useEffect(() => {
         localStorage.setItem('incident_report_draft', JSON.stringify(state));
-    }, [state]);
-
-    // Duplicate Detection Logic
+    }, [state]);
     const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number) => {
         const R = 6371e3; // metres
         const φ1 = lat1 * Math.PI / 180;
@@ -71,9 +62,7 @@ export const ReportWizard: React.FC = () => {
 
         try {
             setIsChecking(true);
-            const duplicates = await incidentService.getIncidents(undefined, state.category, 0, 50);
-
-            // Proximity Check (100m)
+            const duplicates = await incidentService.getIncidents(undefined, state.category, 0, 50);
             const match = duplicates.content.find(i => {
                 const dist = calculateDistance(
                     state.location!.latitude,
@@ -110,14 +99,11 @@ export const ReportWizard: React.FC = () => {
     };
 
     const handleNext = async () => {
-        if (state.step < 5) {
-            // Validation for Step 3 (Location)
+        if (state.step < 5) {
             if (state.step === 3) {
                 const isDuplicate = await checkDuplicates();
                 if (isDuplicate) return;
-            }
-
-            // Mark current step as completed
+            }
             const newCompletedSteps = [...(state.completedSteps || [])];
             if (!newCompletedSteps.includes(state.step)) {
                 newCompletedSteps.push(state.step);
@@ -130,10 +116,8 @@ export const ReportWizard: React.FC = () => {
         }
     };
 
-    const canNavigateToStep = (targetStep: WizardStep): boolean => {
-        // Can always go back to completed steps or current step
-        if (targetStep <= state.step) return true;
-        // Cannot skip ahead
+    const canNavigateToStep = (targetStep: WizardStep): boolean => {
+        if (targetStep <= state.step) return true;
         return false;
     };
 
@@ -153,11 +137,8 @@ export const ReportWizard: React.FC = () => {
     };
 
     useEffect(() => {
-        if (isSubmitted) {
-            // Clear the draft from localStorage
-            localStorage.removeItem('incident_report_draft');
-
-            // Redirect to My Incidents with success message
+        if (isSubmitted) {
+            localStorage.removeItem('incident_report_draft');
             navigate('/my-incidents', {
                 state: {
                     showSuccess: true,
@@ -173,7 +154,7 @@ export const ReportWizard: React.FC = () => {
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-50 lg:bg-gradient-to-br flex flex-col lg:block">
-            {/* Mobile Header - Only visible on mobile */}
+            
             <header className="lg:hidden sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-slate-100 px-6 py-5 flex items-center justify-between shrink-0">
                 <div className="flex items-center gap-5">
                     <button
@@ -212,9 +193,9 @@ export const ReportWizard: React.FC = () => {
                 </button>
             </header>
 
-            {/* Desktop Layout - Grid with sidebar, content, and preview */}
+            
             <div className="hidden lg:grid lg:grid-cols-[280px_1fr_400px] gap-8 max-w-[1800px] mx-auto p-8 min-h-screen">
-                {/* Left Sidebar - Step Navigation */}
+                
                 <div className="space-y-6">
                     <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-6">
                         <div className="flex items-center gap-3 mb-6">
@@ -266,7 +247,7 @@ export const ReportWizard: React.FC = () => {
                         </div>
                     </div>
 
-                    {/* Save Draft Button */}
+                    
                     <button
                         onClick={() => {
                             localStorage.setItem('incident_report_draft', JSON.stringify(state));
@@ -278,9 +259,9 @@ export const ReportWizard: React.FC = () => {
                     </button>
                 </div>
 
-                {/* Center Content Area */}
+                
                 <div className="flex flex-col">
-                    {/* Horizontal Progress Bar */}
+                    
                     <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-6 mb-6">
                         <div className="flex items-center justify-between mb-3">
                             <h2 className="text-2xl font-black text-slate-800">
@@ -303,7 +284,7 @@ export const ReportWizard: React.FC = () => {
                         </div>
                     </div>
 
-                    {/* Step Content */}
+                    
                     <div className="flex-1 bg-white rounded-2xl shadow-lg border border-slate-200 p-8 overflow-y-auto">
                         {state.step === 1 && (
                             <Step1Category state={state} onUpdate={updateState} onNext={handleNext} />
@@ -322,7 +303,7 @@ export const ReportWizard: React.FC = () => {
                         )}
                     </div>
 
-                    {/* Navigation Buttons */}
+                    
                     <div className="flex gap-4 mt-6">
                         {state.step > 1 && (
                             <button
@@ -355,11 +336,11 @@ export const ReportWizard: React.FC = () => {
                     </div>
                 </div>
 
-                {/* Right Preview Panel */}
+                
                 <LivePreviewPanel state={state} />
             </div>
 
-            {/* Mobile Content Area */}
+            
             <main className="lg:hidden flex-1 overflow-y-auto px-5 py-8">
                 {state.step === 1 && (
                     <Step1Category state={state} onUpdate={updateState} onNext={handleNext} />

@@ -12,9 +12,7 @@ interface MyIncidentCardProps {
 
 export const MyIncidentCard: React.FC<MyIncidentCardProps> = ({ incident, onView, onUpdate }) => {
     const isResolved = incident.status === 'RESOLVED' || incident.status === 'CLOSED';
-    const timeAgo = formatDistanceToNow(new Date(incident.updatedAt), { addSuffix: true });
-
-    // Status color mapping
+    const timeAgo = formatDistanceToNow(new Date(incident.updatedAt), { addSuffix: true });
     const getStatusColor = (status: string) => {
         switch (status) {
             case 'NEW': return '#FFC107'; // Yellow
@@ -35,7 +33,7 @@ export const MyIncidentCard: React.FC<MyIncidentCardProps> = ({ incident, onView
             style={{ borderLeft: `4px solid ${statusColor}` }}
             onClick={onView}
         >
-            {/* Thumbnail */}
+            
             <div className="w-20 h-20 rounded-xl overflow-hidden flex-shrink-0 bg-gray-100 relative">
                 {incident.photos && incident.photos.length > 0 ? (
                     <img
@@ -49,20 +47,20 @@ export const MyIncidentCard: React.FC<MyIncidentCardProps> = ({ incident, onView
                     </div>
                 )}
 
-                {/* Category Icon Overlay */}
+                
                 <div className="absolute bottom-0 left-0 bg-black/50 backdrop-blur-sm p-1 rounded-tr-lg">
                     <span className="text-sm">{incident.category.icon}</span>
                 </div>
             </div>
 
-            {/* Content */}
+            
             <div className="flex-1 flex flex-col justify-between min-w-0">
                 <div>
                     <div className="flex justify-between items-start">
                         <h3 className="font-bold text-gray-800 text-[15px] line-clamp-1 leading-tight">
                             {incident.title}
                         </h3>
-                        {/* Priority Dot */}
+                        
                         <div
                             className="w-2 h-2 rounded-full mt-1.5 flex-shrink-0"
                             style={{ backgroundColor: getPriorityColor(incident.priority) }}
@@ -82,11 +80,11 @@ export const MyIncidentCard: React.FC<MyIncidentCardProps> = ({ incident, onView
                     </div>
                 </div>
 
-                {/* Actions or Rating */}
+                
                 <div className="flex items-center justify-between mt-3 pt-2 border-t border-gray-50">
                     {isResolved ? (
                         <div className="flex items-center gap-1 text-amber-500">
-                            {/* Placeholder for user rating if available, else show 'Rate' button logic parent side */}
+                            
                             <Star size={14} fill={incident.userRating ? "currentColor" : "none"} />
                             <span className="text-xs font-bold">
                                 {incident.userRating ? `${incident.userRating.rating}/5` : 'Rate Service'}

@@ -53,8 +53,7 @@ const formatDateTime = (dateString: string) => {
 };
 
 const StatusTimeline: React.FC<StatusTimelineProps> = ({ history, currentStatus }) => {
-    if (!history || history.length === 0) {
-        // Show just the current status if no history
+    if (!history || history.length === 0) {
         return (
             <div className="space-y-4">
                 <div className="flex items-start gap-3">
@@ -74,7 +73,7 @@ const StatusTimeline: React.FC<StatusTimelineProps> = ({ history, currentStatus 
 
     return (
         <div className="relative">
-            {/* Timeline line */}
+            
             <div className="absolute left-4 top-8 bottom-8 w-0.5 bg-[#ECEFF1]" />
 
             <div className="space-y-6">
@@ -84,7 +83,7 @@ const StatusTimeline: React.FC<StatusTimelineProps> = ({ history, currentStatus 
 
                     return (
                         <div key={item.id} className="flex items-start gap-4 relative">
-                            {/* Timeline dot */}
+                            
                             <div
                                 className={`w-8 h-8 rounded-full flex items-center justify-center z-10 ${isLast && item.newStatus === currentStatus
                                     ? `${style.bg} ${style.text} ring-4 ring-[#00ACC1]/20`
@@ -94,7 +93,7 @@ const StatusTimeline: React.FC<StatusTimelineProps> = ({ history, currentStatus 
                                 {style.icon}
                             </div>
 
-                            {/* Content */}
+                            
                             <div className="flex-1 min-w-0 pb-2">
                                 <div className="flex items-center gap-2 flex-wrap">
                                     {item.previousStatus && (

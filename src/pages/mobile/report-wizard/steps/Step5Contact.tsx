@@ -28,7 +28,7 @@ export const Step5Contact: React.FC<Step5ContactProps> = ({ state, onUpdate, onN
             </p>
 
             <div className="space-y-4 mb-8">
-                {/* Email Option */}
+                
                 <button
                     onClick={() => togglePreference('email')}
                     className={`w-full flex items-center justify-between p-5 rounded-2xl border-2 transition-all ${state.contactPreferences.email
@@ -54,7 +54,7 @@ export const Step5Contact: React.FC<Step5ContactProps> = ({ state, onUpdate, onN
                     </div>
                 </button>
 
-                {/* Push Option */}
+                
                 <button
                     onClick={() => togglePreference('push')}
                     className={`w-full flex items-center justify-between p-5 rounded-2xl border-2 transition-all ${state.contactPreferences.push
@@ -80,7 +80,7 @@ export const Step5Contact: React.FC<Step5ContactProps> = ({ state, onUpdate, onN
                     </div>
                 </button>
 
-                {/* SMS Option */}
+                
                 <div className={`rounded-2xl border-2 transition-all overflow-hidden ${state.contactPreferences.sms
                     ? 'border-teal-500 bg-teal-50 shadow-sm'
                     : 'border-slate-100 bg-white'
@@ -127,7 +127,7 @@ export const Step5Contact: React.FC<Step5ContactProps> = ({ state, onUpdate, onN
 
                 <div className="h-4" />
 
-                {/* Anonymous Option */}
+                
                 <button
                     onClick={() => onUpdate({ anonymous: !state.anonymous })}
                     className={`w-full flex items-center justify-between p-5 rounded-2xl border-2 transition-all ${state.anonymous

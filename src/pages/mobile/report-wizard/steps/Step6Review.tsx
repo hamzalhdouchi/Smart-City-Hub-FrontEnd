@@ -66,7 +66,7 @@ export const Step6Review: React.FC<Step6ReviewProps> = ({ state, onUpdate, onSub
             </div>
 
             <div className="space-y-4 mb-12">
-                {/* Category Card */}
+                
                 <div className="p-4 bg-white border border-slate-100 rounded-2xl shadow-sm">
                     <div className="flex items-center justify-between mb-3">
                         <div className="flex items-center gap-2 text-[12px] font-black text-slate-400 border-b border-slate-50 pb-1 uppercase tracking-widest">
@@ -82,7 +82,7 @@ export const Step6Review: React.FC<Step6ReviewProps> = ({ state, onUpdate, onSub
                     </div>
                 </div>
 
-                {/* Photos Card */}
+                
                 <div className="p-4 bg-white border border-slate-100 rounded-2xl shadow-sm">
                     <div className="flex items-center justify-between mb-3">
                         <div className="flex items-center gap-2 text-[12px] font-black text-slate-400 border-b border-slate-50 pb-1 uppercase tracking-widest">
@@ -110,7 +110,7 @@ export const Step6Review: React.FC<Step6ReviewProps> = ({ state, onUpdate, onSub
                     </div>
                 </div>
 
-                {/* Location Card */}
+                
                 <div className="p-4 bg-white border border-slate-100 rounded-2xl shadow-sm">
                     <div className="flex items-center justify-between mb-3">
                         <div className="flex items-center gap-2 text-[12px] font-black text-slate-400 border-b border-slate-50 pb-1 uppercase tracking-widest">
@@ -125,7 +125,7 @@ export const Step6Review: React.FC<Step6ReviewProps> = ({ state, onUpdate, onSub
                     </p>
                 </div>
 
-                {/* Description Card */}
+                
                 <div className="p-4 bg-white border border-slate-100 rounded-2xl shadow-sm">
                     <div className="flex items-center justify-between mb-3">
                         <div className="flex items-center gap-2 text-[12px] font-black text-slate-400 border-b border-slate-50 pb-1 uppercase tracking-widest">

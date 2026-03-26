@@ -1,7 +1,4 @@
-/**
- * Mobile Components - Index
- * Export all mobile-specific components
- */
+
 
 export { BottomTabBar } from './BottomTabBar';
 export { MobileLayout } from './MobileLayout';

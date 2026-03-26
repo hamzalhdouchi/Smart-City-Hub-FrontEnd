@@ -40,17 +40,13 @@ const StatCard: React.FC<StatCardProps> = ({ title, value, subtitle, icon, iconC
             </div>
         </div>
     </Card>
-);
-
-// Status color mapping
+);
 const statusColors: Record<string, string> = {
     'NEW': '#FFB347',
     'IN_PROGRESS': '#2196F3',
     'RESOLVED': '#32936F',
     'CLOSED': '#546E7A',
-};
-
-// Category color palette
+};
 const categoryColors = ['#0D7377', '#32936F', '#2196F3', '#9C27B0', '#FF9800', '#F44336'];
 
 const StatisticsPage: React.FC = () => {
@@ -90,30 +86,22 @@ const StatisticsPage: React.FC = () => {
                 <p className="text-[#546E7A]">Please try again later</p>
             </Card>
         );
-    }
-
-    // Calculate totals
+    }
     const totalIncidentsByStatus = Object.values(statistics.incidentsByStatus || {}).reduce((a, b) => a + b, 0);
     const resolvedCount = (statistics.incidentsByStatus?.['RESOLVED'] || 0) + (statistics.incidentsByStatus?.['CLOSED'] || 0);
     const resolutionRate = totalIncidentsByStatus > 0
         ? Math.round((resolvedCount / totalIncidentsByStatus) * 100)
-        : 0;
-
-    // Format resolution time
+        : 0;
     const formatResolutionTime = (hours: number) => {
         if (!hours || hours === 0) return 'N/A';
         if (hours < 24) return `${hours.toFixed(1)} hours`;
         return `${(hours / 24).toFixed(1)} days`;
-    };
-
-    // Convert status data for chart
+    };
     const statusData = Object.entries(statistics.incidentsByStatus || {}).map(([label, value]) => ({
         label: label.replace('_', ' '),
         value,
         color: statusColors[label] || '#B0BEC5',
-    }));
-
-    // Convert category data for chart
+    }));
     const categoryData = Object.entries(statistics.incidentsByCategory || {}).map(([label, value], index) => ({
         label,
         value,
@@ -124,7 +112,7 @@ const StatisticsPage: React.FC = () => {
 
     return (
         <div className="space-y-6">
-            {/* Header */}
+            
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
                     <h1 className="text-2xl font-bold text-[#263238] font-['Noto_Sans_JP']">
@@ -142,7 +130,7 @@ const StatisticsPage: React.FC = () => {
                 </button>
             </div>
 
-            {/* Overview Cards */}
+            
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <StatCard
                     title="Total Incidents"
@@ -174,7 +162,7 @@ const StatisticsPage: React.FC = () => {
                 />
             </div>
 
-            {/* User Stats */}
+            
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <Card>
                     <div className="flex items-center gap-4">
@@ -210,9 +198,9 @@ const StatisticsPage: React.FC = () => {
                 </Card>
             </div>
 
-            {/* Charts Grid */}
+            
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                {/* Status Distribution */}
+                
                 <Card>
                     <div className="flex items-center justify-between mb-6">
                         <h3 className="font-semibold text-[#263238] text-lg">Incidents by Status</h3>
@@ -252,7 +240,7 @@ const StatisticsPage: React.FC = () => {
                     )}
                 </Card>
 
-                {/* Category Distribution */}
+                
                 <Card>
                     <div className="flex items-center justify-between mb-6">
                         <h3 className="font-semibold text-[#263238] text-lg">Incidents by Category</h3>

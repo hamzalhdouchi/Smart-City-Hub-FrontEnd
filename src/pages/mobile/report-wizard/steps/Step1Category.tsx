@@ -87,7 +87,7 @@ export const Step1Category: React.FC<Step1CategoryProps> = ({ state, onUpdate, o
 
     return (
         <div className="flex flex-col h-full animate-in fade-in duration-700">
-            {/* Creative Header Section */}
+            
             <div className="relative mb-6 lg:mb-8 group">
                 <div className="flex items-start justify-between">
                     <div className="relative z-10 flex flex-col">
@@ -116,7 +116,7 @@ export const Step1Category: React.FC<Step1CategoryProps> = ({ state, onUpdate, o
                     </button>
                 </div>
 
-                {/* Animated Scanning Line Decor */}
+                
                 <div className="absolute -bottom-2 lg:-bottom-4 left-0 w-20 lg:w-24 h-1 bg-gradient-to-r from-teal-500 to-transparent rounded-full opacity-30 animate-pulse" />
             </div>
 
@@ -171,7 +171,7 @@ export const Step1Category: React.FC<Step1CategoryProps> = ({ state, onUpdate, o
                                     : 'border-transparent bg-slate-50/50 hover:bg-white hover:border-slate-200 hover:shadow-lg hover:-translate-y-1'
                                     }`}
                             >
-                                {/* Selection Glow Line */}
+                                
                                 {isSelected && (
                                     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-8 h-1 bg-[#0D7377] rounded-b-full shadow-[0_2px_8px_rgba(13,115,119,0.3)]" />
                                 )}
@@ -182,7 +182,7 @@ export const Step1Category: React.FC<Step1CategoryProps> = ({ state, onUpdate, o
                                     {cat.name}
                                 </span>
 
-                                {/* Premium Status Indicator */}
+                                
                                 {isSelected && (
                                     <div className="absolute top-5 right-5">
                                         <div className="w-1.5 h-1.5 bg-teal-500 rounded-full animate-ping" />
@@ -195,7 +195,7 @@ export const Step1Category: React.FC<Step1CategoryProps> = ({ state, onUpdate, o
                 </div>
             )}
 
-            {/* Premium Sticky Footer Action - Mobile Only */}
+            
             <div className="lg:hidden fixed bottom-24 left-0 right-0 pointer-events-none z-[60] flex justify-center px-6">
                 {state.category && (
                     <div className="w-full max-w-md pointer-events-auto">
@@ -203,10 +203,10 @@ export const Step1Category: React.FC<Step1CategoryProps> = ({ state, onUpdate, o
                             onClick={onNext}
                             className="w-full py-5 group text-white font-bold text-lg rounded-[22px] shadow-2xl transition-all active:scale-[0.98] animate-in slide-in-from-bottom-10 duration-700 flex items-center justify-center gap-4 overflow-hidden relative border border-white/20" style={{ background: '#0D7377' }}
                         >
-                            {/* Internal Animated Shine */}
+                            
                             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
 
-                            {/* Ambient Glow */}
+                            
                             <div className="absolute inset-0 bg-teal-400 opacity-0 group-hover:opacity-10 transition-opacity duration-500" />
 
                             <span className="relative z-10 flex items-center gap-3 tracking-[0.05em]">

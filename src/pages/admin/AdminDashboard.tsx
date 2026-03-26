@@ -102,9 +102,7 @@ const AdminDashboard: React.FC = () => {
                 <DataPulseLoader size={60} />
             </div>
         );
-    }
-
-    // Calculate metrics
+    }
     const newIncidents = statistics?.incidentsByStatus?.['NEW'] || 0;
     const inProgressIncidents = statistics?.incidentsByStatus?.['IN_PROGRESS'] || 0;
     const resolvedToday = statistics?.incidentsByStatus?.['RESOLVED'] || 0;
@@ -112,7 +110,7 @@ const AdminDashboard: React.FC = () => {
 
     return (
         <div className="space-y-6">
-            {/* Header */}
+            
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
                     <h1 className="text-2xl font-bold text-[#263238] font-['Noto_Sans_JP']">
@@ -130,7 +128,7 @@ const AdminDashboard: React.FC = () => {
                 </Button>
             </div>
 
-            {/* Metric Cards */}
+            
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <MetricCard
                     title="Total Users"
@@ -161,7 +159,7 @@ const AdminDashboard: React.FC = () => {
                 />
             </div>
 
-            {/* Quick Actions */}
+            
             <Card>
                 <h2 className="text-lg font-semibold text-[#263238] mb-4">Quick Actions</h2>
                 <div className="flex flex-wrap gap-3">
@@ -189,9 +187,9 @@ const AdminDashboard: React.FC = () => {
                 </div>
             </Card>
 
-            {/* Main Content Grid */}
+            
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                {/* Recent Incidents */}
+                
                 <div className="lg:col-span-2">
                     <Card>
                         <div className="flex items-center justify-between mb-4">
@@ -272,9 +270,9 @@ const AdminDashboard: React.FC = () => {
                     </Card>
                 </div>
 
-                {/* Statistics Summary */}
+                
                 <div className="space-y-6">
-                    {/* Category Breakdown */}
+                    
                     <Card>
                         <div className="flex items-center justify-between mb-4">
                             <h2 className="text-lg font-semibold text-[#263238]">By Category</h2>
@@ -310,7 +308,7 @@ const AdminDashboard: React.FC = () => {
                         )}
                     </Card>
 
-                    {/* Platform Stats */}
+                    
                     <Card>
                         <h2 className="text-lg font-semibold text-[#263238] mb-4">Platform Stats</h2>
                         <div className="space-y-3">

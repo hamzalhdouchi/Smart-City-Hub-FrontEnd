@@ -1,14 +1,7 @@
 import React, { useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import L from 'leaflet';
-
-// Fix for default marker icon in React Leaflet
-// Depending on your build setup, you might need to import images directly
-// or use a custom icon. This is a common workaround.
-
-
-// Custom Teal Marker Icon to match theme
+import L from 'leaflet';
 const customIcon = L.divIcon({
     className: 'custom-map-marker',
     html: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#0D7377" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-10 h-10 drop-shadow-lg filter"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3" fill="#ffffff"></circle></svg>`,
@@ -23,9 +16,7 @@ interface LocationMapProps {
     longitude: number;
     height?: string;
     className?: string;
-}
-
-// Helper component to update map center when props change
+}
 const MapUpdater: React.FC<{ center: [number, number] }> = ({ center }) => {
     const map = useMap();
     useEffect(() => {
@@ -45,10 +36,7 @@ const LocationMap: React.FC<LocationMapProps> = ({
 
     return (
         <div className={`w-full rounded-xl overflow-hidden shadow-md border border-gray-200 ${className}`} style={{ height }}>
-            {/* 
-                NOTE: You must ensure 'leaflet/dist/leaflet.css' is imported.
-                This is usually done in this file or a global top-level file.
-            */}
+            
             <MapContainer
                 center={position}
                 zoom={15}

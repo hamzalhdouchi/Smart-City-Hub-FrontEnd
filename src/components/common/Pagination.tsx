@@ -50,7 +50,7 @@ export const Pagination: React.FC<PaginationProps> = ({
 
     return (
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 px-1 py-3">
-            {/* Results info */}
+            
             <p className="text-sm text-[#546E7A] shrink-0">
                 Showing{' '}
                 <span className="font-semibold text-[#263238]">{from}</span>
@@ -61,9 +61,9 @@ export const Pagination: React.FC<PaginationProps> = ({
                 {' results'}
             </p>
 
-            {/* Controls */}
+            
             <div className="flex items-center gap-1">
-                {/* First */}
+                
                 <button
                     className={`${btnBase} text-[#546E7A] hover:bg-[#ECEFF1] hover:text-[#263238]`}
                     onClick={() => onPageChange(0)}
@@ -73,7 +73,7 @@ export const Pagination: React.FC<PaginationProps> = ({
                     <ChevronsLeft size={16} />
                 </button>
 
-                {/* Prev */}
+                
                 <button
                     className={`${btnBase} text-[#546E7A] hover:bg-[#ECEFF1] hover:text-[#263238]`}
                     onClick={() => onPageChange(page - 1)}
@@ -83,7 +83,7 @@ export const Pagination: React.FC<PaginationProps> = ({
                     <ChevronLeft size={16} />
                 </button>
 
-                {/* Page numbers */}
+                
                 <div className="flex items-center gap-1 mx-1">
                     {pageNumbers.map((p, idx) =>
                         p === '...' ? (
@@ -112,7 +112,7 @@ export const Pagination: React.FC<PaginationProps> = ({
                     )}
                 </div>
 
-                {/* Next */}
+                
                 <button
                     className={`${btnBase} text-[#546E7A] hover:bg-[#ECEFF1] hover:text-[#263238]`}
                     onClick={() => onPageChange(page + 1)}
@@ -122,7 +122,7 @@ export const Pagination: React.FC<PaginationProps> = ({
                     <ChevronRight size={16} />
                 </button>
 
-                {/* Last */}
+                
                 <button
                     className={`${btnBase} text-[#546E7A] hover:bg-[#ECEFF1] hover:text-[#263238]`}
                     onClick={() => onPageChange(totalPages - 1)}

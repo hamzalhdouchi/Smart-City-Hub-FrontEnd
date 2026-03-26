@@ -54,7 +54,7 @@ const AgentProfilePage: React.FC = () => {
 
     return (
         <div className="space-y-6 max-w-5xl mx-auto">
-            {/* Header */}
+            
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
                     <h1 className="text-2xl font-bold text-[#263238] font-['Noto_Sans_JP']">
@@ -72,7 +72,7 @@ const AgentProfilePage: React.FC = () => {
                 </div>
             </div>
 
-            {/* Top summary card */}
+            
             <Card>
                 <div className="flex flex-col md:flex-row items-center gap-4">
                     <div className="relative">
@@ -115,7 +115,7 @@ const AgentProfilePage: React.FC = () => {
                 </div>
             </Card>
 
-            {/* Details grid */}
+            
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <div className="lg:col-span-2 space-y-4">
                     <PersonalInfoCard
@@ -151,7 +151,7 @@ const AgentProfilePage: React.FC = () => {
                 </div>
             </div>
 
-            {/* Modals */}
+            
             <PhotoUploadModal
                 isOpen={isPhotoModalOpen}
                 onClose={() => setIsPhotoModalOpen(false)}

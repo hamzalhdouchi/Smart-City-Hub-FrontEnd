@@ -15,9 +15,7 @@ const PhotoUploadModal: React.FC<PhotoUploadModalProps> = ({ isOpen, onClose, on
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [previewUrl, setPreviewUrl] = useState<string | null>(null);
     const [isUploading, setIsUploading] = useState(false);
-    const inputRef = useRef<HTMLInputElement>(null);
-
-    // Reset state every time the modal opens
+    const inputRef = useRef<HTMLInputElement>(null);
     useEffect(() => {
         if (isOpen) {
             setSelectedFile(null);
@@ -25,9 +23,7 @@ const PhotoUploadModal: React.FC<PhotoUploadModalProps> = ({ isOpen, onClose, on
             setIsDragging(false);
             setIsUploading(false);
         }
-    }, [isOpen]);
-
-    // Revoke blob URL when preview changes or component unmounts
+    }, [isOpen]);
     useEffect(() => {
         return () => {
             if (previewUrl) URL.revokeObjectURL(previewUrl);
@@ -44,9 +40,7 @@ const PhotoUploadModal: React.FC<PhotoUploadModalProps> = ({ isOpen, onClose, on
         if (file.size > 5 * 1024 * 1024) {
             toast.error('File size must be less than 5MB');
             return;
-        }
-
-        // Revoke previous blob before creating a new one
+        }
         if (previewUrl) URL.revokeObjectURL(previewUrl);
 
         setSelectedFile(file);
@@ -64,8 +58,7 @@ const PhotoUploadModal: React.FC<PhotoUploadModalProps> = ({ isOpen, onClose, on
 
     const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
-        if (file) handleFileSelect(file);
-        // Reset input so selecting the same file again fires the event
+        if (file) handleFileSelect(file);
         e.target.value = '';
     };
 
@@ -81,9 +74,7 @@ const PhotoUploadModal: React.FC<PhotoUploadModalProps> = ({ isOpen, onClose, on
 
         try {
             setIsUploading(true);
-            const returnedUrl = await userService.uploadProfilePhoto(selectedFile);
-
-            // The API may return the new URL or null — fall back to re-fetching if needed
+            const returnedUrl = await userService.uploadProfilePhoto(selectedFile);
             if (returnedUrl) {
                 onUpload(returnedUrl);
             } else {
@@ -105,7 +96,7 @@ const PhotoUploadModal: React.FC<PhotoUploadModalProps> = ({ isOpen, onClose, on
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
             <div className="bg-white rounded-2xl w-full max-w-md shadow-2xl overflow-hidden">
-                {/* Header */}
+                
                 <div className="flex justify-between items-center p-6 border-b border-gray-100">
                     <h2 className="text-xl font-bold text-[#263238]">Upload Profile Photo</h2>
                     <button
@@ -116,7 +107,7 @@ const PhotoUploadModal: React.FC<PhotoUploadModalProps> = ({ isOpen, onClose, on
                     </button>
                 </div>
 
-                {/* Content */}
+                
                 <div className="p-6">
                     {previewUrl ? (
                         <div className="flex flex-col items-center">
@@ -166,7 +157,7 @@ const PhotoUploadModal: React.FC<PhotoUploadModalProps> = ({ isOpen, onClose, on
                         </div>
                     )}
 
-                    {/* Shared hidden input — always rendered */}
+                    
                     <input
                         ref={inputRef}
                         type="file"

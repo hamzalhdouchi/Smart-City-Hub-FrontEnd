@@ -3,9 +3,7 @@ import { Plus, Edit2, ToggleLeft, ToggleRight, RefreshCw, X } from 'lucide-react
 import { Card, Button, DataPulseLoader, CategoryIcon } from '../../../components/common';
 import { categoryService } from '../../../services/categoryService';
 import type { Category, CreateCategoryRequest } from '../../../services/categoryService';
-import toast from 'react-hot-toast';
-
-// Default emoji icons for categories
+import toast from 'react-hot-toast';
 const defaultIcons: Record<string, string> = {
     'Infrastructure': '🏗️',
     'Environment': '🌳',
@@ -13,9 +11,7 @@ const defaultIcons: Record<string, string> = {
     'Transportation': '🚌',
     'Utilities': '💡',
     'default': '📋',
-};
-
-// Color palette for categories
+};
 const colorPalette = [
     '#0D7377', '#32936F', '#2196F3', '#9C27B0', '#FF9800', '#F44336',
     '#795548', '#607D8B', '#3F51B5', '#009688'
@@ -26,9 +22,7 @@ const CategoriesPage: React.FC = () => {
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
     const [showModal, setShowModal] = useState(false);
-    const [editingCategory, setEditingCategory] = useState<Category | null>(null);
-
-    // Form state
+    const [editingCategory, setEditingCategory] = useState<Category | null>(null);
     const [formData, setFormData] = useState<CreateCategoryRequest>({
         name: '',
         description: '',
@@ -131,7 +125,7 @@ const CategoriesPage: React.FC = () => {
 
     return (
         <div className="space-y-6">
-            {/* Header */}
+            
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
                     <h1 className="text-2xl font-bold text-[#263238] font-['Noto_Sans_JP']">
@@ -157,21 +151,21 @@ const CategoriesPage: React.FC = () => {
                 </div>
             </div>
 
-            {/* Categories Grid */}
+            
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 {categories.map((category, index) => (
                     <Card
                         key={category.id}
                         className={`relative ${!category.active ? 'opacity-60' : ''}`}
                     >
-                        {/* Status Badge */}
+                        
                         {!category.active && (
                             <span className="absolute top-3 right-3 px-2 py-0.5 bg-[#B0BEC5] text-white text-xs rounded-full">
                                 Inactive
                             </span>
                         )}
 
-                        {/* Icon */}
+                        
                         <div
                             className="w-16 h-16 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-4"
                             style={{ backgroundColor: `${getCategoryColor(index)}20` }}
@@ -179,7 +173,7 @@ const CategoriesPage: React.FC = () => {
                             <CategoryIcon iconName={category.icon || category.name} size={32} className="text-[#263238]" />
                         </div>
 
-                        {/* Name & Description */}
+                        
                         <h3 className="text-lg font-semibold text-[#263238] text-center mb-1">
                             {category.name}
                         </h3>
@@ -187,7 +181,7 @@ const CategoriesPage: React.FC = () => {
                             {category.description || 'No description'}
                         </p>
 
-                        {/* Actions */}
+                        
                         <div className="flex gap-2">
                             <button
                                 onClick={() => handleOpenModal(category)}
@@ -213,7 +207,7 @@ const CategoriesPage: React.FC = () => {
                 ))}
             </div>
 
-            {/* Empty State */}
+            
             {categories.length === 0 && (
                 <Card className="text-center py-16">
                     <div className="text-4xl mb-4">📋</div>
@@ -225,7 +219,7 @@ const CategoriesPage: React.FC = () => {
                 </Card>
             )}
 
-            {/* Create/Edit Modal */}
+            
             {showModal && (
                 <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
                     <Card className="w-full max-w-md relative">

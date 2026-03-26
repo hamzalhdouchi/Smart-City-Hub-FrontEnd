@@ -41,8 +41,7 @@ const AssignAgentModal: React.FC<AssignAgentModalProps> = ({
 
     const loadAgents = async () => {
         try {
-            setIsLoading(true);
-            // Get users with ROLE_AGENT
+            setIsLoading(true);
             const data = await userService.getAgents();
             setAgents(data);
             setFilteredAgents(data);
@@ -76,15 +75,15 @@ const AssignAgentModal: React.FC<AssignAgentModalProps> = ({
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-            {/* Backdrop */}
+            
             <div
                 className="absolute inset-0 bg-black/50"
                 onClick={onClose}
             />
 
-            {/* Modal */}
+            
             <div className="relative bg-white rounded-xl shadow-xl w-full max-w-md max-h-[80vh] flex flex-col">
-                {/* Header */}
+                
                 <div className="flex items-center justify-between p-4 border-b border-[#ECEFF1]">
                     <h2 className="text-lg font-semibold text-[#263238] flex items-center gap-2">
                         <UserCheck size={20} className="text-[#00ACC1]" />
@@ -98,7 +97,7 @@ const AssignAgentModal: React.FC<AssignAgentModalProps> = ({
                     </button>
                 </div>
 
-                {/* Search */}
+                
                 <div className="p-4 border-b border-[#ECEFF1]">
                     <div className="relative">
                         <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#78909C]" />
@@ -112,7 +111,7 @@ const AssignAgentModal: React.FC<AssignAgentModalProps> = ({
                     </div>
                 </div>
 
-                {/* Agent list */}
+                
                 <div className="flex-1 overflow-y-auto p-4 space-y-2">
                     {isLoading ? (
                         [...Array(5)].map((_, i) => (
@@ -167,7 +166,7 @@ const AssignAgentModal: React.FC<AssignAgentModalProps> = ({
                     )}
                 </div>
 
-                {/* Footer */}
+                
                 <div className="p-4 border-t border-[#ECEFF1] flex gap-3">
                     <Button
                         variant="outline"

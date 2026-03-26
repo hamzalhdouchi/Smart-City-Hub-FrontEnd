@@ -41,12 +41,8 @@ export const navigationItems: NavigationItem[] = [
         icon: User,
         route: '/profile'
     },
-];
-
-// Desktop-only additional items (if needed)
-export const desktopOnlyItems: NavigationItem[] = [];
-
-// Theme colors for navigation
+];
+export const desktopOnlyItems: NavigationItem[] = [];
 export const navColors = {
     primary: '#2D8B7E',
     activeBackground: '#E0F2FE',

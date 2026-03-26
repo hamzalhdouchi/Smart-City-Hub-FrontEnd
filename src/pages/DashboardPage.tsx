@@ -8,14 +8,14 @@ const DashboardPage: React.FC = () => {
 
     return (
         <div className="min-h-screen bg-[#ECEFF1]">
-            {/* Top Navigation */}
+            
             <nav className="bg-white shadow-sm border-b border-[#B0BEC5]">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between items-center h-16">
-                        {/* Logo */}
+                        
                         <SmartCityLogo variant="full" size={35} />
 
-                        {/* User Menu */}
+                        
                         <div className="flex items-center gap-4">
                             <button className="p-2 text-[#546E7A] hover:text-[#0D7377] hover:bg-[#0D7377]/10 rounded-lg transition-colors">
                                 <Bell size={20} />
@@ -42,9 +42,9 @@ const DashboardPage: React.FC = () => {
                 </div>
             </nav>
 
-            {/* Main Content */}
+            
             <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                {/* Welcome Section */}
+                
                 <div className="mb-8">
                     <h1 className="text-2xl font-bold text-[#0D7377] font-['Noto_Sans_JP']">
                         Welcome back, {user?.firstName}! 👋
@@ -54,7 +54,7 @@ const DashboardPage: React.FC = () => {
                     </p>
                 </div>
 
-                {/* Quick Stats */}
+                
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                     {[
                         { label: 'Total Incidents', value: '156', icon: FileText, color: '#0D7377' },
@@ -84,7 +84,7 @@ const DashboardPage: React.FC = () => {
                     ))}
                 </div>
 
-                {/* Content Placeholder */}
+                
                 <div className="bg-white rounded-xl p-8 shadow-sm border border-[#B0BEC5] text-center">
                     <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-[#0D7377]/10 flex items-center justify-center">
                         <Building2 size={40} className="text-[#0D7377]" />

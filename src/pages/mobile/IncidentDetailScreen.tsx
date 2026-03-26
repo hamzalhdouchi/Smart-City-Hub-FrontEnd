@@ -38,8 +38,7 @@ export const IncidentDetailScreen: React.FC = () => {
             } catch (err) {
                 console.log('Share cancelled');
             }
-        } else {
-            // Fallback: copy link
+        } else {
             await navigator.clipboard.writeText(window.location.href);
             setCopied(true);
             setTimeout(() => {
@@ -63,13 +62,9 @@ export const IncidentDetailScreen: React.FC = () => {
 
             try {
                 setLoading(true);
-                const data = await incidentService.getIncidentById(id);
-
-                // Fetch comments separately since backend doesn't include them in incident response
+                const data = await incidentService.getIncidentById(id);
                 const commentsData = await incidentService.getComments(id);
-                console.log('Fetched comments separately:', commentsData);
-
-                // Build status history
+                console.log('Fetched comments separately:', commentsData);
                 const statusHistory = [];
                 statusHistory.push({
                     status: 'NEW' as const,
@@ -85,9 +80,7 @@ export const IncidentDetailScreen: React.FC = () => {
                         actor: data.assignedAgent.fullName,
                         note: undefined
                     });
-                }
-
-                // If status is IN_PROGRESS or beyond, add it
+                }
                 if (data.status === 'IN_PROGRESS' || data.status === 'RESOLVED' || data.status === 'VALIDATED') {
                     statusHistory.push({
                         status: 'IN_PROGRESS' as const,
@@ -95,9 +88,7 @@ export const IncidentDetailScreen: React.FC = () => {
                         actor: data.assignedAgent?.fullName,
                         note: undefined
                     });
-                }
-
-                // If resolved, add RESOLVED status
+                }
                 if (data.status === 'RESOLVED' || data.status === 'VALIDATED') {
                     statusHistory.push({
                         status: 'RESOLVED' as const,
@@ -105,9 +96,7 @@ export const IncidentDetailScreen: React.FC = () => {
                         actor: data.assignedAgent?.fullName,
                         note: undefined
                     });
-                }
-
-                // Map comments to expected format
+                }
                 const mappedComments = commentsData.map((comment: any) => ({
                     id: comment.id?.toString() || '',
                     content: comment.content || '',
@@ -119,9 +108,7 @@ export const IncidentDetailScreen: React.FC = () => {
                     },
                     createdAt: new Date(comment.createdAt),
                     isOwn: comment.authorId === user?.id
-                }));
-
-                // Cast to IncidentDetail and provide defaults for optional fields
+                }));
                 console.log('Raw incident data from backend:', data);
                 console.log('Mapped comments:', mappedComments);
 
@@ -144,12 +131,9 @@ export const IncidentDetailScreen: React.FC = () => {
 
     const handlePostComment = async (content: string) => {
         if (!id) return;
-        await incidentService.postComment(id, content);
-        // Re-fetch incident and comments
+        await incidentService.postComment(id, content);
         const data = await incidentService.getIncidentById(id);
-        const commentsData = await incidentService.getComments(id);
-
-        // Rebuild status history (same logic as initial fetch)
+        const commentsData = await incidentService.getComments(id);
         const statusHistory = [];
         statusHistory.push({
             status: 'NEW' as const,
@@ -183,9 +167,7 @@ export const IncidentDetailScreen: React.FC = () => {
                 actor: data.assignedAgent?.fullName,
                 note: undefined
             });
-        }
-
-        // Map comments
+        }
         const mappedComments = commentsData.map((comment: any) => ({
             id: comment.id?.toString() || '',
             content: comment.content || '',
@@ -209,12 +191,9 @@ export const IncidentDetailScreen: React.FC = () => {
 
     const handleDeleteComment = async (commentId: string) => {
         if (!id) return;
-        await incidentService.deleteComment(id, commentId);
-        // Re-fetch incident and comments
+        await incidentService.deleteComment(id, commentId);
         const data = await incidentService.getIncidentById(id);
-        const commentsData = await incidentService.getComments(id);
-
-        // Rebuild status history
+        const commentsData = await incidentService.getComments(id);
         const statusHistory = [];
         statusHistory.push({
             status: 'NEW' as const,
@@ -248,9 +227,7 @@ export const IncidentDetailScreen: React.FC = () => {
                 actor: data.assignedAgent?.fullName,
                 note: undefined
             });
-        }
-
-        // Map comments
+        }
         const mappedComments = commentsData.map((comment: any) => ({
             id: comment.id?.toString() || '',
             content: comment.content || '',
@@ -274,11 +251,8 @@ export const IncidentDetailScreen: React.FC = () => {
 
     const handleSubmitRating = async (rating: number, feedback?: string) => {
         if (!id) return;
-        await incidentService.rateIncident(id, rating, feedback);
-        // Refresh incident data
-        const data = await incidentService.getIncidentById(id);
-
-        // Rebuild status history
+        await incidentService.rateIncident(id, rating, feedback);
+        const data = await incidentService.getIncidentById(id);
         const statusHistory = [];
         statusHistory.push({
             status: 'NEW' as const,
@@ -355,7 +329,7 @@ export const IncidentDetailScreen: React.FC = () => {
 
     return (
         <div className="min-h-screen bg-[#F5F7FA] pb-6">
-            {/* Navbar */}
+            
             <header className="sticky top-0 z-[9999] bg-white shadow-sm transition-all duration-300">
                 <div className="flex items-center justify-between px-4 py-3 max-w-[1400px] mx-auto">
                     <button
@@ -402,13 +376,13 @@ export const IncidentDetailScreen: React.FC = () => {
                 </div>
             </header>
 
-            {/* Desktop Grid Container */}
+            
             <div className="max-w-[1280px] mx-auto px-3 lg:px-6 mt-6">
                 <div className="lg:grid lg:grid-cols-[1fr_320px] lg:gap-8 lg:items-start">
 
-                    {/* Main Content */}
+                    
                     <div className="space-y-6 lg:max-w-[800px]">
-                        {/* Hero Gallery */}
+                        
                         <div
                             className="w-full rounded-2xl overflow-hidden"
                             style={{
@@ -430,7 +404,7 @@ export const IncidentDetailScreen: React.FC = () => {
                             categoryIcon={incident.category.icon}
                         />
 
-                        {/* Agent Profile (Moved from sidebar) */}
+                        
                         <AgentProfileCard agent={incident.assignedAgent ? {
                             id: incident.assignedAgent.id,
                             name: incident.assignedAgent.fullName,
@@ -464,7 +438,7 @@ export const IncidentDetailScreen: React.FC = () => {
                         />
                     </div>
 
-                    {/* Sidebar (Desktop only) */}
+                    
                     <div className="hidden lg:block lg:sticky lg:top-24 space-y-3">
                         <QuickInfoCard
                             location={incident.address || ''}
@@ -484,7 +458,7 @@ export const IncidentDetailScreen: React.FC = () => {
                         />
                     </div>
 
-                    {/* Mobile/Tablet Cards (shown below main content) */}
+                    
                     <div className="lg:hidden space-y-3 mt-3">
                         <QuickInfoCard
                             location={incident.address || ''}

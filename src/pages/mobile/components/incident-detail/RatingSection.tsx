@@ -32,9 +32,7 @@ export const RatingSection: React.FC<RatingSectionProps> = ({
         } finally {
             setIsSubmitting(false);
         }
-    };
-
-    // Already rated
+    };
     if (existingRating) {
         return (
             <div
@@ -65,9 +63,7 @@ export const RatingSection: React.FC<RatingSectionProps> = ({
                 </div>
             </div>
         );
-    }
-
-    // Success state
+    }
     if (showSuccess) {
         return (
             <div
@@ -92,14 +88,10 @@ export const RatingSection: React.FC<RatingSectionProps> = ({
                 </div>
             </div>
         );
-    }
-
-    // Can't rate
+    }
     if (!canRate) {
         return null;
-    }
-
-    // Rating form
+    }
     return (
         <div
             className="rounded-2xl overflow-hidden"
@@ -108,7 +100,7 @@ export const RatingSection: React.FC<RatingSectionProps> = ({
                 boxShadow: '0 4px 20px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.05)'
             }}
         >
-            {/* Header */}
+            
             <div
                 className="px-5 py-4 flex items-center gap-3"
                 style={{
@@ -131,7 +123,7 @@ export const RatingSection: React.FC<RatingSectionProps> = ({
             </div>
 
             <div className="p-5">
-                {/* Stars */}
+                
                 <div className="flex justify-center gap-2 mb-5">
                     {[1, 2, 3, 4, 5].map((star) => (
                         <button
@@ -156,7 +148,7 @@ export const RatingSection: React.FC<RatingSectionProps> = ({
                     ))}
                 </div>
 
-                {/* Rating Labels */}
+                
                 <p className="text-center text-sm font-medium text-[#546E7A] mb-4">
                     {rating === 0 && 'Tap a star to rate'}
                     {rating === 1 && '😞 Poor'}
@@ -166,7 +158,7 @@ export const RatingSection: React.FC<RatingSectionProps> = ({
                     {rating === 5 && '🤩 Excellent!'}
                 </p>
 
-                {/* Feedback */}
+                
                 {rating > 0 && (
                     <div className="mb-4">
                         <textarea
@@ -179,7 +171,7 @@ export const RatingSection: React.FC<RatingSectionProps> = ({
                     </div>
                 )}
 
-                {/* Submit Button */}
+                
                 <button
                     onClick={handleSubmit}
                     disabled={rating === 0 || isSubmitting}

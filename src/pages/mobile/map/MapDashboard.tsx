@@ -26,9 +26,7 @@ export const MapDashboard: React.FC = () => {
     const [selectedCategory, setSelectedCategory] = useState<string>('All');
     const [categories, setCategories] = useState<{ id: string, label: string }[]>([
         { id: 'All', label: 'All' }
-    ]);
-
-    // Fetch categories on mount
+    ]);
     useEffect(() => {
         const fetchCategories = async () => {
             try {
@@ -39,8 +37,7 @@ export const MapDashboard: React.FC = () => {
                 }));
                 setCategories([{ id: 'All', label: 'All' }, ...formatted]);
             } catch (error) {
-                console.error("Failed to fetch categories", error);
-                // Fallback to default/common categories if API fails
+                console.error("Failed to fetch categories", error);
                 setCategories([
                     { id: 'All', label: 'All' },
                     { id: 'LIGHTING', label: 'Lighting' },
@@ -51,24 +48,19 @@ export const MapDashboard: React.FC = () => {
             }
         };
         fetchCategories();
-    }, []);
-
-    // Fetch real data
+    }, []);
     useEffect(() => {
         const fetchIncidents = async () => {
             try {
                 setLoading(true);
-                const isAgent = user?.role === 'ROLE_AGENT';
-
-                // Agents: only see incidents assigned to them
+                const isAgent = user?.role === 'ROLE_AGENT';
                 const data = isAgent
                     ? await incidentService.getAssignedIncidents(0, 50)
                     : await incidentService.getIncidents(undefined, undefined, 0, 20);
 
                 if (data.content && data.content.length > 0) {
                     setIncidents(data.content);
-                } else {
-                    // Fallback if empty
+                } else {
                     console.warn("API returned empty, using Demo Data");
                     setIncidents(DEMO_INCIDENTS);
                     toast.success('Loaded Demo Map Data', { icon: '🗺️' });
@@ -80,9 +72,7 @@ export const MapDashboard: React.FC = () => {
             } finally {
                 setLoading(false);
             }
-        };
-
-        // Wait for user to be available before deciding which endpoint to call
+        };
         if (user) {
             fetchIncidents();
         }
@@ -95,16 +85,14 @@ export const MapDashboard: React.FC = () => {
             case 'LOW': return '#10B981'; // Emerald-500
             default: return '#0D7377'; // Teal-700
         }
-    };
-
-    // Filter Logic
+    };
     const filteredIncidents = selectedCategory === 'All'
         ? incidents
         : incidents.filter(i => i.category?.id === selectedCategory);
 
     return (
         <div className="relative w-full h-[100dvh] lg:h-screen bg-slate-900 overflow-hidden">
-            {/* Map Container */}
+            
             <MapContainer
                 center={MARRAKECH_CENTER}
                 zoom={13}
@@ -116,7 +104,7 @@ export const MapDashboard: React.FC = () => {
                 zoomControl={false}
                 className="z-0"
             >
-                {/* Dark Mode Tiles */}
+                
                 <TileLayer
                     url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
@@ -124,9 +112,8 @@ export const MapDashboard: React.FC = () => {
 
                 <ZoomControl position="topright" />
 
-                {/* Incident Markers */}
-                {filteredIncidents.map((incident) => {
-                    // Check if incident has valid location
+                
+                {filteredIncidents.map((incident) => {
                     const lat = incident.latitude;
                     const lng = incident.longitude;
 
@@ -143,13 +130,13 @@ export const MapDashboard: React.FC = () => {
                 })}
             </MapContainer>
 
-            {/* Radar Overlay Effect */}
+            
             <div className="absolute inset-0 pointer-events-none z-[400] overflow-hidden">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.4)_100%)]" />
                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-teal-500/50 to-transparent animate-scan-y opacity-30" />
             </div>
 
-            {/* Premium Header/Overlay */}
+            
             <div className="absolute top-4 left-4 right-4 z-[500] flex justify-between items-start pointer-events-none">
                 <div className="bg-black/60 backdrop-blur-md border border-white/10 rounded-2xl p-3 flex items-center gap-3 shadow-xl pointer-events-auto">
                     <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-500 to-emerald-600 flex items-center justify-center shadow-lg shadow-teal-500/20">
@@ -165,7 +152,7 @@ export const MapDashboard: React.FC = () => {
                 </div>
             </div>
 
-            {/* Floating Filter Chips - Adjusted bottom for full height map */}
+            
             <div className="absolute bottom-24 lg:bottom-6 left-0 right-0 z-[500] px-4 overflow-x-auto no-scrollbar pb-2 pointer-events-auto">
                 <div className="flex gap-2 w-max mx-auto">
                     {categories.map(cat => (
@@ -183,7 +170,7 @@ export const MapDashboard: React.FC = () => {
                 </div>
             </div>
 
-            {/* Loading Overlay */}
+            
             {loading && (
                 <div className="absolute inset-0 z-[1000] bg-slate-900/80 backdrop-blur-sm flex items-center justify-center">
                     <div className="flex flex-col items-center gap-4">
@@ -193,7 +180,7 @@ export const MapDashboard: React.FC = () => {
                 </div>
             )}
 
-            {/* Selected Incident Preview (Bottom Sheet) - Adjusted bottom */}
+            
             {selectedIncident && (
                 <div className="absolute bottom-24 lg:bottom-20 left-4 right-4 z-[600] animate-in slide-in-from-bottom-10 duration-300 pointer-events-auto">
                     <div className="bg-white/95 backdrop-blur-xl rounded-3xl p-5 shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/20">

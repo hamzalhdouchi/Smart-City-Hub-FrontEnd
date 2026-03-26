@@ -14,13 +14,9 @@ import { Camera } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 const ProfilePage: React.FC = () => {
-    const { user, updateUser } = useAuth();
-
-    // Modals
+    const { user, updateUser } = useAuth();
     const [isPhotoModalOpen, setIsPhotoModalOpen] = useState(false);
-    const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
-
-    // Profile Photo URL
+    const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
     const [photoUrl, setPhotoUrl] = useState<string | null>(null);
 
     useEffect(() => {
@@ -63,42 +59,42 @@ const ProfilePage: React.FC = () => {
 
     return (
         <div className="profile-split-container">
-            {/* LEFT PANEL */}
+            
             <div className="profile-left-panel">
-                {/* Background */}
+                
                 <div className="absolute inset-0 bg-gradient-to-br from-[#0a4f52] via-[#0D7377] to-[#053B3E]">
-                    {/* Dot grid */}
+                    
                     <div className="absolute inset-0" style={{
                         backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.07) 1px, transparent 0)',
                         backgroundSize: '28px 28px',
                     }} />
-                    {/* Ambient blobs */}
+                    
                     <div className="absolute -top-24 -left-24 w-80 h-80 rounded-full bg-white/5 blur-3xl" />
                     <div className="absolute -bottom-20 -right-20 w-96 h-96 rounded-full bg-[#32936F]/15 blur-3xl" />
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full bg-white/3 blur-2xl" />
                 </div>
 
-                {/* Content */}
+                
                 <div className="relative z-10 h-full flex flex-col items-center justify-between py-10 px-8">
 
-                    {/* Top label */}
+                    
                     <div className="self-start">
                         <span className="text-white/40 text-[11px] font-semibold tracking-[4px] uppercase">
                             Profile
                         </span>
                     </div>
 
-                    {/* Centre: photo + name */}
+                    
                     <div className="flex flex-col items-center gap-7 text-center">
 
-                        {/* Photo with rings */}
+                        
                         <div className="relative profile-photo-wrapper">
-                            {/* Pulse ring */}
+                            
                             <div
                                 className="absolute inset-0 rounded-full border-2 border-white/20 scale-[1.22] animate-pulse"
                                 style={{ animationDuration: '3s' }}
                             />
-                            {/* Static ring */}
+                            
                             <div className="absolute inset-0 rounded-full border border-white/30 scale-[1.1]" />
 
                             <button
@@ -123,7 +119,7 @@ const ProfilePage: React.FC = () => {
                             </button>
                         </div>
 
-                        {/* Name + role */}
+                        
                         <div className="space-y-2">
                             <h1 className="text-2xl font-bold text-white tracking-tight leading-tight">
                                 {profileUser.fullName}
@@ -139,14 +135,14 @@ const ProfilePage: React.FC = () => {
                             </div>
                         </div>
 
-                        {/* Divider */}
+                        
                         <div className="flex items-center gap-3 w-48">
                             <div className="flex-1 h-px bg-white/15" />
                             <div className="w-1.5 h-1.5 rounded-full bg-white/30" />
                             <div className="flex-1 h-px bg-white/15" />
                         </div>
 
-                        {/* Info row */}
+                        
                         <div className="flex items-center gap-6">
                             <div className="text-center">
                                 <p className="text-white font-semibold text-sm">
@@ -163,7 +159,7 @@ const ProfilePage: React.FC = () => {
 
                     </div>
 
-                    {/* Bottom branding */}
+                    
                     <div className="text-center space-y-1">
                         <p className="text-[#C9A961] text-base font-light tracking-[3px] uppercase">
                             Smart City Hub
@@ -176,39 +172,39 @@ const ProfilePage: React.FC = () => {
                 </div>
             </div>
 
-            {/* RIGHT PANEL - Functional Content with lighter background */}
+            
             <div className="profile-right-panel">
                 <div className="max-w-3xl mx-auto p-8 md:p-12 space-y-6 animate-in slide-in-from-right duration-500">
-                    {/* Page Title */}
+                    
                     <div className="mb-8">
                         <h1 className="text-2xl font-bold text-[#263238] mb-2">Profile Settings</h1>
                         <p className="text-xs text-[#546E7A]">Manage your personal information and account preferences</p>
                         <div className="w-12 h-0.5 bg-gradient-to-r from-[#0D7377] to-transparent mt-3 rounded-full" />
                     </div>
 
-                    {/* Personal Information */}
+                    
                     <PersonalInfoCard
                         user={profileUser}
                         onUpdate={handleUpdateProfile}
                     />
 
-                    {/* Account Information */}
+                    
                     <AccountInfoCard user={profileUser} />
 
-                    {/* Security Settings */}
+                    
                     <SecuritySettingsCard
                         onChangePassword={() => setIsPasswordModalOpen(true)}
                     />
 
 
-                    {/* Footer */}
+                    
                     <div className="text-center pt-8 text-xs text-[#90A4AE]">
                         <p>© 2024 Smart City Hub • Profile Management</p>
                     </div>
                 </div>
             </div>
 
-            {/* Modals */}
+            
             <PhotoUploadModal
                 isOpen={isPhotoModalOpen}
                 onClose={() => setIsPhotoModalOpen(false)}
@@ -220,7 +216,7 @@ const ProfilePage: React.FC = () => {
                 onClose={() => setIsPasswordModalOpen(false)}
             />
 
-            {/* Styles */}
+            
             <style>{`
                 .profile-split-container {
                     display: grid;
@@ -243,7 +239,7 @@ const ProfilePage: React.FC = () => {
                     height: 100vh;
                 }
 
-                /* Smooth scrollbar for right panel */
+                
                 .profile-right-panel::-webkit-scrollbar {
                     width: 8px;
                 }
@@ -261,7 +257,7 @@ const ProfilePage: React.FC = () => {
                     background: #2C8D7D;
                 }
 
-                /* Tablet - 40/60 split */
+                
                 @media (max-width: 1024px) and (min-width: 768px) {
                     .profile-split-container {
                         grid-template-columns: 2fr 3fr;
@@ -274,7 +270,7 @@ const ProfilePage: React.FC = () => {
                     }
                 }
 
-                /* Mobile */
+                
                 @media (max-width: 767px) {
                     .profile-split-container {
                         display: block;
@@ -308,7 +304,7 @@ const ProfilePage: React.FC = () => {
                     }
                 }
 
-                /* Desktop */
+                
                 @media (min-width: 768px) {
                     .profile-photo-container {
                         width: 148px;
@@ -320,7 +316,7 @@ const ProfilePage: React.FC = () => {
                     }
                 }
 
-                /* Animation keyframes */
+                
                 @keyframes slide-in-from-left {
                     from {
                         opacity: 0;

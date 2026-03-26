@@ -16,9 +16,7 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({ className = '' }
     const { user, logout } = useAuth();
     const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
     const [photoUrl, setPhotoUrl] = useState<string | null>(null);
-    const profileMenuRef = useRef<HTMLDivElement>(null);
-
-    // Fetch profile photo
+    const profileMenuRef = useRef<HTMLDivElement>(null);
     useEffect(() => {
         const fetchPhoto = async () => {
             try {
@@ -29,9 +27,7 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({ className = '' }
             }
         };
         fetchPhoto();
-    }, []);
-
-    // Close profile menu when clicking outside
+    }, []);
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             if (profileMenuRef.current && !profileMenuRef.current.contains(event.target as Node)) {
@@ -80,7 +76,7 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({ className = '' }
                 padding: '0 12px',
             }}
         >
-            {/* Logo Section */}
+            
             <div className="px-4 py-8 mb-4">
                 <div className="flex items-center gap-4 transition-transform hover:scale-105 duration-300 cursor-pointer" onClick={() => navigate('/home')}>
                     <div className="w-16 h-16 flex items-center justify-center">
@@ -101,7 +97,7 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({ className = '' }
                 </div>
             </div>
 
-            {/* Navigation Items */}
+            
             <nav className="flex-1 px-1 overflow-y-auto scrollbar-hide py-2">
                 <ul className="space-y-3">
                     {navigationItems.filter(item => item.id !== 'profile').map((item) => {
@@ -156,7 +152,7 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({ className = '' }
                 </ul>
             </nav>
 
-            {/* User Profile Section */}
+            
             <div className="py-6 border-t border-white/20">
                 <div ref={profileMenuRef} className="relative">
                     <button
@@ -196,7 +192,7 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({ className = '' }
                         />
                     </button>
 
-                    {/* Popover Menu */}
+                    
                     {isProfileMenuOpen && (
                         <div className="absolute bottom-full left-0 right-0 mb-3 glass-sidebar-popover animate-in fade-in slide-in-from-bottom-4 duration-300 overflow-hidden">
                             <button

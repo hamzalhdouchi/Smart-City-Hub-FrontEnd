@@ -10,9 +10,7 @@ import { Card, Button, DataPulseLoader, CategoryIcon, Pagination } from '../../.
 import { exportToCSV } from '../../../utils/exportUtils';
 import { incidentService } from '../../../services/incidentService';
 import type { Incident, Page } from '../../../services/incidentService';
-import toast from 'react-hot-toast';
-
-// Enhanced Status Config with Gradient/Glow
+import toast from 'react-hot-toast';
 const statusConfig: Record<string, any> = {
     NEW: {
         bg: 'bg-[#14FFEC]/10',
@@ -71,9 +69,7 @@ const statusConfig: Record<string, any> = {
         label: 'Reopened',
         icon: '🔄'
     }
-};
-
-// Enhanced Priority Config with Gradients
+};
 const priorityConfig = {
     HIGH: {
         gradient: 'linear-gradient(135deg, #EF5350 0%, #E53935 100%)',
@@ -102,9 +98,7 @@ const AllIncidentsPage: React.FC = () => {
     const [incidents, setIncidents] = useState<Incident[]>([]);
     const [loading, setLoading] = useState(true);
     const [page, setPage] = useState(0);
-    const [pageData, setPageData] = useState<Page<Incident> | null>(null);
-
-    // Filters
+    const [pageData, setPageData] = useState<Page<Incident> | null>(null);
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedStatuses, setSelectedStatuses] = useState<string[]>([]);
     const [selectedPriorities, setSelectedPriorities] = useState<string[]>([]);
@@ -130,17 +124,13 @@ const AllIncidentsPage: React.FC = () => {
     const handlePageChange = (newPage: number) => {
         setPage(newPage);
         window.scrollTo({ top: 0, behavior: 'smooth' });
-    };
-
-    // Back to Top Logic
+    };
     const [showBackToTop, setShowBackToTop] = useState(false);
     useEffect(() => {
         const handleScroll = () => setShowBackToTop(window.scrollY > 400);
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
-
-    // Enhanced Client-side Filtering
+    }, []);
     const filteredIncidents = incidents.filter(inc => {
         const matchesSearch =
             inc.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -200,9 +190,7 @@ const AllIncidentsPage: React.FC = () => {
             console.error('Export failed:', error);
             toast.error('Failed to export incidents');
         }
-    };
-
-    // Scroll detection for sticky header
+    };
     const [isSticky, setIsSticky] = useState(false);
 
     useEffect(() => {
@@ -211,14 +199,11 @@ const AllIncidentsPage: React.FC = () => {
         };
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
-
-    // Filter Chips Logic
+    }, []);
     const activeFiltersCount =
         selectedStatuses.length +
         selectedPriorities.length +
-        (searchTerm ? 1 : 0);
-    // Add more when implementing multi-select priority/category
+        (searchTerm ? 1 : 0);
 
     const clearFilters = () => {
         setSearchTerm('');
@@ -237,12 +222,12 @@ const AllIncidentsPage: React.FC = () => {
 
     return (
         <div className="space-y-8 pb-20 relative">
-            {/* Enhanced Header */}
+            
             <div className={`
                 relative overflow-hidden rounded-3xl p-8 mb-8 text-white shadow-2xl
                 bg-gradient-to-r from-[#0D7377] via-[#053B3E] to-[#263238]
             `}>
-                {/* Background Pattern */}
+                
                 <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/circuit-board.png')] mix-blend-overlay" />
 
                 <div className="relative z-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
@@ -272,7 +257,7 @@ const AllIncidentsPage: React.FC = () => {
                 </div>
             </div>
 
-            {/* Sticky Filter Bar */}
+            
             <div className={`
                 sticky top-4 z-40 transition-all duration-300
                 ${isSticky ? 'pt-0' : ''}
@@ -284,7 +269,7 @@ const AllIncidentsPage: React.FC = () => {
                 `}>
                     <div className="flex flex-col gap-4">
                         <div className="flex flex-col lg:flex-row gap-4">
-                            {/* Search */}
+                            
                             <div className="flex-1 relative group">
                                 <Search size={20} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#0D7377] transition-colors" />
                                 <input
@@ -305,9 +290,9 @@ const AllIncidentsPage: React.FC = () => {
                                 )}
                             </div>
 
-                            {/* Actions Group */}
+                            
                             <div className="flex gap-3 overflow-x-auto pb-2 lg:pb-0">
-                                {/* Priority Toggles */}
+                                
                                 <div className="flex items-center bg-gray-50 rounded-lg p-1 border border-gray-200">
                                     {['HIGH', 'MEDIUM', 'LOW'].map(priority => (
                                         <button
@@ -328,7 +313,7 @@ const AllIncidentsPage: React.FC = () => {
 
                                 <div className="h-8 w-px bg-gray-200 mx-1" />
 
-                                {/* Status Filter Dropdown (Simulated with simple buttons for now) */}
+                                
                                 <div className="flex items-center gap-2">
                                     {['NEW', 'IN_PROGRESS', 'RESOLVED'].map(status => (
                                         <button
@@ -342,7 +327,7 @@ const AllIncidentsPage: React.FC = () => {
                                             `}
                                         >
                                             {statusConfig[status as keyof typeof statusConfig]?.icon}
-                                            {/* Only show label if selected to save space */}
+                                            
                                             {selectedStatuses.includes(status) && statusConfig[status as keyof typeof statusConfig]?.label}
                                         </button>
                                     ))}
@@ -370,7 +355,7 @@ const AllIncidentsPage: React.FC = () => {
                             </div>
                         </div>
 
-                        {/* Active Filters Chips */}
+                        
                         {activeFiltersCount > 0 && (
                             <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-gray-100">
                                 <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider mr-2">Active Filters:</span>
@@ -408,14 +393,14 @@ const AllIncidentsPage: React.FC = () => {
                 </div>
             </div>
 
-            {/* Page loading overlay */}
+            
             {loading && (
                 <div className="flex justify-center py-6">
                     <DataPulseLoader size={40} />
                 </div>
             )}
 
-            {/* Incidents List */}
+            
             <div className="space-y-4 perspective-1000 min-h-[400px]">
                 <AnimatePresence mode="popLayout">
                     {filteredIncidents.map((incident, index) => (
@@ -432,14 +417,14 @@ const AllIncidentsPage: React.FC = () => {
                                 borderLeft: `4px solid ${priorityConfig[incident.priority]?.color || '#B0BEC5'}`
                             }}
                         >
-                            {/* New Status Pulse Effect */}
+                            
                             {incident.status === 'NEW' && (
                                 <div className="absolute inset-0 bg-[#14FFEC]/5 animate-pulse pointer-events-none" />
                             )}
 
                             <div className="p-6">
                                 <div className="flex flex-col lg:flex-row gap-6">
-                                    {/* Large Category Badge */}
+                                    
                                     <div className="flex-shrink-0">
                                         <CategoryIcon
                                             iconName={incident.category.icon || incident.category.name}
@@ -449,7 +434,7 @@ const AllIncidentsPage: React.FC = () => {
                                         />
                                     </div>
 
-                                    {/* Main Content */}
+                                    
                                     <div className="flex-1 min-w-0">
                                         <div className="flex items-start justify-between mb-2">
                                             <div>
@@ -467,7 +452,7 @@ const AllIncidentsPage: React.FC = () => {
                                                 </p>
                                             </div>
 
-                                            {/* Status & Priority Badges (Top Right) */}
+                                            
                                             <div className="flex flex-col items-end gap-2">
                                                 <span
                                                     className="flex items-center gap-1 px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider text-white shadow-sm"
@@ -512,7 +497,7 @@ const AllIncidentsPage: React.FC = () => {
                                         </div>
                                     </div>
 
-                                    {/* Simple Details Button Column */}
+                                    
                                     <div className="flex flex-col items-center justify-center gap-2 min-w-[80px]">
                                         <Button
                                             className="bg-[#0D7377] hover:bg-[#14FFEC] hover:text-[#053B3E] text-white rounded-full px-4 py-2 flex items-center gap-2 shadow-md transition-all"
@@ -534,7 +519,7 @@ const AllIncidentsPage: React.FC = () => {
 
             </div>
 
-            {/* Pagination */}
+            
             {pageData && (
                 <Card padding="md">
                     <Pagination
@@ -548,7 +533,7 @@ const AllIncidentsPage: React.FC = () => {
                 </Card>
             )}
 
-            {/* Back to Top Button */}
+            
             <AnimatePresence>
                 {showBackToTop && (
                     <motion.button
@@ -563,7 +548,7 @@ const AllIncidentsPage: React.FC = () => {
                 )}
             </AnimatePresence>
 
-            {/* Empty State */}
+            
             {!loading && filteredIncidents.length === 0 && (
                 <Card className="text-center py-16">
                     <AlertTriangle size={48} className="mx-auto mb-4 text-[#B0BEC5]" />

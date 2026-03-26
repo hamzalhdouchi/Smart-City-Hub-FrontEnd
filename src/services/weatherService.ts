@@ -1,8 +1,4 @@
-/**
- * Weather Service
- * Integrates with Open-Meteo API to fetch real-time weather data
- * No API key required!
- */
+
 
 const BASE_URL = 'https://api.open-meteo.com/v1';
 const GEOCODING_URL = 'https://geocoding-api.open-meteo.com/v1';
@@ -43,9 +39,7 @@ interface WeatherResponse {
     current_units: {
         temperature_2m: string;
     };
-}
-
-// Weather code to condition mapping (WMO Weather interpretation codes)
+}
 const weatherCodeMap: Record<number, { condition: string; description: string; icon: string }> = {
     0: { condition: 'Clear', description: 'ciel dégagé', icon: '01d' },
     1: { condition: 'Clear', description: 'principalement dégagé', icon: '01d' },
@@ -77,9 +71,7 @@ class WeatherService {
     };
     private readonly CACHE_DURATION = 30 * 60 * 1000; // 30 minutes
 
-    /**
-     * Get coordinates for a city
-     */
+    
     private async getCoordinates(city: string, countryCode: string): Promise<{ lat: number; lon: number }> {
         const response = await fetch(
             `${GEOCODING_URL}/search?name=${encodeURIComponent(city)}&count=1&language=fr&format=json`
@@ -101,21 +93,15 @@ class WeatherService {
         };
     }
 
-    /**
-     * Fetch current weather for a city
-     */
-    async getCurrentWeather(city: string = 'Casablanca', countryCode: string = 'MA'): Promise<WeatherData> {
-        // Check cache first
+    
+    async getCurrentWeather(city: string = 'Casablanca', countryCode: string = 'MA'): Promise<WeatherData> {
         const now = Date.now();
         if (this.cache.data && (now - this.cache.timestamp) < this.CACHE_DURATION) {
             return this.cache.data;
         }
 
-        try {
-            // Get coordinates
-            const { lat, lon } = await getCoordinates(city, countryCode);
-
-            // Fetch weather data
+        try {
+            const { lat, lon } = await getCoordinates(city, countryCode);
             const response = await fetch(
                 `${BASE_URL}/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,apparent_temperature,relative_humidity_2m,weather_code,surface_pressure,wind_speed_10m&timezone=auto`
             );
@@ -140,9 +126,7 @@ class WeatherService {
                 city: city,
                 country: countryCode,
                 timestamp: now,
-            };
-
-            // Update cache
+            };
             this.cache = {
                 data: weatherData,
                 timestamp: now,
@@ -155,22 +139,16 @@ class WeatherService {
         }
     }
 
-    /**
-     * Get weather icon URL (using OpenWeatherMap icons for consistency)
-     */
+    
     getIconUrl(iconCode: string): string {
         return `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
     }
 
-    /**
-     * Clear cache (useful for manual refresh)
-     */
+    
     clearCache(): void {
         this.cache = { data: null, timestamp: 0 };
     }
-}
-
-// Helper function for geocoding
+}
 async function getCoordinates(city: string, countryCode: string): Promise<{ lat: number; lon: number }> {
     const response = await fetch(
         `${GEOCODING_URL}/search?name=${encodeURIComponent(city)}&count=1&language=fr&format=json`

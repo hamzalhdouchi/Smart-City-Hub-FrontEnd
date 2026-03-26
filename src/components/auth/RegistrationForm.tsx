@@ -44,7 +44,7 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({ onSuccess })
 
     return (
         <Card className="w-full max-w-md" padding="lg">
-            {/* Logo & Header */}
+            
             <div className="text-center mb-8">
                 <div className="flex justify-center mb-4">
                     <SmartCityLogo variant="icon" size={50} />
@@ -57,7 +57,7 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({ onSuccess })
                 </p>
             </div>
 
-            {/* Form */}
+            
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
                     <Input
@@ -116,7 +116,7 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({ onSuccess })
                 </Button>
             </form>
 
-            {/* Footer */}
+            
             <p className="text-center text-sm text-[#546E7A] mt-6">
                 Already have an account?{' '}
                 <a href="/login" className="text-[#0D7377] hover:text-[#32936F] font-medium">

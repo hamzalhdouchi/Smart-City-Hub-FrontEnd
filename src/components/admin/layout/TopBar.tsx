@@ -69,9 +69,9 @@ export const TopBar: React.FC<TopBarProps> = ({ onMobileMenuClick }) => {
     return (
         <header className="h-[70px] bg-white border-b border-[#B0BEC5] sticky top-0 z-30">
             <div className="h-full px-4 lg:px-6 flex items-center justify-between">
-                {/* Left Section */}
+                
                 <div className="flex items-center gap-4">
-                    {/* Mobile Menu Button */}
+                    
                     <button
                         onClick={onMobileMenuClick}
                         className="lg:hidden p-2 hover:bg-[#ECEFF1] rounded-lg"
@@ -79,7 +79,7 @@ export const TopBar: React.FC<TopBarProps> = ({ onMobileMenuClick }) => {
                         <Menu size={24} className="text-[#546E7A]" />
                     </button>
 
-                    {/* Breadcrumb */}
+                    
                     <div>
                         <h1 className="text-xl font-bold text-[#263238] font-['Noto_Sans_JP']">
                             {getBreadcrumb(location.pathname)}
@@ -87,9 +87,9 @@ export const TopBar: React.FC<TopBarProps> = ({ onMobileMenuClick }) => {
                     </div>
                 </div>
 
-                {/* Right Section */}
+                
                 <div className="flex items-center gap-2">
-                    {/* Search */}
+                    
                     <button
                         onClick={() => setShowSearch(!showSearch)}
                         className="p-2 hover:bg-[#ECEFF1] rounded-lg transition-colors"
@@ -97,7 +97,7 @@ export const TopBar: React.FC<TopBarProps> = ({ onMobileMenuClick }) => {
                         <Search size={20} className="text-[#546E7A]" />
                     </button>
 
-                    {/* Notifications */}
+                    
                     <div className="relative">
                         <button
                             onClick={() => setShowNotifications(!showNotifications)}
@@ -112,7 +112,7 @@ export const TopBar: React.FC<TopBarProps> = ({ onMobileMenuClick }) => {
                             )}
                         </button>
 
-                        {/* Notifications Dropdown */}
+                        
                         {showNotifications && (
                             <>
                                 <div
@@ -157,7 +157,7 @@ export const TopBar: React.FC<TopBarProps> = ({ onMobileMenuClick }) => {
                         )}
                     </div>
 
-                    {/* User Menu */}
+                    
                     <div className="relative">
                         <button
                             onClick={() => setShowUserMenu(!showUserMenu)}
@@ -182,7 +182,7 @@ export const TopBar: React.FC<TopBarProps> = ({ onMobileMenuClick }) => {
                             <ChevronDown size={16} className="text-[#546E7A] hidden md:block" />
                         </button>
 
-                        {/* User Dropdown */}
+                        
                         {showUserMenu && (
                             <>
                                 <div
@@ -235,7 +235,7 @@ export const TopBar: React.FC<TopBarProps> = ({ onMobileMenuClick }) => {
                 </div>
             </div>
 
-            {/* Search Modal */}
+            
             {showSearch && (
                 <div className="fixed inset-0 bg-black/50 z-50 flex items-start justify-center pt-20">
                     <div className="bg-white w-full max-w-2xl mx-4 rounded-xl shadow-2xl overflow-hidden">

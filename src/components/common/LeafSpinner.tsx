@@ -13,12 +13,12 @@ export const LeafSpinner: React.FC<LeafSpinnerProps> = ({
     return (
         <div className={`flex items-center justify-center ${className}`}>
             <div className="relative">
-                {/* Outer glow */}
+                
                 <div
                     className="absolute inset-0 rounded-full animate-pulse-glow"
                     style={{ width: size, height: size }}
                 />
-                {/* Spinning leaf */}
+                
                 <div
                     className="animate-spin-leaf"
                     style={{ width: size, height: size }}
@@ -32,9 +32,7 @@ export const LeafSpinner: React.FC<LeafSpinnerProps> = ({
             </div>
         </div>
     );
-};
-
-// Inline spinner for buttons
+};
 export const LeafSpinnerSmall: React.FC<{ size?: number }> = ({ size = 20 }) => (
     <Leaf size={size} className="text-current animate-spin-leaf" strokeWidth={2} />
 );

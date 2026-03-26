@@ -11,9 +11,7 @@ import { Card, Button, DataPulseLoader } from '../../components/common';
 import { incidentService } from '../../services/incidentService';
 import { useAuth } from '../../context/AuthContext';
 import type { IncidentDetail } from '../../types/incident';
-import toast from 'react-hot-toast';
-
-// ─── Resolve Modal ────────────────────────────────────────────────────────────
+import toast from 'react-hot-toast';
 
 interface ResolveModalProps {
     isOpen: boolean;
@@ -52,7 +50,7 @@ const ResolveModal: React.FC<ResolveModalProps> = ({ isOpen, isSubmitting, onClo
         <div className="fixed inset-0 flex items-center justify-center p-4" style={{ zIndex: 9999 }}>
             <div className="absolute inset-0 bg-black/50" onClick={handleClose} />
             <div className="relative bg-white rounded-xl shadow-xl w-full max-w-lg">
-                {/* Header */}
+                
                 <div className="flex items-center justify-between p-4 border-b border-[#ECEFF1]">
                     <h2 className="text-lg font-semibold text-[#263238] flex items-center gap-2">
                         <UploadCloud size={20} className="text-[#32936F]" />
@@ -66,14 +64,14 @@ const ResolveModal: React.FC<ResolveModalProps> = ({ isOpen, isSubmitting, onClo
                     </button>
                 </div>
 
-                {/* Body */}
+                
                 <div className="p-4 space-y-4">
                     <p className="text-sm text-[#546E7A]">
                         Upload at least one clear photo showing the issue has been fixed. An admin will
                         review your submission before the incident is officially resolved.
                     </p>
 
-                    {/* Upload area */}
+                    
                     <div
                         className="border-2 border-dashed border-[#B0BEC5] rounded-xl p-6 text-center cursor-pointer hover:border-[#32936F] transition-colors"
                         onClick={() => inputRef.current?.click()}
@@ -92,7 +90,7 @@ const ResolveModal: React.FC<ResolveModalProps> = ({ isOpen, isSubmitting, onClo
                         />
                     </div>
 
-                    {/* Previews */}
+                    
                     {previews.length > 0 && (
                         <div className="grid grid-cols-3 gap-2">
                             {previews.map((src, i) => (
@@ -114,7 +112,7 @@ const ResolveModal: React.FC<ResolveModalProps> = ({ isOpen, isSubmitting, onClo
                     )}
                 </div>
 
-                {/* Footer */}
+                
                 <div className="p-4 border-t border-[#ECEFF1] flex gap-3">
                     <Button variant="outline" onClick={handleClose} className="flex-1">
                         Cancel
@@ -140,9 +138,7 @@ const ResolveModal: React.FC<ResolveModalProps> = ({ isOpen, isSubmitting, onClo
             </div>
         </div>
     );
-};
-
-// ─── Page ─────────────────────────────────────────────────────────────────────
+};
 
 const AgentIncidentDetailPage: React.FC = () => {
     const { id } = useParams<{ id: string }>();
@@ -281,7 +277,7 @@ const AgentIncidentDetailPage: React.FC = () => {
 
     return (
         <div className="space-y-6">
-            {/* Header row */}
+            
             <div className="flex items-center justify-between gap-4">
                 <button
                     onClick={() => navigate(-1)}
@@ -296,7 +292,7 @@ const AgentIncidentDetailPage: React.FC = () => {
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,2fr)_minmax(320px,1fr)] gap-6">
-                {/* Left column: citizen view info */}
+                
                 <div className="space-y-5">
                     <div
                         className="w-full rounded-2xl overflow-hidden"
@@ -329,7 +325,7 @@ const AgentIncidentDetailPage: React.FC = () => {
                     <CommentSection incidentId={incident.id} />
                 </div>
 
-                {/* Right column: agent mission panel */}
+                
                 <div className="space-y-4">
                     <Card>
                         <h2 className="text-lg font-semibold text-[#263238] mb-2">Mission Status</h2>

@@ -51,7 +51,7 @@ export const AgentProfileCard: React.FC<AgentProfileCardProps> = ({ agent }) => 
                 boxShadow: '0 4px 20px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.05)'
             }}
         >
-            {/* Header with gradient */}
+            
             <div
                 className="p-5 pb-6"
                 style={{
@@ -59,7 +59,7 @@ export const AgentProfileCard: React.FC<AgentProfileCardProps> = ({ agent }) => 
                 }}
             >
                 <div className="flex items-center gap-4">
-                    {/* Avatar */}
+                    
                     {agent.avatarUrl ? (
                         <img
                             src={agent.avatarUrl}
@@ -77,7 +77,7 @@ export const AgentProfileCard: React.FC<AgentProfileCardProps> = ({ agent }) => 
                         </div>
                     )}
 
-                    {/* Info */}
+                    
                     <div className="flex-1">
                         <div className="flex items-center gap-2 mb-1">
                             <h3 className="text-lg font-bold text-[#263238]">{agent.name}</h3>
@@ -97,7 +97,7 @@ export const AgentProfileCard: React.FC<AgentProfileCardProps> = ({ agent }) => 
                 </div>
             </div>
 
-            {/* Latest Update */}
+            
             {agent.latestUpdate && (
                 <div className="px-5 pb-5">
                     <div

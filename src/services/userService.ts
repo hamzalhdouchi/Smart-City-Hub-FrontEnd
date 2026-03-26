@@ -27,68 +27,45 @@ export interface Page<T> {
     number: number;
     first: boolean;
     last: boolean;
-}
-
-// User API calls
-export const userService = {
-    // Get current user profile
+}
+export const userService = {
     getCurrentUser: async (): Promise<User> => {
         const response = await api.get('/api/users/me');
         return response.data.data;
-    },
-
-    // Get all users (admin only)
+    },
     getAllUsers: async (page: number = 0, size: number = 10, sort: string = 'createdAt,desc'): Promise<Page<User>> => {
         const response = await api.get(`/api/users?page=${page}&size=${size}&sort=${sort}`);
         return response.data.data;
-    },
-
-    // Get pending users (admin only)
+    },
     getPendingUsers: async (page: number = 0, size: number = 10): Promise<Page<User>> => {
         const response = await api.get(`/api/users/pending?page=${page}&size=${size}&sort=createdAt,desc`);
         return response.data.data;
-    },
-
-    // Get user by ID (admin only)
+    },
     getUserById: async (id: string): Promise<User> => {
         const response = await api.get(`/api/users/${id}`);
         return response.data.data;
-    },
-
-    // Get agents (supervisor/admin)
+    },
     getAgents: async (): Promise<User[]> => {
         const response = await api.get('/api/users/agents');
         return response.data.data;
-    },
-
-    // Approve user (admin only)
+    },
     approveUser: async (id: string): Promise<User> => {
         const response = await api.post(`/api/users/${id}/approve`);
         return response.data.data;
-    },
-
-    // Reject user (admin only)
+    },
     rejectUser: async (id: string): Promise<void> => {
         await api.post(`/api/users/${id}/reject`);
-    },
-
-    // Update user role (admin only)
+    },
     updateUserRole: async (id: string, role: string): Promise<User> => {
         const response = await api.patch(`/api/users/${id}/role?role=${role}`);
         return response.data.data;
-    },
-
-    // Deactivate user (admin only)
+    },
     deactivateUser: async (id: string): Promise<void> => {
         await api.post(`/api/users/${id}/deactivate`);
-    },
-
-    // Activate user (admin only)
+    },
     activateUser: async (id: string): Promise<void> => {
         await api.post(`/api/users/${id}/activate`);
-    },
-
-    // Update profile
+    },
     updateProfile: async (firstName?: string, lastName?: string, phone?: string): Promise<User> => {
         const params = new URLSearchParams();
         if (firstName) params.append('firstName', firstName);

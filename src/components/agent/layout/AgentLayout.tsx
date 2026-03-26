@@ -11,7 +11,7 @@ export const AgentLayout: React.FC = () => {
 
     return (
         <div className="min-h-screen bg-[#ECEFF1]">
-            {/* Mobile overlay */}
+            
             {isMobileOpen && (
                 <div
                     className="fixed inset-0 bg-black/40 z-30 lg:hidden"
@@ -19,21 +19,21 @@ export const AgentLayout: React.FC = () => {
                 />
             )}
 
-            {/* Sidebar */}
+            
             <AgentSidebar
                 isMobileOpen={isMobileOpen}
                 onMobileClose={toggleMobile}
             />
 
-            {/* Main content */}
+            
             <div
                 className="min-h-screen flex flex-col"
                 style={{ marginLeft: '0', paddingLeft: '0' }}
             >
                 <div className="lg:ml-[260px] transition-all duration-300">
-                    {/* Top bar */}
+                    
                     <header className="h-[70px] bg-white border-b border-[#B0BEC5] sticky top-0 z-30 flex items-center justify-between px-4 lg:px-6">
-                        {/* Mobile menu */}
+                        
                         <button
                             onClick={toggleMobile}
                             className="lg:hidden p-2 rounded-lg hover:bg-[#ECEFF1]"

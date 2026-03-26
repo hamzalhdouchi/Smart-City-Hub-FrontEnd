@@ -4,9 +4,7 @@ import { Rocket, X } from 'lucide-react';
 import { incidentService, type Incident } from '../../services/incidentService';
 import { useAuth } from '../../context/AuthContext';
 import { DataPulseLoader, Pagination } from '../../components/common';
-import type { Page } from '../../services/incidentService';
-
-// Redesign Components
+import type { Page } from '../../services/incidentService';
 import { HeroHeader } from './my-incidents/redesign/HeroHeader';
 import { QuickStatsCards } from './my-incidents/redesign/QuickStatsCards';
 import { MiniStatsCarousel } from './my-incidents/redesign/MiniStatsCarousel';
@@ -32,18 +30,14 @@ export const MyIncidentsScreen: React.FC = () => {
 
     useEffect(() => {
         if (location.state?.showSuccess) {
-            setShowSuccessToast(true);
-            // Clear location state to prevent toast on refresh
-            window.history.replaceState({}, document.title);
-
-            // Auto hide after 5 seconds
+            setShowSuccessToast(true);
+            window.history.replaceState({}, document.title);
             const timer = setTimeout(() => {
                 setShowSuccessToast(false);
             }, 5000);
             return () => clearTimeout(timer);
         }
-    }, [location]);
-    // Remove activeFilter as it's no longer used due to filter removal
+    }, [location]);
 
     const fetchIncidents = async (pageNum: number = 0) => {
         if (!user?.id) return;
@@ -57,9 +51,7 @@ export const MyIncidentsScreen: React.FC = () => {
         } finally {
             setLoading(false);
         }
-    };
-
-    // Separate fetch for stats — gets all incidents regardless of pagination
+    };
     useEffect(() => {
         if (!user?.id) return;
         incidentService.getMyIncidents(0, 500).then(data => {
@@ -120,7 +112,7 @@ export const MyIncidentsScreen: React.FC = () => {
         <div className="min-h-screen bg-slate-50 pb-32">
             <HeroHeader />
 
-            {/* Success Toast Notification */}
+            
             {showSuccessToast && (
                 <div className="fixed bottom-4 left-4 z-50 animate-in slide-in-from-bottom-5 fade-in duration-500 max-w-sm w-full">
                     <div className="bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-teal-100 p-4 flex items-start gap-3 relative overflow-hidden">
@@ -153,7 +145,7 @@ export const MyIncidentsScreen: React.FC = () => {
                 avgResponseDays={stats.avgResponseDays}
             />
 
-            {/* Reports Section */}
+            
             <div className="px-5 mb-4 flex items-center justify-between border-b border-slate-100 pb-2">
                 <h2 className="text-xl font-black text-slate-800">My Reports</h2>
                 {isDesktop && pageData && (
@@ -179,7 +171,7 @@ export const MyIncidentsScreen: React.FC = () => {
                         ))}
                     </div>
 
-                    {/* Pagination */}
+                    
                     {pageData && (
                         <div className="mx-5 mt-4 mb-2 bg-white rounded-2xl shadow-sm border border-slate-100 px-4 py-2">
                             <Pagination
