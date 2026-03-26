@@ -35,7 +35,8 @@ export const ChangePasswordModal: React.FC<ChangePasswordModalProps> = ({ forced
     const { setMustChangePassword, checkAuth, user } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
-    const [passwordStrength, setPasswordStrength] = useState(0);
+    const [passwordStrength, setPasswordStrength] = useState(0);
+
     const isForced = forced || (location.state as any)?.forced === true;
 
     const {
@@ -84,15 +85,17 @@ export const ChangePasswordModal: React.FC<ChangePasswordModalProps> = ({ forced
                 currentPassword: data.currentPassword,
                 newPassword: data.newPassword,
                 confirmPassword: data.confirmPassword,
-            });
+            });
+
             localStorage.setItem('accessToken', response.accessToken);
             localStorage.setItem('refreshToken', response.refreshToken);
 
             toast.success('Password changed successfully!');
             setMustChangePassword(false);
-            await checkAuth();
+            await checkAuth();
+
             setTimeout(() => {
-                if (user?.role === 'ROLE_ADMIN' || user?.role === 'ROLE_SUPERVISOR') {
+                if (user?.role === 'ROLE_ADMIN' ) {
                     navigate('/admin/dashboard', { replace: true });
                 } else {
                     navigate('/dashboard', { replace: true });
