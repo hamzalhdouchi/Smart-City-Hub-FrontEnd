@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import 'leaflet/dist/leaflet.css';
 import { incidentService, type Incident } from '../../../services/incidentService';
 import { PulsingMarker } from '../../../components/map/PulsingMarker';
-import { Radar, Navigation } from 'lucide-react';
+import { Radar, Navigation, ArrowLeft } from 'lucide-react';
 import { DEMO_INCIDENTS } from './demoData';
 import { toast } from 'react-hot-toast';
 import { useAuth } from '../../../context/AuthContext';
@@ -138,7 +138,16 @@ export const MapDashboard: React.FC = () => {
 
             
             <div className="absolute top-4 left-4 right-4 z-[500] flex justify-between items-start pointer-events-none">
-                <div className="bg-black/60 backdrop-blur-md border border-white/10 rounded-2xl p-3 flex items-center gap-3 shadow-xl pointer-events-auto">
+                <div className="flex items-start gap-2 pointer-events-auto">
+                    {user?.role === 'ROLE_AGENT' && (
+                        <button
+                            onClick={() => navigate(-1)}
+                            className="bg-black/60 backdrop-blur-md border border-white/10 rounded-2xl p-3 flex items-center justify-center shadow-xl hover:bg-black/80 transition-colors"
+                        >
+                            <ArrowLeft size={20} className="text-white" />
+                        </button>
+                    )}
+                <div className="bg-black/60 backdrop-blur-md border border-white/10 rounded-2xl p-3 flex items-center gap-3 shadow-xl">
                     <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-500 to-emerald-600 flex items-center justify-center shadow-lg shadow-teal-500/20">
                         <Radar className="text-white animate-spin-slow" size={20} />
                     </div>
@@ -150,9 +159,10 @@ export const MapDashboard: React.FC = () => {
                         </div>
                     </div>
                 </div>
+                </div>
             </div>
 
-            
+
             <div className="absolute bottom-24 lg:bottom-6 left-0 right-0 z-[500] px-4 overflow-x-auto no-scrollbar pb-2 pointer-events-auto">
                 <div className="flex gap-2 w-max mx-auto">
                     {categories.map(cat => (
