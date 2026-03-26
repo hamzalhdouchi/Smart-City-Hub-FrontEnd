@@ -473,6 +473,31 @@ const AgentDashboard: React.FC = () => {
                         </ul>
                     </Card>
 
+                    <Card>
+                        <h2 className="text-lg font-semibold text-[#263238] mb-2">
+                            Shortcuts
+                        </h2>
+                        <div className="flex flex-col gap-2 text-sm">
+                            <Button
+                                variant="secondary"
+                                onClick={() => navigate('/my-incidents')}
+                            >
+                                View incidents I reported
+                            </Button>
+                            <Button
+                                variant="secondary"
+                                onClick={() => navigate('/report')}
+                            >
+                                Report a new issue
+                            </Button>
+                            <Button
+                                variant="secondary"
+                                onClick={() => navigate('/profile')}
+                            >
+                                Update my profile & photo
+                            </Button>
+                        </div>
+                    </Card>
                 </div>
             </div>
         </div>
